@@ -1,0 +1,243 @@
+# Sample configuration for mrxvt-0.5.0. To use, copy it to ~/.mrxvtrc.
+#
+
+# See
+#   /sw/etc/mrxvt/mrxvt
+#   /sw/etc/mrxvt/mrxvt.sample
+
+
+#
+# ------------------------------- MISC OPTIONS ------------------------------- #
+#
+Mrxvt.tabTitle:			mrxvt
+Mrxvt.internalBorder:		2
+# Make double click select whole URL's
+# Mrxvt.cutChars:		:=/~#@?%&_-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0abcdefghijklmnopqrstuvwxyz
+Mrxvt.cutChars:			~#@?%&0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0abcdefghijklmnopqrstuvwxyz
+# Blank the mouse pointer on keystrokes or after 10 seconds of inactivity.
+Mrxvt.pointerBlank:		True
+Mrxvt.pointerBlankDelay:	10
+Mrxvt.loginShell:		True
+# Enable session management
+# Mrxvt.sessionMgt:		true
+Mrxvt.geometry:		    150x25-0-25
+
+#
+# -----------------------------	TAB-BAR OPTIONS ------------------------------ #
+#
+Mrxvt.bottomTabbar:		False
+Mrxvt.autohideTabbar:		False
+Mrxvt.minVisibleTabs:		8
+Mrxvt.maxTabWidth:		30
+# Mrxvt.hideButtons:		True
+# Make the terminal title the same as the active tab title.
+Mrxvt.syncTabTitle:		True
+# Mrxvt.syncTabIcon:		true
+# %n tab number % t title 
+Mrxvt.titleFormat:		%n. %t
+Mrxvt.highlightTabOnBell:	True
+# Mrxvt.tabbarPixmap:		tabbarbg.png
+# Mrxvt.tabUsePixmap:		false
+
+#
+# ---------------------- SCROLLING / SCROLLBAR OPTIONS ----------------------- #
+#
+Mrxvt.scrollBar:		true
+Mrxvt.scrollbarRight:		false
+Mrxvt.scrollbarStyle:		NeXT		#rxvt
+# Number of lines to save in the scroll back buffer for all tabs
+Mrxvt.saveLines:		20000
+# Scroll on not-output / yes-keypress
+Mrxvt.scrollTtyOutputInhibit:	true
+Mrxvt.scrollTtyKeypress:	true
+# Scroll bar colors
+Mrxvt.scrollColor:		#808080
+Mrxvt.troughColor:		#202020
+# Mrxvt.scrollbarPixmap:	scrollbarbg.jpg
+
+#
+# ------------------------------- TRANSPARENCY ------------------------------- #
+#
+# True translucency (using Xorg's composite extension).
+# Mrxvt.opacity:		75
+# Mrxvt.opacityDegree:		5
+# Pseudo transparency. As long as you set the background using an esetroot
+# compatible program (e.g. feh), then the following will work. It is pretty
+# resource friendly too :).
+Mrxvt.transparent:		False
+Mrxvt.transparentScrollbar:	False
+Mrxvt.transparentTabbar:	False
+Mrxvt.transparentMenubar:	False
+# Color / degree to which the root background should be tinted.
+Mrxvt.tintColor:		#000000
+Mrxvt.shading:			75
+
+#
+# ---------------------------------- FONTS ----------------------------------- #
+#
+Mrxvt.xft:			1
+Mrxvt.xftFont:  		Bitstream Vera Sans Mono
+Mrxvt.xftSize:			11
+Mrxvt.xftAntialias:		1
+Mrxvt.xftBoldWeight:		semibold 
+Mrxvt.boldColors:		0
+Mrxvt.veryBright:		1
+# Mrxvt.xftWidth:  		normal
+# Font to use for tab bar / menus. This need not be mono-spaced
+# Mrxvt.xftPFont:  		Bitstream Vera Sans
+Mrxvt.xftPFont:			Candara MS
+Mrxvt.xftPSize:			12
+# The options below are better set using ~/.fonts.config. Mrxvt will use the
+# defaults passed to the fontconfig library.
+#
+Mrxvt.xftHinting:		1
+Mrxvt.xftAutoHint:		1
+Mrxvt.xftRGBA:  		none
+# Mrxvt.xftslow:		1
+# Mrxvt.xftGlobalAdvance:	1
+# Don't load a multi-char font. This will reduce the line space if your multi
+# char font has different dimensions than the regular font. You might need to
+# comment it out if you want to use XIM and non-english fonts.
+Mrxvt.xftNomFont:		1
+
+#
+# ---------------------------------- COLORS ---------------------------------- #
+#
+# black			
+# red			
+# green			
+# yellow b2af1e		
+# blue			
+# purple		
+# cyan			
+# white			
+
+Mrxvt.color0:			black			
+Mrxvt.color1:			#b40f1d			
+Mrxvt.color2:			#2ab329			
+Mrxvt.color3:			#b2af1e			
+Mrxvt.color4:			#0e77cd			
+Mrxvt.color5:			#b213b2			
+Mrxvt.color6:			#0CC1C0			
+Mrxvt.color7:			#e3dbd4			
+Mrxvt.color8:			#8b8b83			
+Mrxvt.color9:			#ff6347			
+Mrxvt.color10:			#82b883     		
+Mrxvt.color11:			#d9d662			
+Mrxvt.color12:			#4f94cd			
+Mrxvt.color13:			orchid3			
+Mrxvt.color14:			LightSkyBlue		
+Mrxvt.color15:			white			
+
+# Setup colors for a black background.
+Mrxvt.cursorBlink:		False
+Mrxvt.cursorColor:		#ffff00
+Mrxvt.cursorColor2:		#000000
+Mrxvt.background:		#000000
+Mrxvt.foreground:		#9a9a9a
+# Tab bar colors
+Mrxvt.itabBackground:		#101010
+Mrxvt.tabBackground:		#000000
+Mrxvt.itabForeground:		#909090
+Mrxvt.tabForeground:		#9a9a9a
+# Display bold and underlined text in color, rather than using the terminal
+# attributes. This makes reading man pages a little easier.
+Mrxvt.colorBD:			#00afaf
+Mrxvt.colorUL:			#00af00
+Mrxvt.colorRV:			#000040
+# Display the X selection as highlighted instead of using reverse video.
+Mrxvt.highlightColor:		#202025
+# Colors when terminal window looses focus. (Does not work well with Xft).
+# Mrxvt.ufBackground:		yellow
+# Mrxvt.backgroundFade:		50
+
+# ---------------------------- KEYBOARD SHORTCUTS ---------------------------- #
+#
+
+# ---------------------------------------------------------------------------- #
+#					
+#			       Scrolling
+Mrxvt.macro.Prior:			Scroll -1p
+Mrxvt.macro.Next:			Scroll +1p
+Mrxvt.macro.Alt+Up:			Scroll -1000000
+Mrxvt.macro.Alt+Down:			Scroll +1000000
+Mrxvt.macro.Shift+Home:			Scroll -1000000
+Mrxvt.macro.Shift+End:			Scroll +1000000
+
+# ---------------------------------------------------------------------------- #
+#
+#				   Tabs
+#
+# Mrxvt.macro.Alt+t:			NewTab
+Mrxvt.macro.Ctrl+Shift+t:		NewTab
+Mrxvt.macro.Ctrl+Shift+w:		Close 0
+Mrxvt.macro.Ctrl+Tab:			GotoTab 0	# Previous active tab
+Mrxvt.macro.Ctrl+Shift+Tab:             GotoTab 0
+Mrxvt.macro.Ctrl+Prior:			GotoTab -1
+Mrxvt.macro.Ctrl+Next:			GotoTab +1
+Mrxvt.macro.Shift+Left: 		MoveTab -1
+Mrxvt.macro.Shift+Right:		MoveTab +1
+Mrxvt.macro.Ctrl+Shift+Left:		GotoTab -1
+Mrxvt.macro.Ctrl+Shift+Right:		GotoTab +1
+Mrxvt.macro.Ctrl+Shift+less:		MoveTab	-1
+Mrxvt.macro.Ctrl+Shift+greater:		MoveTab +1
+
+# ---------------------------------------------------------------------------- #
+#
+#				   Fonts
+#
+Mrxvt.macro.Shift+KP_Add:		ResizeFont +1
+Mrxvt.macro.Shift+KP_Subtract:		ResizeFont -1
+Mrxvt.macro.Ctrl+equal:			ResizeFont +1
+Mrxvt.macro.Ctrl+minus:			ResizeFont -1
+# Mrxvt.macro.Ctrl+Shift+exclam:		xftFont consolas
+
+
+# ---------------------------------------------------------------------------- #
+#
+#				  System
+#
+Mrxvt.macro.Ctrl+Shift+v:		Paste
+Mrxvt.macro.Ctrl+v:			Paste
+Mrxvt.macro.Shift+Insert:		Paste
+# Kills the annoying Greek: ISO behavior
+Mrxvt.greektoggle_key:			Help
+
+# ---------------------------------------------------------------------------- #
+#
+#				  Kill these from global config
+# 
+Mrxvt.macro.Ctrl+Shift+F4:		Dummy
+Mrxvt.macro.Ctrl+Shift+plus:		Dummy
+Mrxvt.macro.Ctrl+Shift+underscore:	Dummy
+# Mrxvt.macro.Ctrl+Shift+a:		Dummy
+Mrxvt.macro.Ctrl+Shift+b:		Dummy
+# Mrxvt.macro.Ctrl+Shift+c:		Dummy
+Mrxvt.macro.Ctrl+Shift+d:		Dummy
+Mrxvt.macro.Ctrl+Shift+e:		Dummy
+Mrxvt.macro.Ctrl+Shift+f:	    	Dummy
+Mrxvt.macro.Ctrl+Shift+h:		Dummy
+Mrxvt.macro.Ctrl+Shift+i:		Dummy
+Mrxvt.macro.Ctrl+Shift+j:		Dummy
+Mrxvt.macro.Ctrl+Shift+k:		Dummy
+Mrxvt.macro.Ctrl+Shift+l:		Dummy
+Mrxvt.macro.Ctrl+Shift+m:		Dummy
+Mrxvt.macro.Ctrl+Shift+n:		Dummy
+Mrxvt.macro.Ctrl+Shift+o:		Dummy
+Mrxvt.macro.Ctrl+Shift+p:		Dummy
+Mrxvt.macro.Ctrl+Shift+q:		Dummy
+Mrxvt.macro.Ctrl+Shift+r:		Dummy
+Mrxvt.macro.Ctrl+Shift+s:		Dummy
+Mrxvt.macro.Ctrl+Shift+u:		Dummy
+Mrxvt.macro.Ctrl+Shift+x:		Dummy
+Mrxvt.macro.Shift+Delete:		Dummy
+Mrxvt.macro.Shift+Return:		Dummy
+Mrxvt.macro.Ctrl+Shift+at: 		Dummy
+Mrxvt.macro.Ctrl+Shift+numbersign:	Dummy
+Mrxvt.macro.Ctrl+Shift+dollar:  	Dummy
+Mrxvt.macro.Ctrl+Shift+percent: 	Dummy
+Mrxvt.macro.Ctrl+Shift+asciicircum:	Dummy
+Mrxvt.macro.Ctrl+Shift+ampersand:	Dummy
+Mrxvt.macro.Ctrl+Shift+asterisk:	Dummy
+Mrxvt.macro.Ctrl+Shift+parenleft:	Dummy
+Mrxvt.macro.Ctrl+Shift+parenright:	Dummy

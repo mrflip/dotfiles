@@ -1,0 +1,12 @@
+
+# ------------------------------------------------------------------------
+#
+# Enable tab completion
+#
+import rlcompleter
+
+# These lines not necessary if 'tab: complete' appears in ~/.inputrc
+# import readline
+# readline.parse_and_bind("tab: complete")
+#
+# ------------------------------------------------------------------------

@@ -1,0 +1,4 @@
+--type-add=ruby=.erb
+--type-add=html=.html.erb
+--type-set=erb=.erb
+--pager=less

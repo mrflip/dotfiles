@@ -1,6 +1,5 @@
 # include this in .irbrc
 # gotten from someone on dotfiles
-require 'date'
 
 begin
   if defined? Readline::HISTORY

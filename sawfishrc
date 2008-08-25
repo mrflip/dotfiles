@@ -1,0 +1,420 @@
+;;;                              -*-lisp-*-
+;;
+;;
+;;; load me with (load-file "/home/mrflip/.sawfish/rc")
+
+(require 'sawmill-defaults)
+(require 'gnome)
+(require 'error-handler)
+
+;;;------------------------------------------------------------------------
+;;;
+;;;                      Options
+;;;
+;;;------------------------------------------------------------------------
+
+;;  (define-special-variable focus-click-through t
+;;    "Click-to-focus mode passes the click through to the application.")
+;;  (define-special-variable focus-windows-when-mapped t
+;;    "Focus application windows when they first appear.")
+;;  (define-special-variable ignore-window-input-hint nil
+;;    "Give focus to windows even when they haven't asked for it.")
+
+;;  (define-special-variable frame-type-fallback-alist
+;;    '((transient        . default)
+;;      (shaped           . default)
+;;      (shaped-transient . shaped)
+;;      (shaded           . shaped)
+;;      (shaded-transient . shaped-transient)
+;;      (icon             . shaped-transient)
+;;      (dock             . icon))
+;;    "Frame type fallbacks.")
+
+;;--------------------------------------------------------------------------
+;; workspace/viewport options
+
+(define-special-variable lock-first-workspace t
+  "Preserve outermost empty workspaces in the pager.")
+(define-special-variable uniconify-to-current-viewport nil
+  "Windows uniconify to the current viewport.")
+(define-special-variable workspace-boundary-mode      'wrap-around
+  "How to act when passing the first or last workspace, one of
+   `stop', `wrap-around' or `keep-going'")
+(define-special-variable workspace-send-boundary-mode 'wrap-around
+  "How to act when passing the first or last workspace, while
+   moving a window, one of `stop', `keep-going', `wrap-around'")
+(define-special-variable cycle-raise-windows           t
+  "Raise windows while they're temporarily selected during cycling.")
+;;  (define-special-variable static-workspace-menus)
+
+
+;;--------------------------------------------------------------------------
+;; edge flip options
+;;
+(require 'sawfish.wm.ext.edge-flip)
+(define-special-variable edge-flip-enabled             t
+  "Select the next desktop when the pointer hits screen edge.")
+
+(define-special-variable edge-flip-only-when-moving    t
+  "Only flip when interactively moving a window.")
+
+(define-special-variable edge-flip-delay               950
+  "Milliseconds to delay before edge flipping.")
+
+(define-special-variable edge-flip-type                'viewport
+  "Hitting the screen edge selects the next 'viewport or 'workspace")
+
+
+
+;;--------------------------------------------------------------------------
+;; auto raise options
+;;
+;;  (require 'sawfish.wm.ext.auto-raise)
+;;  (define-special-variable raise-windows-on-focus nil
+;;    "Raise windows when they are focused.")
+;;  (define-special-variable raise-window-timeout 500
+;;    "Delay in milliseconds until focused windows are raised.")
+
+
+;;--------------------------------------------------------------------------
+;; error handling options
+;;
+
+(require 'sawfish.wm.ext.error-handler)
+;;  (define-special-variable error-handler-beep t
+;;    "Beep when errors occur.")
+
+(define-special-variable error-destination 'screen
+  "Where to display error messages; one of nowhere, screen, or standard-error")
+
+;;--------------------------------------------------------------------------
+;; gnome menus options
+;;
+(require 'sawfish.wm.gnome.menus)
+
+(define-special-variable gnome-menu-lang 
+  '("" "en_US.ISO8859-15")
+  "List of language codes used when constructing GNOME menus.")
+
+(define-special-variable gnome-menu-roots 
+  (list (expand-file-name "ximian/Programs" gnome-share-directory)
+	(expand-file-name "apps"            gnome-share-directory)
+	"/etc/X11/applnk"
+	"~/.gnome/apps")
+  "List of directories to read GNOME menu entries from.")
+
+
+;; For some reason gnome-menus kills the end of my root menu
+;; notice the ` backquote not the ' normal quote
+(when (not (assoc "_Restart" root-menu))
+  (setq root-menu-old root-menu)
+  (setq root-menu (append root-menu 
+			  `(()
+			    (,(_ "_Restart") restart)
+			    (,(_ "_Quit")    quit)
+			    )))
+)
+
+
+;;--------------------------------------------------------------------------
+;; miscellaneous
+;;
+(define-special-variable display-url-command
+  "( mozilla -remote 'openUrl(%s)' || mozilla '%s' ) &"
+  "Shell command used to direct a web browser to load a url. Any
+   `%s' substrings will be replaced by the name of the url.")
+
+(defun display-url (url)
+  "Loads the given URL using display-url-command"
+  (system (format nil display-url-command url)))
+(define-command 'display-url display-url)
+
+
+;;;------------------------------------------------------------------------
+;;;
+;;;                      Functions
+;;;
+;;;------------------------------------------------------------------------
+
+;; Services, aka read X selection and do something with it
+;; (require 'services)
+;; (services-add "Dictionary" "xterm -T 'dict: #' -e dict -P less #")
+
+(defvar *iconified-windows* nil)
+
+(defun iconify-all-all ()
+    "Minimize all windows on the current workspace."
+    (setq *iconified-windows* nil)
+    (map-windows (lambda (w)
+                   (when (and (not (window-get w 'ignored))
+                              (window-in-workspace-p w current-workspace)
+			      (not (window-iconified-p w)))
+                     (setq *iconified-windows* (cons w *iconified-windows*))
+                     (iconify-window w))
+                   )))
+(define-command 'iconify-all-all iconify-all-all)
+
+(defun iconify-all ()
+    "Minimize all windows on the current viewport."
+    (setq *iconified-windows* nil)
+    (letrec ((vp    (screen-viewport))
+	   )
+      (map-windows (lambda (w)
+		     (when (and (not (window-get w 'ignored))
+				(window-in-workspace-p w current-workspace)
+				(equal vp (window-viewport w))
+				(not (window-iconified-p w)))
+		       (setq *iconified-windows* (cons w *iconified-windows*))
+		       (iconify-window w))
+		     ))
+      vp))
+(define-command 'iconify-all iconify-all)
+
+(defun uniconify-windows (wins)
+  (cond ((not (null wins))
+         (uniconify-window (car wins))
+         (uniconify-windows (cdr wins)))
+        )
+)
+
+(defun uniconify-all ()
+  "Deiconify windows iconified with iconify-all."
+  (uniconify-windows *iconified-windows*)
+  (setq *iconified-windows* nil)
+)
+(define-command 'uniconify-all uniconify-all)
+
+(defun iconify-all-toggle ()
+  "Un/Minimize all windows on the current workspace."
+  (if (null *iconified-windows*)
+      (iconify-all)
+    (uniconify-all))
+)
+(define-command 'iconify-all-toggle iconify-all-toggle)
+
+;; hack to jump to file from xmms easily
+(defun xmms-jump ()
+  "Load the xmms jump to song window, and jump to it "
+  (let ((wind (get-window-by-name-re "^XMMS")))
+        (display-window wind)
+        (synthesize-event "j" wind)))
+(define-command 'xmms-jump xmms-jump)
+
+
+(defun viewport-shift (shx shy)
+  "Move the viewport by (shx, shy) relative to its current position"
+  (letrec ((vp    (screen-viewport))
+	   (x     (car vp))
+	   (y     (cdr vp))
+	   (maxx  (cadr workspace-geometry))
+	   (maxy  (cddr workspace-geometry))
+
+	   (vpno  (+ x (* y maxx)) )
+	   (newvp (mod (+ vpno shx (* shy maxx)) (* maxx maxy)))
+
+	   (newx  (mod      newvp maxx) )
+	   (newy  (quotient newvp maxx) )
+	   )
+	  (set-screen-viewport newx newy)
+	  (list                newx newy)
+	  ))
+
+(defun viewport-left ()
+  "Display the viewport to the left of the current screen viewport"
+  (viewport-shift -1  0))
+(defun viewport-right ()
+  "Display the viewport to the right of the current screen viewport"
+  (viewport-shift  1  0))
+(defun viewport-down ()
+  "Display the viewport one down from  the current screen viewport"
+  (viewport-shift  0 -1))
+(defun viewport-up ()
+  "Display the viewport one up from the current screen viewport"
+  (viewport-shift  0  1))
+
+(define-command 'viewport-left   viewport-left)
+(define-command 'viewport-right  viewport-right)
+(define-command 'viewport-up     viewport-up)
+(define-command 'viewport-down   viewport-down)
+(define-command 'viewport-prev   viewport-left)
+(define-command 'viewport-next   viewport-right)
+
+
+;;;------------------------------------------------------------------------
+;;;
+;;;                      Keymaps
+;;;
+;;;------------------------------------------------------------------------
+
+(bind-keys global-keymap
+;;;"XF86Back"               '()
+;;;"XF86Forward"            '()
+;;;"XF86Stop"               '()
+;;;"XF86Refresh"            '()
+;;;"XF86Refresh"            '()
+;;;"XF86Search"             '()
+  "XF86Favorites"           '(display-url       "http://mail.yahoo.com/")
+  "XF86HomePage"	    '(display-url       "http://www.google.com/")
+  "XF86Mail"		    '(run-shell-command "xpine")
+
+;;;"XF86AudioMute"          '()
+  "XF86AudioLowerVolume"    '(run-shell-command "xmms-shell -e downvolume")
+  "XF86AudioRaiseVolume"    '(run-shell-command "xmms-shell -e upvolume")
+  "XF86AudioPlay"	    '(run-shell-command "xmms --play-pause")
+  "XF86AudioStop"	    '(run-shell-command "xmms --stop")
+  "XF86AudioPrev"	    '(run-shell-command "xmms --rew")
+  "XF86AudioNext"	    '(run-shell-command "xmms --fwd")
+  "XF86AudioMedia"	    '(run-shell-command "nautilus /s/Music")
+
+  "XF86MyComputer"	    '(run-shell-command "nautilus")
+  "XF86Calculator"	    '(run-shell-command "gnome-calculator")
+  "XF86Standby"		    '(run-shell-command "xscreensaver-command -activate")
+)
+
+
+(bind-keys global-keymap
+  "Super-F4"		    'destroy-window
+  "S-M-F4"		    'delete-window
+  "M-F4"		    'delete-window-safely
+)
+
+(bind-keys global-keymap
+  "M-TAB"		    'cycle-windows
+  "M-ISO_Left_Tab"	    'cycle-windows-backwards
+  "Super-m"		    '(run-shell-command "nautilus /s/Music")
+  "Super-e"		    '(run-shell-command "nautilus")
+  "Super-c"		    'xterm
+)
+
+
+(bind-keys global-keymap
+  "Super-d"	            'iconify-all-toggle
+  "Super-C-d"		    'iconify-all
+  "Super-S-d"		    'uniconify-all
+  "Super-!"		    'display-errors
+  "Super-j"		    'xmms-jump
+)
+
+;;   
+;;   "Super-t"	'term-or-new-termtab
+
+;;;------------------------------------------------------------------------
+;;;
+;;;                      Workspaces
+;;;
+;;;------------------------------------------------------------------------
+
+(bind-keys global-keymap
+  "Super-1"               '(set-screen-viewport 0 0)
+  "Super-2"               '(set-screen-viewport 1 0)
+  "Super-3"               '(set-screen-viewport 2 0)
+  "Super-4"               '(set-screen-viewport 3 0)
+
+  "Super-6"               '(set-screen-viewport 0 1)
+  "Super-7"               '(set-screen-viewport 1 1)
+  "Super-8"               '(set-screen-viewport 2 1)
+  "Super-9"               '(set-screen-viewport 3 1)
+
+  "Super-Left"		  'viewport-left
+  "Super-Right"		  'viewport-right
+  "Super-Up"		  'viewport-up
+  "Super-Down"		  'viewport-down
+)
+
+;;;------------------------------------------------------------------------
+;;;
+;;;                      Buttons
+;;;
+;;;------------------------------------------------------------------------
+
+;;; Alt+Button grabs window even in client area
+(unbind-keys window-keymap      
+	"W-Button1-Click"
+	"W-Button2-Click"
+	"W-Button3-Click"
+)
+(bind-keys window-keymap 
+        "W-Button1-Off"         'raise-and-pass-through-click
+        "W-Button2-Off"         'raise-lower-window-and-transients
+        "W-Button3-Off"         'raise-lower-window-and-transients
+        "W-Button1-Move"        'move-window-interactively
+        "W-Button3-Move"        'resize-window-interactively
+)
+
+;;; Border keymap
+(unbind-keys border-keymap      
+	"Button1-Click"
+	"Button2-Click"
+	"Button3-Click"
+)
+(bind-keys border-keymap 
+        "Button1-Off"           'raise-window-and-transients
+        "Button2-Off"           'raise-lower-window-and-transients
+        "Button3-Click"         'popup-window-menu
+        "S-Button2-Click"       'popup-window-menu
+        "S-Button3-Off"         'raise-lower-window-and-transients
+
+        "Button1-Move"          'resize-window-interactively
+        "Button3-Move"          'move-window-interactively
+)
+
+;;; Title keymap
+(unbind-keys title-keymap      
+	"Button1-Click"
+	"Button2-Click"
+	"Button3-Click"
+)
+(bind-keys title-keymap 
+        "Button1-Off"           'raise-window-and-transients
+        "Button2-Off"           'raise-lower-window-and-transients
+        "Button3-Click"         'popup-window-menu
+        "S-Button2-Click"       'popup-window-menu
+        "S-Button3-Off"         'raise-lower-window-and-transients
+
+        "Button1-Move"          'move-window-interactively
+        "Button3-Move"          'resize-window-interactively
+
+        "Button1-Click2"        'toggle-window-shaded
+        "S-Button1-Click2"      'maximize-window-vertically-toggle
+        "Button2-Click2"        'toggle-window-shaded
+        "Button3-Click2"        'maximize-window-vertically-toggle
+)
+
+;;; Close button keymap
+(unbind-keys close-button-keymap
+	"Button1-Click"
+	"Button3-Click"
+)
+(bind-keys close-button-keymap 
+        "Button1-Off"           'delete-window
+        "S-Button1-Off"         'destroy-window
+        "Button3-Click"         'popup-window-menu
+)
+
+;;; Menu button keymap
+(unbind-keys menu-button-keymap
+	"Button1-Click"
+	"Button2-Click"
+	"Button3-Click"
+)
+(bind-keys menu-button-keymap 
+        "Button1-Click"         'popup-window-menu
+        "Button1-Click2"        'delete-window-safely
+        "S-Button1-Click2"      'destroy-window
+        "Button2-Click"         'popup-window-menu
+        "Button3-Click"         'popup-window-menu
+)
+
+;;; Root window (desktop) keymap
+(unbind-keys root-window-keymap
+	"Button2-Click"
+)
+(bind-keys root-window-keymap 
+        "Button2-Click"         'popup-root-menu
+        "S-Button2-Click"       'popup-apps-menu
+)
+
+
+(display-message "~/.sawfish/rc loaded OK...")
+"hello from .sawfish/rc"
+
