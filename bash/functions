@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+if `perl -e "'$MACHTYPE'=~/apple/ or exit(1)"`; then
+    function psgrep()
+    {
+        /bin/ps -Awwwc -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
+    }
+    function ps()
+    {
+            # -c for no command line
+        if [ "$*" == "" ] ; then
+            /bin/ps x -Awww -o 'pid,time,ruser,start,command'
+        else
+            /bin/ps "$@"
+        fi
+    }
+    function rmdir {
+	for foo in "$@" ; do
+	    if [[ -f "$foo"/.DS_Store ]] ; then rm "$foo"/.DS_Store ; fi
+	    `which rmdir` "$foo"
+	done
+    }
+    
+else
+        # not apple
+    function psgrep()
+    {
+        /bin/ps -Awww -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
+    }
+    function ps()
+    {
+        # -c for no command line
+        if [ "$*" == "" ] ; then
+            /bin/ps x -Awww -o 'pid,time,ruser,start,comm' k uid,comm
+        else
+            /bin/ps "$@"
+        fi
+    }
+fi
+
+function histgrep()
+{
+    grep -Phi "$@" ~/.history-bash/*
+}
+alias hs=histgrep
+
+function histsave()
+{
+    history -a
+    echo "Saved History."
+}
+
+function bind_showall()
+{
+    ( bind -p | perl -ne 'chomp; 
+        if (m/^(.+): (.*)$/) { 
+                ($key,$cmd)=("$1:",$2); 
+        } else { 
+                ($key,$cmd)=("",$_); 
+        }; 
+        printf "%10s\t%s\n", $key, $cmd;
+    ' ) | sort -t':' -k 2 
+}
+
+
+function bind_grep()
+{
+    ( bind -p | perl -ne 'chomp; 
+        if (m/^(.+): (.*)$/) { 
+                ($key,$cmd)=("$1:",$2); 
+        } else { 
+                ($key,$cmd)=("",$_); 
+        }; 
+        printf "%10s\t%s\n", $key, $cmd;
+    ' ) | grep -Pi -- "$1" | sort -t':' -k 2 
+}
+
+function bind_showfuncs()
+{
+    bind -P | perl -ne 'chomp; 
+        next unless $_; 
+        m/^(.*) is not bound to any keys/ && do { ($cmd,$keys)=($1,"") }; 
+        m/^(.*) can be found on (.*)$/    && do { ($cmd,$keys)=($1,$2) }; 
+        $keys =~ s/\.$//; 
+        printf "%-40s: %s\n", ($cmd || "!!$_!!"), join "\t", (split ", ", $keys);
+    '
+}
+
+function status() { st=$? ; echo $st ; perl -e "exit($st)" ;  }
+
+function svn() {
+    if [[ $1 == 'status' ]] ; then
+        `which svn` --ignore-externals "$@"
+    else
+        `which svn` "$@"
+    fi
+}

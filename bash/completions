@@ -1,4 +1,8 @@
+#!/usr/bin/env bash
+
+export USER_BASH_COMPLETION_DIR=~/.bash/completion_scripts
 source ~/.bash/completion_scripts/git_completion
-complete -C ~/.bash/completion_scripts/rake_completion -o default rake
-complete -C ~/.bash/completion_scripts/project_completion -o default c
+complete -C ~/.bash/completion_scripts/rake_completion       -o default rake
+complete -C ~/.bash/completion_scripts/project_completion    -o default c
 complete -C ~/.bash/completion_scripts/capistrano_completion -o default cap
+complete -C ~/.bash/completion_scripts/svn_completion.sh     -o default svn

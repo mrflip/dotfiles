@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+############################## Set Prompt  ##############################
+export PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
+export PR_PROMPT='\[\033[0;36m\]'$HOSTNAME':\[\033[0;32m\]\w\[\033[0;37m\]$ '
+export PR_PROMPT2='\[\033[0;36m\]cont... \[\033[1;36m\]>\[\033[0;37m\] '
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
+}
+
+if [ "$0" = "sh" ] ; then
+    PS1="$HOSTNAME (sh) $ "
+    PS2="cont... > "
+else
+    if [ -z "$DISPLAY" ] ; then
+        case ${TERM-NONE} in
+            mrxvt|xterm|rxvt|xterm-color)
+                PS1=${PR_TITLE}${PR_PROMPT}
+                PS2=${PR_TITLE}${PR_PROMPT2}
+                ;;
+            NONE)
+                # keep it simple
+                export PS1="\h:\w$ "
+                export PS2='\w cont...\$ '
+                ;;
+        esac
+    else
+            # I have a $DISPLAY set, so assume xterm...
+        PS1=${PR_TITLE}${PR_PROMPT}
+        PS2=${PR_TITLE}${PR_PROMPT2}
+    fi
+fi

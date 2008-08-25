@@ -1,14 +1,35 @@
 [user]
-	name = Kevin Thompson
-	email = mrunleaded@gmail.com
-[alias]
-	co = checkout
+	name = Philip (flip) Kromer
+	email = flip@infochimps.org
+[core]
+	excludesfile = /Users/flip/.gitignore
+	editor = mate -w
 [color]
 	diff = auto
 	status = auto
 	branch = auto
-[core]
-	excludesfile = /Users/kthompson/.gitignore
-	editor = mate -w
+	interactive = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[alias]
+	ci = commit
+	co = checkout
+[gui]
+	recentrepo = /Users/flip/ics/site
+[github]
+	user = mrflip
+[branch]
+	autosetupmerge = true
 [apply]
 	whitespace = nowarn

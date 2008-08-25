@@ -1,11 +1,12 @@
 require 'rake'
 
+DONOTINSTALL = %w[Rakefile README LICENSE bin]
+
 desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
-  Dir['*'].each do |file|
-    next if %w[Rakefile README LICENSE].include? file
-    
+  (Dir['*'] - DONOTINSTALL).each do |file|
+
     if File.exist?(File.join(ENV['HOME'], ".#{file}"))
       if replace_all
         replace_file(file)

@@ -1,2 +1,18 @@
-export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:$PATH"
-export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
+#!/usr/bin/env bash
+
+###########################################################################
+#
+# PATH
+#
+MAC_PATH=/sw/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
+PATH_HOME=$HOME/bin:$HOME/slice/bin
+PATH_LOCL=/usr/local/bin
+MPTH_LOCL=/usr/local/man
+PATH_MAMP=/Applications/MAMP/Library/bin
+MPTH_MAMP=/Applications/MAMP/Library/man
+
+export PATH=$PATH_HOME:$PATH_LOCL:$PATH:$PATH_MAMP:$MAC_PATH
+export         MANPATH=$MPTH_LOCL:$MANPATH
+
+export PKG_CONFIG_PATH="/usr/local/share/pkgconfig:/sw/share/pkgconfig:/usr/local/lib/pkgconfig:/sw/lib/pkgconfig:/usr/X11R6/lib/pkgconfig"
+
