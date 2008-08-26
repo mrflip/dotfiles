@@ -10,5 +10,6 @@ if [ "$PS1" ]; then
   source ~/.bash/prompt
   source ~/.bash/functions
   source ~/.bash/completions
+  source ~/.bash/cheat
 fi
 

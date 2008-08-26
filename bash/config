@@ -13,6 +13,8 @@ ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
 export IMW_ROOT=$HOME/ics
 export PATH=$IMW_ROOT/imw/bin:$PATH
 export RUBYLIB=$IMW_ROOT/imw/lib:$RUBYLIB
+
+# Use the ruby in /usr/local
 export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
 export RUBY_SOURCE_DIR=/usr/local/bin/ruby
 
