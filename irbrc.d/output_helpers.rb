@@ -103,3 +103,5 @@ class Regexp
        show_regexp(a, self)
    end
 end
+
+puts "Hi from #{__FILE__}"

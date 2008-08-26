@@ -6,7 +6,6 @@ test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
 source ~/.bash/aliases
 source ~/.bash/completions
-source ~/.bash/paths
 source ~/.bash/config
 source ~/.noyuo/bash_profile
 

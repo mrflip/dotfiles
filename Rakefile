@@ -2,12 +2,21 @@ require 'rake'
 
 DONOTINSTALL = %w[Rakefile README LICENSE bin]
 
+def home_dot file
+  File.join(ENV['HOME'], ".#{file}")
+end
+
+directory File.join(ENV['HOME'], 'bin')
+
+%w[wgetrc.d history-irb history-bash]
+directory home_dot('wgetrc.d')
+
 desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   (Dir['*'] - DONOTINSTALL).each do |file|
 
-    if File.exist?(File.join(ENV['HOME'], ".#{file}"))
+    if File.exist?(home_dot(file))
       if replace_all
         replace_file(file)
       else

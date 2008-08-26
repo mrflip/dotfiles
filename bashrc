@@ -1,3 +1,5 @@
+source .bash/paths
+
 ####################### Interactive Term Stuff ######################
 #
 # From here on only for interactive shells
