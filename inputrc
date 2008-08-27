@@ -94,13 +94,15 @@ $if bash
   "\C-xff":	"for foo in  ; do echo $foo ; done"
   "\C-xfr":	"rsync -Cuvzrtlp ~/ ~/"
   "\C-xfc":     "sudo true && ./configure --prefix=/usr/local && make -j7 && sudo make install"
+  "\C-xfs":	"find . -iname "*""
   "\C-xga":     "git add ."
   "\C-xgc":	"git ci -m \"\" ."
   "\C-xgs":	"git status"
   "\C-xgm":	"git checkout master"
   "\C-xgw":	"git checkout working"
-  "\C-xgp":	"git pull --no-commit origin"
-  "\C-xgq":	"git push origin master"
+  "\C-xgp":	"git pull origin "
+  "\C-xgq":	"git push origin "
+  "\C-xgu":	"git submodule update "
   
 $endif
 
