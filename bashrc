@@ -13,3 +13,4 @@ if [ "$PS1" ]; then
   source ~/.bash/cheat
 fi
 
+source ~/.bash/paths
