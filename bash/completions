@@ -6,10 +6,7 @@ complete -C $USER_BASH_COMPLETION_DIR/rake_completion          -o default rake
 complete -C $USER_BASH_COMPLETION_DIR/project_completion       -o default c
 complete -C $USER_BASH_COMPLETION_DIR/capistrano_completion    -o default cap
 complete -C $USER_BASH_COMPLETION_DIR/svn_completion.sh        -o default svn
-if [ "uname" = "Darwin" ]; then
-  echo "open completion FTW"
-  source    $USER_BASH_COMPLETION_DIR/osx-open-completion.sh
-fi
+source      $USER_BASH_COMPLETION_DIR/osx-open-completion.sh
 
 # Cache, and complete, Cheats
 # complete -W "$(cat ~/.cheats)" cheat

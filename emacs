@@ -415,6 +415,10 @@
 
 ;; (add-hook 'ruby-mode-hook 'turn-on-font-lock)
 
+(add-hook 'haml-mode-hook
+	  (lambda ()
+	    (set (make-local-variable 'indent-tabs-mode) 'nil)
+	    ))
 
 
 ;;
