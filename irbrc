@@ -9,7 +9,7 @@ IRB.conf[:PROMPT_MODE]  = :DEFAULT
 IRB.conf[:AUTO_INDENT]   = true
 IRB.conf[:IGNORE_SIGINT] = true
 
-[:historian, :method_finder, :output_helpers, :textmate].each do |irbrc_file|
+[:historian, :method_finder, :output_helpers, :textmate, :rails_console_helpers].each do |irbrc_file|
   require ENV['HOME'] + "/.irbrc.d/#{irbrc_file}.rb"
 end
 load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
