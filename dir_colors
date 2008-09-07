@@ -216,6 +216,12 @@ EXEC		00;32
 .i		00;36		# SWIG
 .sql		01;36		# SQL
 
+.rb 		01;36		# ruby
+.haml		01;37;38;5;80	# HTML and friends
+.sass		00;32;38;5;33
+.html.erb	00;37;38;5;80	# erb
+.yaml.erb  	01;37;38;5;85
+
 .vi		01;36		# LabView
 .js		01;36;38;5;44	# Javascript
 .jar		00;36;38;5;44	# Java
