@@ -9,8 +9,6 @@
 # /etc/Inputrc
 $include /etc/Inputrc
 
-set history-preserve-point on
-
 #
 # Set various bindings for emacs mode.
 
@@ -19,14 +17,13 @@ $if mode=emacs
 
 $endif
 
-# use a visible bell if one is available
-set bell-style visible
+set bell-style 			visible	# use a visible bell if one is available
 
-# Set full bit operation
-set meta-flag     on
-set input-meta 	  on
-set output-meta   on
-set convert-meta  off
+set meta-flag     		on	# Set full bit operation
+set input-meta 	  		on
+set output-meta   		on
+set convert-meta  		off
+set history-preserve-point 	on	# don't go to home recalling history
 
 # You can see all your kebindings with
 #   bind -p
@@ -76,14 +73,13 @@ set convert-meta  off
 "\M-\C-r":	history-search-backward
 
 $if bash
-  set match-hidden-files off
+  set match-hidden-files 		off
   # Fix completion options
-  set completion-ignore-case on
-  set completion-query-items 100
-  set expand-tilde off
-  set visible-stats on
-  set mark-symlinked-directories on
-
+  set completion-ignore-case 		on
+  set completion-query-items 		100
+  set expand-tilde 			off
+  set visible-stats 			on
+  set mark-symlinked-directories 	on
 
   "\C-x\C-s":	"\M-k\C-lhistsave\C-j\C-y"
   "\C-xs":	"\M-k\C-lhistsave\C-j\C-y"

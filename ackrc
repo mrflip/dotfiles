@@ -2,3 +2,9 @@
 --type-add=html=.html.erb
 --type-set=erb=.erb
 --pager=less
+ --sort-files
+ --color
+ --context=1
+ --follow
+ --group
+ --all

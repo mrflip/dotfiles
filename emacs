@@ -879,6 +879,7 @@
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t nil (paren))
  '(tab-always-indent nil)
+ '(tramp-default-method "ssh")
  '(transient-mark-mode t)
  '(x-select-enable-clipboard t)
  '(yaml-indent-offset 4))

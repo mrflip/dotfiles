@@ -8,6 +8,8 @@ complete -C $USER_BASH_COMPLETION_DIR/capistrano_completion    -o default cap
 complete -C $USER_BASH_COMPLETION_DIR/svn_completion.sh        -o default svn
 source      $USER_BASH_COMPLETION_DIR/osx-open-completion.sh
 
+source      $USER_BASH_COMPLETION_DIR/bash_notilde.sh
+
 # Cache, and complete, Cheats
 # complete -W "$(cat ~/.cheats)" cheat
 #
