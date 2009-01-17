@@ -787,6 +787,7 @@
     '("\\.\\(xml\\|xsl\\|xsd\\|kml\\|rng\\|mxml\\)\\(\\.erb\\)?\\'" . nxml-mode)
     '("\\.sass\\'"			. sass-mode)
     '("\\.haml\\'"			. haml-mode)
+    '("\\.pig\\'"			. sql-mode)
     ;; add more modes here
     ) auto-mode-alist))
 
