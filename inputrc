@@ -16,14 +16,15 @@ set editing-mode emacs
 $if mode=emacs
 
 $endif
-
-set bell-style 			visible	# use a visible bell if one is available
-
-set meta-flag     		on	# Set full bit operation
+# use a visible bell if one is available
+set bell-style 			visible
+# Set full bit operation
+set meta-flag     		on	
 set input-meta 	  		on
 set output-meta   		on
 set convert-meta  		off
-set history-preserve-point 	on	# don't go to home recalling history
+# don't go to home recalling history
+set history-preserve-point 	on	
 
 # You can see all your kebindings with
 #   bind -p
@@ -79,6 +80,7 @@ $if bash
   set completion-query-items 		100
   set expand-tilde 			off
   set visible-stats 			on
+  set bell-style 			visible	
   set mark-symlinked-directories 	on
 
   "\C-x\C-s":	"\M-k\C-lhistsave\C-j\C-y"
