@@ -2,6 +2,16 @@
 
 ###########################################################################
 #
+# Amazon EC2 Setup
+#
+export EC2_HOME=/usr/local/share/ec2-api-tools
+export EC2_KEY_SLUG=WN6ZNRXZDMCYIC2L5PVD57I4I7WR2TCM
+export EC2_PRIVATE_KEY=~/.aws/pk-${EC2_KEY_SLUG}.pem 
+export EC2_CERT=~/.aws/cert-${EC2_KEY_SLUG}.pem  
+export PATH=$PATH:$EC2_HOME/bin
+
+###########################################################################
+#
 # PATH
 #
 MAC_PATH=/sw/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin
@@ -11,7 +21,7 @@ MPTH_LOCL=/usr/local/man
 PATH_MAMP=/Applications/MAMP/Library/bin
 MPTH_MAMP=/Applications/MAMP/Library/man
 
-export PATH=$PATH_HOME:$PATH_LOCL:$PATH:$PATH_MAMP:$MAC_PATH
+export PATH=$PATH_HOME:$PATH_LOCL:$PATH:$PATH_MAMP:$MAC_PATH:$EC2_HOME/bin
 export         MANPATH=$MPTH_LOCL:$MANPATH
 
 export PKG_CONFIG_PATH="/usr/local/share/pkgconfig:/sw/share/pkgconfig:/usr/local/lib/pkgconfig:/sw/lib/pkgconfig:/usr/X11R6/lib/pkgconfig"

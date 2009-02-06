@@ -677,6 +677,8 @@
 (global-set-key [C-f1]   	  'customize-apropos)
 
 (global-set-key [f8]    	  'kmacro-end-and-call-macro)
+(global-set-key [M-f8]    	  'kmacro-end-and-call-macro)
+(global-set-key (kbd "<s-f8>") 	  'call-last-kbd-macro)
 
 (global-set-key (kbd "C->") 'nxml-finish-element)
 (global-set-key (kbd "C-/") 'nxml-complete)
