@@ -1,8 +1,12 @@
 ; *** elisp ***
-
+;;
 ;; convenience
 ;; (normal-erase-is-backspace-mode)
-
+;;
+;; fix the clipboard
+;;(setq x-select-enable-clipboard t)
+;;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value) 
+;;
 (setq emacs22up (>= emacs-major-version 22))
 (setq emacs21up (>= emacs-major-version 21))
 (setq emacs20up (>= emacs-major-version 20))
@@ -11,10 +15,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;   Set Window Font, Size and Position
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;
 (setq default-frame-alist '( (left . -1) (top . 0) (width . 90)  (height . 50) )) 
 (setq initial-frame-alist '( (left . 0)  (top . 0) (width . 110) (height . 60) ))
-
+;;
 ; To get the font name from a dialog, execute (in *scratch* buffer):
 ;	  (insert (prin1-to-string (w32-select-font)))	 ; Emacs 20
 ; To see the complete list of fonts:
@@ -24,7 +28,6 @@
 ;(set-default-font "-adobe-courier-medium-r-normal--12-120-*-*-m-*-iso8859-1")
 ;(set-default-font "fixed")
 ; (set-default-font "-*-bitstream vera sans mono bold-bold-r-normal--*-132-*-*-m-*-*-*")
-
 (setq myfont "-apple-bitstream vera sans mono-medium-r-normal--0-0-0-0-m-0-iso10646-1")
 ; (setq myfont "Bitstream Vera Sans Mono-9")
 (if emacs22up 
@@ -37,14 +40,10 @@
       (set-default-font "fixed")
 )
 
-; fix the clipboard
-;(setq x-select-enable-clipboard t)
-;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value) 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Set Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;
 (setq load-path
       (append load-path (list
 	(expand-file-name "~/.emacs.d")
@@ -54,18 +53,8 @@
 	(expand-file-name "~/.emacs.d/flip-custom")
 	(expand-file-name "~/.emacs.d/yaml-mode")
 	(expand-file-name "/sw/share/emacs/site-lisp/rails")
-	;; (expand-file-name "~/.emacs.d/ruby")
-	;; (expand-file-name "~/.emacs.d/nxml")
-	;; (expand-file-name "~/.emacs.d/rails")
-	;; (expand-file-name "~/.emacs.d/rinari")
-	;; (expand-file-name "~/.emacs.d/rinari/rhtml")
-	;; (expand-file-name "~/.emacs.d/predictive")
-	;; (expand-file-name "~/.emacs.d/predictive/html")
-	;; (expand-file-name "~/.emacs.d/cedet/common")
-	;; (expand-file-name "~/.emacs.d/cedet")
-	;; (expand-file-name "~/.emacs.d/ecb")
 	)))
-
+;;
 (require 'info)
 (setq Info-directory-list
       (append Info-directory-list (list
@@ -76,7 +65,6 @@
 	(expand-file-name "~/pub/info")
 	)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; remote file access
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -86,61 +74,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Collection of Emacs Dev Tools
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(when (locate-library "filecache")	(require 'filecache))
-(when (and (locate-library "cedet") emacs22up)
-      (require 'snippet)
-      ;;(load "~/.emacs.d/nxml/autostart.el")
-      ;;(require  'rinari)
-      )
-
-;; (when (and (locate-library "cedet") emacs22up)
-;;   (progn
-;;     (require 'cedet)
-;;     (require 'ecb-autoloads)
-;;     ;; Enabling various SEMANTIC minor modes. See semantic/INSTALL for more ideas. Select one of the following
-;;     ;; (semantic-load-enable-code-helpers)
-;;     (semantic-load-enable-gaudy-code-helpers)
-;;     ;; (semantic-load-enable-excessive-code-helpers)
-;;     ;; Enable this if you develop in semantic, or develop grammars
-;;     ;; (semantic-load-enable-semantic-debugging-helpers)
-;;     (custom-set-variables
-;;      '(global-semantic-decoration-mode t nil (semantic-decorate-mode))
-;;      '(global-semantic-idle-scheduler-mode t nil (semantic-idle))
-;;      '(global-semantic-idle-summary-mode t nil (semantic-idle))
-;;      '(global-semantic-stickyfunc-mode t nil (semantic-util-modes))
-;;      '(semantic-imenu-bucketize-type-members nil)
-;;      '(semantic-stickyfunc-indent-string        "   ")
-;;      '(semanticdb-default-save-directory        "/home/flip/.emacs.d/flip-custom/semanticdb")
-;;      '(semanticdb-default-system-save-directory "/home/flip/.emacs.d/flip-custom/semanticdb")
-;;      '(semanticdb-global-mode t nil (semanticdb))
-;;      '(global-semantic-decoration-mode t nil (semantic-decorate-mode))
-;;      '(global-semantic-idle-scheduler-mode t nil (semantic-idle))
-;;      '(global-semantic-idle-summary-mode t nil (semantic-idle))
-;;      '(global-semantic-stickyfunc-mode t nil (semantic-util-modes))
-;;      '(semantic-imenu-bucketize-type-members nil)
-;;      '(semantic-stickyfunc-indent-string "   ")
-;;      )
-;;     (autoload 'speedbar-frame-mode "speedbar" "Popup a speedbar frame" t)
-;;     (autoload 'speedbar-get-focus "speedbar" "Jump to speedbar frame" t)
-;;     (define-key-after (lookup-key global-map [menu-bar tools])
-;;       [speedbar] '("Speedbar" . speedbar-frame-mode) [calendar])
-;;     (global-set-key [(f3)] 'speedbar-get-focus)
-;;     ;; (require 'nxmlautostart)
-;;     ;; Texinfo fancy chapter tags
-;;     (add-hook 'texinfo-mode-hook (lambda () (require 'sb-texinfo)))
-;;     ;; HTML fancy chapter tags
-;;     (add-hook 'html-mode-hook (lambda ()    (require 'sb-html)))
-;;     ))
-
-;; (Defun try-complete-abbrev (old) (if (expand-abbrev) t nil))
-
-(setq hippie-expand-try-functions-list
-      '(try-complete-abbrev
-	try-complete-file-name
-	try-expand-dabbrev))
-
-
+;;
+(when (locate-library "filecache")		(require 'filecache))
+(when (and (locate-library "cedet") emacs22up)  (require 'snippet)  )
+(setq hippie-expand-try-functions-list  '(try-complete-abbrev	try-complete-file-name	try-expand-dabbrev))
 (when (and (locate-library "predictive") emacs22up)
   (progn
     (require 'predictive)
@@ -152,9 +89,6 @@
 	  predictive-use-auto-learn-cache nil
 	  predictive-which-dict t)
     ))
-
-
-
 ;; (defun imw-find-file ()
 ;;  "Prompt for a `name' and scan the `lib' and `spec' directories in the IMW root directory ($IMW_ROOT) and open the first file matching `name.rb'"
 ;;  (interactive)
@@ -170,26 +104,21 @@
 ;;                                           (throw 'break file)))))))
 ;; (define-key ruby-mode-map "\C-cf" 'imw-find-file)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Set miscellaneous emacs prefs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;
 (if emacs21up
-    (progn 
-      ;; Turn off blinking cursor
-      (blink-cursor-mode -1)
+    (progn       
+      (blink-cursor-mode -1) 		;; Turn off blinking cursor
 ) nil)
-
 (if emacs20up
     (progn
-      ;; Fancy-pants buffer menus
-      (require 'msb)
-      (msb-mode 1)
-
-      ;; Enable the mouse wheel
-      (require 'mwheel)
+      (ido-mode t)		;; Fancy file selection
+      (column-number-mode t)		;; Display column number on mode line	
+      ;; (require 'msb) 		;; Fancy-pants buffer menus
+      ;; (msb-mode 1)			
+      (require 'mwheel)			;; Enable the mouse wheel      
       (mouse-wheel-mode 1)
       ;; How much to scroll when normal or when shift held down.
       (setq mouse-wheel-scroll-amount 
@@ -197,15 +126,10 @@
 	      ((shift) . 1)		  ;; lines with shift
 	      ((control) . nil)		  ;; lines with control
 	      ))
-
       ;; Uniquify buffer names. This makes identical buffer names unique via its
       ;; directory path.
       (require 'uniquify)
       (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-      ;; Display column number on mode line
-      (column-number-mode t)
-
       (custom-set-variables
        ;; custom-set-variables was added by Custom -- don't edit or cut/paste it!
        ;; Your init file should contain only one such instance.
@@ -214,9 +138,8 @@
        '(default-input-method "latin-1-prefix")
        '(mark-even-if-inactive t)
        '(show-paren-mode t nil (paren))
-       '(transient-mark-mode t))
+       )
 ) nil) 
-
 
 ;; Several mysterious but important customizations.
 (set-input-mode t nil t)
@@ -224,41 +147,27 @@
 (put 'narrow-to-region	 'disabled nil)
 (put 'upcase-region	 'disabled nil)
 (put 'downcase-region	 'disabled nil)
-;; prompt for it on save
-(setq require-final-newline	 t)
-;; flash instead of that annoying bell
-(setq visible-bell		 t)
+(setq require-final-newline	 t) 		;; prompt for it on save
+(setq visible-bell		 t) 		;; flash instead of that annoying bell
+(setq transient-mark-mode	 t)		;; Highlight selected regions
+(setq mark-even-if-inactive	 t)		;; But don't go killing mark, it's not nice.
+(setq default-truncate-lines	 t) 		;; Chop display of long lines instead of wrapping to next line.
+(setq frame-title-format "[%b] in %F, %f")	;; Display "[buffer] in Frame, filename" in title
+(setq icon-title-format "%b")			;; But just buffer name for icon.
 
-;;; If you ever have to load a file and see the ^M's exec this line
-;(set-variable inhibit-eol-conversion t)   ;; see  ^M's
-;(set-variable inhibit-eol-conversion nil) ;; hide ^M's
-
-;; Highlight selected regions
-(setq transient-mark-mode	 t)
-;; But don't go killing mark, it's not nice.
-(setq mark-even-if-inactive	 t)
-;; Chop display of long lines instead of wrapping to next line.
-(setq default-truncate-lines	 t)
-
-;; Put all the backup files in one directory,
-;; instead of leaving ~ turds all over the place.
-(setq backup-directory-alist
-      (list (cons "." (expand-file-name "~/.emacs.d/auto-backups/"))))
+;; Put all the backup files in one directory, instead of leaving ~ turds all over the place.
+(setq backup-directory-alist  (list (cons "." (expand-file-name "~/.emacs.d/auto-backups/"))))
 
 ;; Prepare Desktop; load with F5, save with C-F5
 ;; (load-library "desktop")
 ;; (desktop-load-default)
-
-;; Display "[buffer] in Frame, filename" in title
-(setq frame-title-format "[%b] in %F, %f")
-;; But just buffer name for icon.
-(setq icon-title-format "%b")
-
+;;; If you ever have to load a file and see the ^M's exec this line
+;(set-variable inhibit-eol-conversion t)   ;; see  ^M's
+;(set-variable inhibit-eol-conversion nil) ;; hide ^M's
 ;; Initialize sunrise/sunset settings. Capitol dome coordinates.
-(setq calendar-latitude	 [30 16 north])
-(setq calendar-longitude [97 44 west ])
-(setq calendar-location-name "Austin, TX")
-
+;; (setq calendar-latitude	 [30 16 north])
+;; (setq calendar-longitude [97 44 west ])
+;; (setq calendar-location-name "Austin, TX")
 ;;Occasionally useful:
 ;; Add Line numbers when printing (GREAT when printing out code)
 ;;(setq ps-line-number t)
@@ -266,21 +175,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;   Set Hiliting  (should be before modes)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;
 (if emacs20up
     (progn
-
-      ;; Colorized fonts
-      ;; Turn on font-lock in all modes that support it
-      (global-font-lock-mode t)
-      ;; Maximum colors
-      (setq font-lock-maximum-decoration t)
-      ;; (setq font-lock-support-mode	 'lazy-lock-mode)	    ;;
-      ;; (setq lazy-lock-defer-time	 2)			    ;;
-      ;; (setq lazy-lock-stealth-time	 5)			    ;;
-
-      ;; used (describe-key-briefly "\C-l") to discover what ^L is bound to,
-      ;; namely recenter
+      (global-font-lock-mode t) 			  ;; Turn on font-lock in all modes that support it
+      (setq font-lock-maximum-decoration t)		  ;; Maximum colors
+      ;; used (describe-key-briefly "\C-l") to discover what ^L is bound to, namely recenter
       ;; done right, this would not rely on that fact.
       (global-set-key	(kbd "C-l")	 'font-lock-and-redraw)
       (defun font-lock-and-redraw ()
@@ -289,7 +189,6 @@
 	(font-lock-fontify-buffer)
 	(recenter)
 	)
-
       (custom-set-faces
        ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
        ;; Your init file should contain only one such instance.
@@ -307,13 +206,10 @@
        '(trailing-whitespace ((((class color) (background light)) (:background "cornsilk2")))))
 ) nil)
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;   Indentation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;
 ;; http://www.jwz.org/doc/tabs-vs-spaces.html
 ;; In Emacs, to set the mod-N indentation used when you hit the TAB
 ;; key, do this:
@@ -324,19 +220,16 @@
 ;; To cause TAB characters to not be used in the file for compression,
 ;; and for only spaces to be used, do this:
 (setq indent-tabs-mode nil)
-
 (defun indent-buffer ()
   "Indent the current buffer."
   (interactive)
   (indent-region (point-min) (point-max) nil)
 )
-
 (defun right-justify-line ()
   "Justify the current line to the right"
   (interactive)
   (justify-current-line 'right)
 )
-
 (defun indent-line-or-region-rigidly   (b e n) "indent-rigidly by arg tab-widths"
   (interactive "r\np")
   (save-excursion
@@ -353,6 +246,24 @@
   (indent-line-or-region-rigidly b e (* -1 n)))
 
 
+;;
+;; ------------------ Handy functions --------------
+;;
+;;
+;;; Final version: while
+(defun count-words-region (beginning end)
+  "Print number of words in the region."
+  (interactive "r")
+  (message "Counting words in region ... ")
+  ;;; 1. Set up appropriate conditions.
+  (save-excursion
+    (let ((count 0)) (goto-char beginning)
+  ;;; 2. Run the while loop.
+      (while (and (< (point) end) (re-search-forward "\\w+\\W*" end t)) (setq count (1+ count)))
+  ;;; 3. Send a message to the user.
+      (cond ((zerop count)   (message "The region does NOT have any words."))
+	    ((= 1 count)     (message "The region has 1 word."))
+	    (t		     (message "The region has %d words." count))))))
 ;;; Bug: kills line and newline. o wells
 (defun delete-line () "deletes the line forward"
   (interactive "")
@@ -367,36 +278,16 @@
 ;;;;   Set Modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-;;
-;; ------------------ Magic for Rails Mode ----------------
-;;
-
-;; 
-(if emacs22up (require  'rails))
- 
 ;;
 ;; ------------------ Magic for Ruby Mode ----------------
 ;;
-
 ;; If you have Emacs 19.2x or older, use rubydb2x
 ;; (autoload 'rubydb "rubydb3x" "Ruby debugger" t)
 ;; uncomment the next line if you want syntax highlighting
 
-(defun rails-add-proj-to-file-cache (dir)
-  "Adds all the ruby and rhtml files recursively in the current directory to the file-cache"
-  (interactive "DAdd directory: ")
-    (file-cache-clear-cache)
-    (file-cache-add-directory-recursively dir (regexp-opt (list ".rb" ".rhtml" ".html.erb" ".xml" ".xml.erb" ".js" ".js.erb" ".yml" ".yaml" ".yml.erb" ".yaml.erb")))
-    (file-cache-delete-file-regexp "\\.svn")
-    (file-cache-delete-file-regexp "\\.DS_Store")
-    (file-cache-delete-file-regexp "\\.Icon.")
-    )
-
 (defun ruby-eval-buffer () (interactive)
    "Evaluate the buffer with ruby."
    (shell-command-on-region (point-min) (point-max) "ruby"))
-
 (add-hook 'ruby-mode-hook
 	  (lambda()
 	    (add-hook 'local-write-file-hooks
@@ -412,14 +303,54 @@
 	    (inf-ruby-keys)
 	    (rails-minor-mode)
 	    ))
-
 ;; (add-hook 'ruby-mode-hook 'turn-on-font-lock)
-
 (add-hook 'haml-mode-hook
 	  (lambda ()
 	    (set (make-local-variable 'indent-tabs-mode) 'nil)
 	    ))
+;; ------------------ Magic for Rails Mode ----------------
+(if emacs22up (require  'rails))
 
+
+(defun flymake-create-temp-intemp (file-name prefix)
+  "Return file name in temporary directory for checking FILE-NAME.
+This is a replacement for `flymake-create-temp-inplace'. The
+difference is that it gives a file name in
+`temporary-file-directory' instead of the same directory as
+FILE-NAME.
+
+For the use of PREFIX see that function.
+
+Note that not making the temporary file in another directory
+\(like here) will not if the file you are checking depends on
+relative paths to other files \(for the type of checks flymake
+makes)."
+  (unless (stringp file-name)
+    (error "Invalid file-name"))
+  (or prefix
+      (setq prefix "flymake"))
+  (let* ((name (concat
+                (file-name-nondirectory
+                 (file-name-sans-extension file-name))
+                "_" prefix))
+         (ext  (concat "." (file-name-extension file-name)))
+         (temp-name (make-temp-file name nil ext))
+         )
+    (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
+    temp-name))
+(flymake-create-temp-inplace "hi" "here")
+
+(defun flymake-ruby-init ()
+  (condition-case er
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         ;; 'flymake-create-temp-inplace
+			 'flymake-create-temp-intemp
+			 ))
+             (local-file  (file-relative-name
+                           temp-file
+                           (file-name-directory buffer-file-name))))
+        (list rails-ruby-command (list "-c" local-file)))
+    ('error ())))
 
 ;;
 ;; ------------------ Magic for Text Mode ----------------
@@ -441,7 +372,6 @@
 ;;
 ;; ------------------ Magic for C Mode ----------------------
 ;;
-
 (defconst my-c-style
   '((c-basic-offset . 2)
     (c-comment-only-line-offset . (0 . 0))
@@ -468,7 +398,6 @@
     (c-echo-syntactic-information-p . t)
     )
   "Flip's C Programming Style")
-
 ;; Customizations for all modes in CC Mode.
 (defun my-c-mode-common-hook ()
   ;; adds and sets my-c-style
@@ -482,13 +411,13 @@
   (define-key c-mode-base-map "\M-\C-q" 'c-fill-paragraph)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
+;; ------------------ Magic for Other Modes ----------------
+(set-variable 'comint-scroll-to-bottom-on-input t)
 ;; javascript mode
 (add-hook 'javascript-mode-hook
       '(lambda ()
          (setq tab-width 8 indent-tabs-mode nil)
          ))
-
 ;; nxhtml mode
 (add-hook 'nxml-mode-hook
       '(lambda ()
@@ -496,196 +425,6 @@
          (set-variable 'nxml-child-indent 2)
          (set-variable 'nxml-attribute-indent 2)
          ))
-    
-
-
-;; ------------------ Magic for Shell Mode ----------------
-(set-variable 'comint-scroll-to-bottom-on-input t)
-
-;;
-;; ------------------ Handy functions --------------
-;;
-
-;;; Final version: while
-(defun count-words-region (beginning end)
-  "Print number of words in the region."
-  (interactive "r")
-  (message "Counting words in region ... ")
-  ;;; 1. Set up appropriate conditions.
-  (save-excursion
-    (let ((count 0)) (goto-char beginning)
-  ;;; 2. Run the while loop.
-      (while (and (< (point) end) (re-search-forward "\\w+\\W*" end t)) (setq count (1+ count)))
-  ;;; 3. Send a message to the user.
-      (cond ((zerop count)   (message "The region does NOT have any words."))
-	    ((= 1 count)     (message "The region has 1 word."))
-	    (t		     (message "The region has %d words." count))))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;   Set keys
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; The new user-option `normal-erase-is-backspace' can be set to
-;; determine the effect of the Delete and Backspace function keys.
-
-;; On window systems, the default value of this option is chosen
-;; according to the keyboard used.  If the keyboard has both a
-;; Backspace key and a Delete key, and both are mapped to their usual
-;; meanings, the option's default value is set to t, so that Backspace
-;; can be used to delete backward, and Delete can be used to delete
-;; forward.  On keyboards which either have only one key (usually
-;; labeled DEL), or two keys DEL and BS which produce the same effect,
-;; the option's value is set to nil, and these keys delete backward.
-
-;; If not running under a window system, setting this option
-;; accomplishes a similar effect by mapping C-h, which is usually
-;; generated by the Backspace key, to DEL, and by mapping DEL to C-d
-;; via `keyboard-translate'.  The former functionality of C-h is
-;; available on the F1 key.  You should probably not use this setting
-;; on a text-only terminal if you don't have both Backspace, Delete
-;; and F1 keys.
-
-(normal-erase-is-backspace-mode)
-(global-set-key	  [delete]	    'delete-char)
-;(global-set-key   [backspace]	     'backward-delete-char)
-
-(global-set-key	  [C-delete]	    'kill-word)
-(global-set-key	  [C-backspace]	    'backward-kill-word)
-
-(global-set-key	  (kbd "C-s-.")	    'overwrite-mode)
-(global-set-key   (kbd "C-c w")     'delete-trailing-whitespace)   ;; http://bsdaemon.blogspot.com/2006/01/handling-eol-whitespace-in-emacs.html
-(global-set-key	  (kbd "C-m")	    'newline-and-indent)
-
-(global-set-key	  [home]	    'beginning-of-line)
-(global-set-key	  [M-left]	    'beginning-of-line)
-(global-set-key	  [end]		    'end-of-line)
-(global-set-key	  [M-right]	    'end-of-line)
-
-(global-set-key	  [C-left]	    'backward-word)
-(global-set-key	  [s-left]	    'backward-word)
-(global-set-key	  [C-kp-left]	    'backward-word)
-(global-set-key	  [s-kp-left]	    'backward-word)
-(global-set-key	  [C-kp-4]	    'backward-word)
-(global-set-key	  [s-kp-4]	    'backward-word)
-(global-set-key   (kbd "\e[1;5D")   'backward-word)
-
-(global-set-key	  [C-right]	    'forward-word)
-(global-set-key	  [s-right]	    'forward-word)
-(global-set-key	  [C-kp-right]	    'forward-word)
-(global-set-key	  [s-kp-right]	    'forward-word)
-(global-set-key	  [C-kp-6]	    'forward-word)
-(global-set-key	  [s-kp-6]	    'forward-word)
-(global-set-key   (kbd "\e[1;5C")   'forward-word)
-
-(global-set-key	  [s-up]	    'backward-paragraph)
-(global-set-key	  [C-kp-up]	    'backward-paragraph)
-(global-set-key	  [s-kp-up]	    'backward-paragraph)
-(global-set-key	  [s-kp-8]	    'backward-paragraph)
-(global-set-key   (kbd "\e[1;5B")   'backward-paragraph)
-
-(global-set-key	  [s-down]	    'forward-paragraph)
-(global-set-key	  [C-kp-down]	    'forward-paragraph)
-(global-set-key	  [s-kp-down]	    'forward-paragraph)
-(global-set-key	  [s-kp-2]	    'forward-paragraph)
-(global-set-key   (kbd "\e[1;5A")   'forward-paragraph)
-
-(global-set-key	  [C-prior]	    'beginning-of-buffer)
-(global-set-key	  [C-kp-prior]	    'beginning-of-buffer)
-(global-set-key	  [C-kp-9]	    'beginning-of-buffer)
-(global-set-key	  [C-next]	    'end-of-buffer)
-(global-set-key	  [C-kp-next]	    'end-of-buffer)
-(global-set-key	  [C-kp-3]	    'end-of-buffer)
-
-(global-set-key   (kbd "M-s-<up>") 	'backward-up-list)
-(global-set-key   (kbd "M-s-<down>") 	'down-list)
-(global-set-key   (kbd "M-s-<left>") 	'backward-sexp)
-(global-set-key   (kbd "M-s-<right>")  	'forward-sexp)
-(global-set-key   (kbd "M-s-S-<left>")  'backward-list)
-(global-set-key   (kbd "M-s-S-<right>") 'forward-list)
-
-(global-set-key	  [S-delete]	    'kill-region)
-(global-set-key	  [C-insert]	    'copy-region-as-kill)
-(global-set-key	  [S-insert]	    'yank)
-(global-set-key	  [C-S-insert]	    'yank-pop)
-(global-set-key	  [C-Delete]	    'kill-word)
-(global-set-key	  (kbd "C-z")	    'undo)
-(global-set-key	  (kbd "C-v")	    'yank)
-(global-set-key	  (kbd "M-v")	    'yank)
-(global-set-key	  (kbd "M-c")	    'copy-region-as-kill)
-(global-set-key	  (kbd "M-C-c")	    'capitalize-word)
-
-; see below for "\C-l"
-(global-set-key	  (kbd "M-g")	    'goto-line)
-(global-set-key	  (kbd "M-r")	    'query-replace-regexp)
-(global-set-key	  (kbd "C-M-r")	    'query-replace)
-
-;; (global-unset-key (kbd "C-M-3")	    )
-(global-set-key	  (kbd "C-M-3")	    'comment-region)
-(global-set-key	  (kbd "C-M-#")	    'comment-region)
-(global-set-key	  (kbd "C-s-3")	    'uncomment-region)	;;; this is C-<option>-3
-(global-set-key	  (kbd "C-s-#")	    'uncomment-region)	;;; this is C-S-<option>-3
-(global-set-key	  (kbd "M-m")	    'set-mark-command)
-
-(global-set-key	  (kbd "C-x C-u")   'undo)
-(global-set-key	  (kbd "C-x C-i")   'insert-buffer)
-(global-set-key	  (kbd "C-x f")	    'find-file)	       ;Overrides C-x f as set-fill-column
-(global-set-key	  (kbd "C-x C-r")   'insert-file)
-
-(global-set-key	  [C-f9]	    'compile)
-(global-set-key	  [C-find]	    'compile)
-(global-set-key	  (kbd "M-s")	    'tags-search)
-
-(global-set-key	  (kbd "C-x C-n")   'next-error)
-(global-set-key	  [find]	    'next-error)
-(global-set-key	  [f9]		    'next-error)
-
-(global-set-key	  (kbd "<f4>")	    'repeat-complex-command)
-(global-set-key	  (kbd "<C-f4>")    'repeat)
-
-(global-set-key	  (kbd "<f5>")	    'desktop-read)
-(global-set-key	  (kbd "<C-f5>")    'desktop-save)
-(global-set-key	  (kbd "<C-M-f5>")  'desktop-clear)
-
-(defun fixnewlines  () "Turn ^M into ^J."  (interactive) (replace-string "\C-M" "\C-j"))
-(global-set-key	  (kbd "C-M-^")	    'fixnewlines)
-
-;; Fix the annoying accelerator issue on Mac
-(global-set-key	  (kbd "C-M-x")	    'execute-extended-command)
-(global-set-key	  (kbd "C-M-q")	    'fill-paragraph)
-(global-set-key	  (kbd "C-M-,")	    'tags-loop-continue)
-(global-set-key	  (kbd "M-n")	    'make-frame-command)
-(global-set-key	  (kbd "M-z")	    'undo)
-
-;; make S-<key> do the delete equivalent of M-<key> for kills
-(global-set-key   (kbd "s-w")       'delete-region)
-(global-set-key   (kbd "s-k")       'delete-line)
-(global-set-key   (kbd "s-d")       'delete-next-word)
-
-
-(defun set-tab-width-4 () "Sets tab width to 4" (interactive) (setq tab-width 4) (font-lock-and-redraw))
-(defun set-tab-width-2 () "Sets tab width to 4" (interactive) (setq tab-width 4) (font-lock-and-redraw))
-(defun set-tab-width-8 () "Sets tab width to 8" (interactive) (setq tab-width 8) (font-lock-and-redraw))
-(global-set-key (kbd "C-x C-2")	  'set-tab-width-4)
-(global-set-key (kbd "C-x C-4")	  'set-tab-width-4)
-(global-set-key (kbd "C-x C-8")	  'set-tab-width-8)
-
-(global-set-key (kbd "<S-tab>")	  'unindent-line-or-region-rigidly)
-(global-set-key (kbd "<C-tab>")	    'indent-line-or-region-rigidly)
-
-(global-set-key (kbd "C-c C-e")	  'ecb-activate)
-(global-set-key [C-f1]   	  'customize-apropos)
-
-(global-set-key [f8]    	  'kmacro-end-and-call-macro)
-(global-set-key [M-f8]    	  'kmacro-end-and-call-macro)
-(global-set-key (kbd "<s-f8>") 	  'call-last-kbd-macro)
-
-(global-set-key (kbd "C->") 'nxml-finish-element)
-(global-set-key (kbd "C-/") 'nxml-complete)
-
-(global-set-key (kbd "C-x C-z") 'undo)
-
-
 (add-hook 'nxhtml-mode-hook
   '(lambda ()
      '(define-key 	  nxhtml-mode-map (kbd "C-/") 'nxml-complete)
@@ -693,19 +432,9 @@
      ;; '(define-key nxhtml-mode-map "C-<" ')
      ))
 
-(defun Buffer-menu-sort-by-path () "Sort buffer menu by pathname"  (interactive) (Buffer-menu-sort 5))
-(global-set-key (kbd "C-c C-s") 'Buffer-menu-sort-by-path)
-;; ;; can't get this to work.
-;; (add-hook 'buffer-menu-mode-hook
-;;   '(lambda ()
-;;      '(define-key 	  Buffer-menu-mode-map (kbd "C-c C-d") 'Buffer-menu-sort-by-path)
-;;      ))
-	 
-
 ;;
 ;; ------------------ Python-mode ----------------
 ;;
-
 ;; Make with the flymake for python
 (when (load "flymake" t)
   (defun flymake-pylint-init ()
@@ -718,10 +447,145 @@
   (add-to-list 'flymake-allowed-file-name-masks
 	       '("\\.py\\'" flymake-pylint-init)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;   Set keys
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; The new user-option `normal-erase-is-backspace' can be set to
+;; determine the effect of the Delete and Backspace function keys.
+;;
+;; On window systems, the default value of this option is chosen
+;; according to the keyboard used.  If the keyboard has both a
+;; Backspace key and a Delete key, and both are mapped to their usual
+;; meanings, the option's default value is set to t, so that Backspace
+;; can be used to delete backward, and Delete can be used to delete
+;; forward.  On keyboards which either have only one key (usually
+;; labeled DEL), or two keys DEL and BS which produce the same effect,
+;; the option's value is set to nil, and these keys delete backward.
+;;
+;; If not running under a window system, setting this option
+;; accomplishes a similar effect by mapping C-h, which is usually
+;; generated by the Backspace key, to DEL, and by mapping DEL to C-d
+;; via `keyboard-translate'.  The former functionality of C-h is
+;; available on the F1 key.  You should probably not use this setting
+;; on a text-only terminal if you don't have both Backspace, Delete
+;; and F1 keys.
+;;
+(normal-erase-is-backspace-mode)
+(global-set-key	  [delete]	    'delete-char)
+;(global-set-key   [backspace]	     'backward-delete-char)
+(global-set-key	  [C-delete]	    'kill-word)
+(global-set-key	  [C-backspace]	    'backward-kill-word)
+(global-set-key	  (kbd "C-s-.")	    'overwrite-mode)
+(global-set-key   (kbd "C-c w")     'delete-trailing-whitespace)   ;; http://bsdaemon.blogspot.com/2006/01/handling-eol-whitespace-in-emacs.html
+(global-set-key	  (kbd "C-m")	    'newline-and-indent)
+(global-set-key	  [home]	    'beginning-of-line)
+(global-set-key	  [M-left]	    'beginning-of-line)
+(global-set-key	  [end]		    'end-of-line)
+(global-set-key	  [M-right]	    'end-of-line)
+(global-set-key	  [C-left]	    'backward-word)
+(global-set-key	  [s-left]	    'backward-word)
+(global-set-key	  [C-kp-left]	    'backward-word)
+(global-set-key	  [s-kp-left]	    'backward-word)
+(global-set-key	  [C-kp-4]	    'backward-word)
+(global-set-key	  [s-kp-4]	    'backward-word)
+(global-set-key   (kbd "\e[1;5D")   'backward-word)
+(global-set-key	  [C-right]	    'forward-word)
+(global-set-key	  [s-right]	    'forward-word)
+(global-set-key	  [C-kp-right]	    'forward-word)
+(global-set-key	  [s-kp-right]	    'forward-word)
+(global-set-key	  [C-kp-6]	    'forward-word)
+(global-set-key	  [s-kp-6]	    'forward-word)
+(global-set-key   (kbd "\e[1;5C")   'forward-word)
+(global-set-key	  [s-up]	    'backward-paragraph)
+(global-set-key	  [C-kp-up]	    'backward-paragraph)
+(global-set-key	  [s-kp-up]	    'backward-paragraph)
+(global-set-key	  [s-kp-8]	    'backward-paragraph)
+(global-set-key   (kbd "\e[1;5B")   'backward-paragraph)
+(global-set-key	  [s-down]	    'forward-paragraph)
+(global-set-key	  [C-kp-down]	    'forward-paragraph)
+(global-set-key	  [s-kp-down]	    'forward-paragraph)
+(global-set-key	  [s-kp-2]	    'forward-paragraph)
+(global-set-key   (kbd "\e[1;5A")   'forward-paragraph)
+(global-set-key	  [C-prior]	    'beginning-of-buffer)
+(global-set-key	  [C-kp-prior]	    'beginning-of-buffer)
+(global-set-key	  [C-kp-9]	    'beginning-of-buffer)
+(global-set-key	  [C-next]	    'end-of-buffer)
+(global-set-key	  [C-kp-next]	    'end-of-buffer)
+(global-set-key	  [C-kp-3]	    'end-of-buffer)
+(global-set-key   (kbd "M-s-<up>") 	'backward-up-list)
+(global-set-key   (kbd "M-s-<down>") 	'down-list)
+(global-set-key   (kbd "M-s-<left>") 	'backward-sexp)
+(global-set-key   (kbd "M-s-<right>")  	'forward-sexp)
+(global-set-key   (kbd "M-s-S-<left>")  'backward-list)
+(global-set-key   (kbd "M-s-S-<right>") 'forward-list)
+(global-set-key	  [S-delete]	    'kill-region)
+(global-set-key	  [C-insert]	    'copy-region-as-kill)
+(global-set-key	  [S-insert]	    'yank)
+(global-set-key	  [C-S-insert]	    'yank-pop)
+(global-set-key	  [C-Delete]	    'kill-word)
+(global-set-key	  (kbd "C-z")	    'undo)
+(global-set-key	  (kbd "C-v")	    'yank)
+(global-set-key	  (kbd "M-v")	    'yank)
+(global-set-key	  (kbd "M-c")	    'copy-region-as-kill)
+(global-set-key	  (kbd "M-C-c")	    'capitalize-word)
+;;
+;; see below for "\C-l"
+(global-set-key	  (kbd "M-g")	    'goto-line)
+(global-set-key	  (kbd "M-r")	    'query-replace-regexp)
+(global-set-key	  (kbd "C-M-r")	    'query-replace)
+;; (global-unset-key (kbd "C-M-3")	    )
+(global-set-key	  (kbd "C-M-3")	    'comment-region)
+(global-set-key	  (kbd "C-M-#")	    'comment-region)
+(global-set-key	  (kbd "C-s-3")	    'uncomment-region)	;;; this is C-<option>-3
+(global-set-key	  (kbd "C-s-#")	    'uncomment-region)	;;; this is C-S-<option>-3
+(global-set-key	  (kbd "M-m")	    'set-mark-command)
+(global-set-key	  (kbd "C-x C-u")   'undo)
+(global-set-key	  (kbd "C-x C-i")   'insert-buffer)
+(global-set-key	  (kbd "C-x f")	    'find-file)	       ;Overrides C-x f as set-fill-column
+(global-set-key	  (kbd "C-x C-r")   'insert-file)
+(global-set-key	  [C-f9]	    'compile)
+(global-set-key	  [C-find]	    'compile)
+(global-set-key	  (kbd "M-s")	    'tags-search)
+(global-set-key	  (kbd "C-x C-n")   'next-error)
+(global-set-key	  [find]	    'next-error)
+(global-set-key	  [f9]		    'next-error)
+(global-set-key	  (kbd "<f4>")	    'repeat-complex-command)
+(global-set-key	  (kbd "<C-f4>")    'repeat)
+(defun fixnewlines  () "Turn ^M into ^J."  (interactive) (replace-string "\C-M" "\C-j"))
+(global-set-key	  (kbd "C-M-^")	    'fixnewlines)
+;; Fix the annoying accelerator issue on Mac
+(global-set-key	  (kbd "C-M-x")	    'execute-extended-command)
+(global-set-key	  (kbd "C-M-q")	    'fill-paragraph)
+(global-set-key	  (kbd "C-M-,")	    'tags-loop-continue)
+(global-set-key	  (kbd "M-n")	    'make-frame-command)
+(global-set-key	  (kbd "M-z")	    'undo)
+;; make S-<key> do the delete equivalent of M-<key> for kills
+(global-set-key   (kbd "s-w")       'delete-region)
+(global-set-key   (kbd "s-k")       'delete-line)
+(global-set-key   (kbd "s-d")       'delete-next-word)
+(defun set-tab-width-4 () "Sets tab width to 4" (interactive) (setq tab-width 4) (font-lock-and-redraw))
+(defun set-tab-width-2 () "Sets tab width to 4" (interactive) (setq tab-width 4) (font-lock-and-redraw))
+(defun set-tab-width-8 () "Sets tab width to 8" (interactive) (setq tab-width 8) (font-lock-and-redraw))
+(global-set-key (kbd "C-x C-2")	  'set-tab-width-4)
+(global-set-key (kbd "C-x C-4")	  'set-tab-width-4)
+(global-set-key (kbd "C-x C-8")	  'set-tab-width-8)
+(global-set-key (kbd "<S-tab>")	  'unindent-line-or-region-rigidly)
+(global-set-key (kbd "<C-tab>")	    'indent-line-or-region-rigidly)
+;; (global-set-key (kbd "C-c C-e")	  'ecb-activate)
+(global-set-key [C-f1]   	  'customize-apropos)
+(global-set-key [f8]    	  'kmacro-end-and-call-macro)
+(global-set-key [M-f8]    	  'kmacro-end-and-call-macro)
+(global-set-key (kbd "<s-f8>") 	  'call-last-kbd-macro)
+(global-set-key (kbd "C->") 'nxml-finish-element)
+(global-set-key (kbd "C-/") 'nxml-complete)
+(global-set-key (kbd "C-x C-z") 'undo)
+(defun Buffer-menu-sort-by-path () "Sort buffer menu by pathname"  (interactive) (Buffer-menu-sort 5))
+(global-set-key (kbd "C-c C-s") 'Buffer-menu-sort-by-path)
+
 ;;
 ;; ------------------ Mode-specific keys ----------------
 ;;
-
 (setq python-mode-hook 
       '(lambda ()
 	 (define-key py-mode-map		[C-f9]		'execute-extended-command)
@@ -750,12 +614,9 @@
 	     (define-key yaml-mode-map "\C-m" 'newline-and-indent)
 	     ))
 
-
-
 ;;
 ;; ------------------ Add extensions to Mode list ----------------
 ;;
-
 (autoload 'actionscript-mode	"actionscript-mode.el"	"Major mode for Flex/Actionscript .as files." t)
 (autoload 'longlines-mode	"longlines.el"		"Minor mode for automatically wrapping long lines." t)
 (autoload 'nxml-mode		"nxml-mode.el"		"Major mode for XML files." t)
@@ -768,10 +629,7 @@
 (autoload 'inf-ruby-keys 	"inf-ruby"		"Set local key defs for inf-ruby in ruby-mode" t)
 (autoload 'sass-mode            "sass-mode"             "Mode for SASS (CSS done right)" t)
 (autoload 'haml-mode            "haml-mode"             "Mode for HAML" t)
-;;(autoload 'taskpaper-mode       "taskpaper"             "Mode for tracking tasks" t)
-;;;            (setq auto-mode-alist (copy-alist auto-mode-alist))
-;;;          (set-alist-slot 'auto-mode-alist regexp function nil 'assoc))
-
+;;
 ;; To see the auto-mode-list type "auto-mode-alist" into *scratch*
 ;; and hit C-x-e, C-j...
 (setq auto-mode-alist (append (list
@@ -792,15 +650,14 @@
     '("\\.pig\\'"			. sql-mode)
     ;; add more modes here
     ) auto-mode-alist))
-
+;;
 (modify-coding-system-alist 'file "\\.\\(rb|py|pl|pm|PM|PL|js|as|xs\\)$"    'utf-8)
 (modify-coding-system-alist 'file "\\.[rs]html\\(\\.erb\\)?$" 'utf-8)
 (modify-coding-system-alist 'file "\\.\\(xml\\|xsl\\|xsd\\|kml\\|rng\\|[rsx]html?\\|mxml\\)\\(\\.erb\\)?$" 'utf-8 )
-
 ;;
-;; ------------------ Magic for new shebangs ----------------
 ;;
 ;;; This alist applies to files whose first line starts with `#!'
+;;
 (setq interpreter-mode-alist
       (append
        '(("python"  . python-mode))
@@ -814,7 +671,6 @@
 ;;
 ;; ------------------ End of .emacs ----------------
 ;;
-
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -889,8 +745,6 @@
  '(transient-mark-mode t)
  '(x-select-enable-clipboard t)
  '(yaml-indent-offset 4))
-
- ;;'(default ((t (:stipple nil :background "#f2f2f2" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :family "bitstream vera sans mono"))))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
