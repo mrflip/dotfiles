@@ -1,4 +1,3 @@
-
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 source ~/.bash/aliases
 
@@ -14,3 +13,4 @@ if [ "$PS1" ]; then
 fi
 
 source ~/.bash/paths
+source ~/.noyuo/host_nicknames
