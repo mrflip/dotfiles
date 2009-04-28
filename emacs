@@ -47,6 +47,7 @@
 (setq load-path
       (append load-path (list
 	(expand-file-name "~/.emacs.d")
+	(expand-file-name "~/.emacs.d/cucumber-mode")
 	(expand-file-name "~/pub/site-lisp")
 	(expand-file-name "/usr/local/site-lisp")
 	(expand-file-name "/sw/share/emacs/site-lisp/")
@@ -629,6 +630,11 @@ makes)."
 (autoload 'inf-ruby-keys 	"inf-ruby"		"Set local key defs for inf-ruby in ruby-mode" t)
 (autoload 'sass-mode            "sass-mode"             "Mode for SASS (CSS done right)" t)
 (autoload 'haml-mode            "haml-mode"             "Mode for HAML" t)
+
+(add-to-list 'load-path "~/.emacs.d/cucumber-mode")
+(autoload    'cucumber-mode "cucumber-mode" "Mode for editing cucumber files" t)
+(add-to-list 'feature-mode '("\.feature$" . cucumber-mode))
+
 ;;
 ;; To see the auto-mode-list type "auto-mode-alist" into *scratch*
 ;; and hit C-x-e, C-j...
@@ -648,6 +654,7 @@ makes)."
     '("\\.sass\\'"			. sass-mode)
     '("\\.haml\\'"			. haml-mode)
     '("\\.pig\\'"			. sql-mode)
+    '("\\.feature\\'"			. feature-mode)
     ;; add more modes here
     ) auto-mode-alist))
 ;;

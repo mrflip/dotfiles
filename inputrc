@@ -96,6 +96,7 @@ $if bash
   "\C-xga":     "git add ."
   "\C-xgc":	"git ci -m \"\" ."
   "\C-xgs":	"git status"
+  "\C-xgd":	"git diff HEAD"
   "\C-xgm":	"git checkout master"
   "\C-xgw":	"git checkout working"
   "\C-xgp":	"git pull origin "
