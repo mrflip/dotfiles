@@ -3,7 +3,7 @@
 	email = flip@infochimps.org
 [core]
 	excludesfile = /Users/flip/.gitignore
-	editor = mate -w
+	editor = nano
 [color]
 	diff = auto
 	status = auto
