@@ -25,6 +25,7 @@ export PATH=$PATH_HOME:$PATH_LOCL:$PATH:$PATH_MAMP:$MAC_PATH:$EC2_HOME/bin
 export         MANPATH=$MPTH_LOCL:$MANPATH
 
 export PKG_CONFIG_PATH="/usr/local/share/pkgconfig:/sw/share/pkgconfig:/usr/local/lib/pkgconfig:/sw/lib/pkgconfig:/usr/X11R6/lib/pkgconfig"
+export WUKONG_PATH=${HOME}/ics/wukong/lib
 
 if uname -a | egrep 'Darwin.*9\.6' > /dev/null 2>&1 ; then
     export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
