@@ -2,7 +2,8 @@
 
 ############################## Set Prompt  ##############################
 export PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
-export PR_PROMPT='\[\033[0;36m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;37m\]$ '
+export PR_PROMPT='\[\033[0;36m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;37;40m\] '
+export  PR_WHITE='\[\033[0;34m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;30;47m\] '
 export PR_PROMPT2='\[\033[0;36m\]cont... \[\033[1;36m\]>\[\033[0;37m\] '
 
 function parse_git_branch {
