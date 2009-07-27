@@ -23,7 +23,7 @@
 
   umask 022 					# readable by all / writeable only by me
   ulimit -S -c 0					# Turn off core dumps
-  ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
+  # ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
 
   ###
   #
