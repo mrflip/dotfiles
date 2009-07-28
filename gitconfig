@@ -2,7 +2,7 @@
 	name = Philip (flip) Kromer
 	email = flip@infochimps.org
 [core]
-	excludesfile = /Users/flip/.gitignore
+	excludesfile = /home/flip/.gitignore
 	editor = nano
 [color]
 	diff = auto
@@ -26,7 +26,7 @@
 	ci = commit
 	co = checkout
 [gui]
-	recentrepo = /Users/flip/ics/site
+	recentrepo = /home/flip/ics/wukong
 [github]
 	user = mrflip
 [branch]
