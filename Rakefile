@@ -17,7 +17,6 @@ desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
   (Dir['*'] - DONOTINSTALL).sort.each do |file|
-
     if File.exist?(home_dot(file))
       case
       when replace_all
@@ -28,11 +27,14 @@ task :install do
         puts "#{home_dot(file)} is a symlink, discarding (it pointed to #{})"
         replace_file(file)
       else
-        print "overwrite ~/.#{file}? [ynaq] "
+        print "overwrite ~/.#{file}? [ynaqd] "
         case $stdin.gets.chomp
         when 'a'
           replace_all = true
           replace_file(file)
+        when 'd'
+          system('diff', '-uw', home_dot(file), file)
+          redo
         when 'y'
           replace_file(file)
         when 'q'
