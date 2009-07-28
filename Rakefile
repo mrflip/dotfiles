@@ -10,6 +10,7 @@ directory File.join(ENV['HOME'], 'bin')
 
 %w[wgetrc.d history-irb history-bash].each do |dir|
   directory home_dot(dir)
+  task :install => home_dot(dir)
 end
 
 desc "install the dot files into user's home directory"
