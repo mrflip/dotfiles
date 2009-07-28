@@ -15,7 +15,7 @@ end
 desc "install the dot files into user's home directory"
 task :install do
   replace_all = false
-  (Dir['*'] - DONOTINSTALL).each do |file|
+  (Dir['*'] - DONOTINSTALL).sort.each do |file|
 
     if File.exist?(home_dot(file))
       case

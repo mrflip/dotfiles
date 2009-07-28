@@ -1,0 +1,159 @@
+! .Xdefaults file
+
+!
+! Emacs
+!
+
+emacs*Geometry:  	90x50+6+0
+! -*-lucidatypewriter-medium-r-*-*-*-120-*-*-m-*-*-*
+!emacs*Font: 		-*-bitstream vera sans mono-medium-r-normal-*-*-120-*-*-*-*-*-*
+
+!
+! xterm  Options
+!
+
+xterm*vt100*geometry:		90x30
+xterm*scrollKey:		true
+xterm*scrollTtyOutput:		false
+xterm*jumpScroll:		true
+xterm*scrollBar:		true
+xterm*saveLines:		8000
+xterm*visualBell:		true
+xterm*loginShell:		true
+
+!reportedly help with backspace/delete issues:
+! xterm*.deleteIsDEL: true
+! xterm*.backarrowKey: false
+! xterm*.ttyModes: erase ^?
+
+!
+! xterm  Keys
+!
+
+xterm*VT100*geometry:		80x36-1-100
+xterm*VT100*Translations: #override \
+	Ctrl<Key>Right:  	string(0x1b) string(f)\n\
+	Ctrl<Key>Left:		string(0x1b) string(b)\n\
+	<Key>Prior:		scroll-back(1,page)\n\
+	<Key>Next:		scroll-forw(1,page)\n\
+	Ctrl<Key>v:		insert-selection(PRIMARY, CLIPBOARD, CUT_BUFFER0)\n\
+        Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+        Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n\
+        Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+        Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+        <Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+        <Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)\n\
+	Ctrl<Key>F1:		set-vt-font(1)\n\
+	Ctrl<Key>F2:		set-vt-font(2)\n\
+	Ctrl<Key>F3:		set-vt-font(3)\n\
+	Ctrl<Key>F4:		set-vt-font(4)\n\
+	Ctrl<Key>F5:		set-vt-font(5)\n\
+	Ctrl<Key>F6:		set-vt-font(6)\n\
+	Ctrl<Key>F7:		set-vt-font(7)\n\
+	Ctrl<Key>F10:		set-vt-font(d)\n\
+	Ctrl<Key>space:		string(0x1b) string(0x20)\n\
+	Meta<KeyPress>:		string(0x1b) insert-seven-bit()
+
+! fix selection to go into clipboard, not cutbuffer0
+!XTerm*VT100.Translations: #override\
+!	<BtnUp>:		select-end(CLIPBOARD,PRIMARY)\n\
+!	<Btn2Down>:		insert-selection(PRIMARY)
+
+!Meta<KeyPress>:		string(0x1b) insert-seven-bit()\n\
+!Meta<KeyPress>:		insert-eight-bit()\n\
+!	<Key>Right:		string(0x06)\n\
+!	<Key>Left:		string(0x02)\n\
+!	<Key>Down:		string(0x0e)\n\
+!	<Key>Up:		string(0x10)\n\
+!	<Key>Home:		string(0x01)\n\
+!	<Key>End:		string(0x05)\n\
+
+!# Scrolling on wheel mouse: half a page normally, line per line with shift
+xterm.vt100.translations: #override\n\
+	Shift<Btn4Down>,<Btn4Up>:scroll-back(1,line)\n\
+	Shift<Btn5Down>,<Btn5Up>:scroll-forw(1,line)\n\
+	Ctrl<Btn4Down>,<Btn4Up>:scroll-back(1,page)\n\
+	Ctrl<Btn5Down>,<Btn5Up>:scroll-forw(1,page)\n\
+	<Btn4Down>,<Btn4Up>:scroll-back(1,halfpage)\n\
+	<Btn5Down>,<Btn5Up>:scroll-forw(1,halfpage)
+      
+!# In the scrollbar
+xterm*vt100*Scrollbar.translations: #override\n\
+        <Btn5Down>: StartScroll(Forward)\n\
+        <Btn4Down>: StartScroll(Backward)
+
+!
+! xterm  Colors
+!
+
+#ifdef COLOR
+xterm*background:       	black
+xterm*foreground:       	white
+xterm*reverseVideo:       	false
+xterm*vt100*colorBDMode:        true
+xterm*vt100*colorBLMode:	true
+xterm*vt100*colorRVMode:	false
+xterm*vt100*colorULMode:	true
+xterm*vt100*underLine:       	true
+
+! 0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 white
+! 8 black 9 red 10 green 11 yellow 12 blue 13 magenta 14 cyan 15 white
+xterm*cursorColor:       	yellow
+xterm*pointerColor:       	yellow
+xterm*vt100*color0:		black
+xterm*vt100*color1:		firebrick3
+xterm*vt100*color2:		PaleGreen4
+xterm*vt100*color3:		DodgerBlue3
+xterm*vt100*color4:		LightGoldenrod3
+xterm*vt100*color5:		DarkOrchid4
+xterm*vt100*color6:		LightSkyBlue2
+xterm*vt100*color7:		seashell2
+xterm*vt100*color8:		ivory4
+xterm*vt100*color9:		tomato1
+xterm*vt100*color10:		SpringGreen3
+xterm*vt100*color11:		SteelBlue3
+xterm*vt100*color12:		gold1
+xterm*vt100*color13:		orchid3
+xterm*vt100*color14:		LightSkyBlue
+xterm*vt100*color15:		white
+xterm*vt100*colorBD:		SeaGreen
+! xterm*vt100*colorRV:		AntiqueWhite1
+xterm*vt100*colorBL:		firebrick2
+xterm*vt100*colorUL:		DodgerBlue3
+
+#endif
+
+!
+! xterm  Fonts
+!
+
+!!
+!!  -foundry-family-weight-slant-setwidth-style-pixelSize-pointSize-\
+!!   Xresolution-Yresolution-spacing-averageWidth-registry-encoding
+!!
+
+xterm*fontMenu*font1*Label:	Tiny
+xterm*fontMenu*font2*Label:	Small
+xterm*fontMenu*font3*Label:	Medium
+xterm*fontMenu*font4*Label:	Medium2
+xterm*fontMenu*font5*Label:	Medium3
+xterm*fontMenu*font6*Label:	Largish
+
+! xterm*vt100*font:		-*-lucidatypewriter-bold-r-*-*-*-140-*-*-m-*-*-*
+! xterm*VT100*font1:		-*-clean-bold-r-*-*-*-120-*-*-m-*-*-*
+! xterm*VT100*font2:		-*-clean-bold-r-*-*-*-80-*-*-m-*-*-*
+! xterm*VT100*font3:		-*-lucidatypewriter-bold-r-*-*-*-100-*-*-m-*-*-*
+! xterm*VT100*font4:		-*-lucidatypewriter-bold-r-*-*-*-120-*-*-m-*-*-*
+! xterm*VT100*font5:		-*-Lucida Console-medium-r-*-*-*-140-*-*-m-*-*-*
+! xterm*VT100*font6:		-*-Lucida Console-medium-r-*-*-*-160-*-*-m-*-*-*
+
+xterm*vt100*font:		-*-lucidatypewriter-bold-r-*-*-14-*-*-*-m-*-*-*
+xterm*VT100*font1:		-*-proggytiny-*-*-*-*-*-*-*-*-*-*-*-*
+xterm*VT100*font2:		-*-proggysmall-*-*-*-*-*-*-*-*-*-*-*-*
+xterm*VT100*font3:		-*-proggycleanszbp-*-*-*-*-*-*-*-*-*-*-*-*
+xterm*VT100*font4:		-*-fixed-*-r-*-*-18-*-*-*-*-*-*-1
+xterm*VT100*font5:		-*-lucidatypewriter-*-r-*-*-14-*-*-*-m-*-*-*
+xterm*VT100*font6:		-*-fixed-*-r-*-*-20-*-*-*-*-*-*-1
+
+
+Mrxvt.greektoggle_key:		Help
