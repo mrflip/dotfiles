@@ -22,19 +22,17 @@
   ####################### Shell Stuff ##############################
 
   umask 022 					# readable by all / writeable only by me
-  ulimit -S -c 0					# Turn off core dumps
-  ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
+  ulimit -S -c 0				# Turn off core dumps
+  # ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
 
   ###
   #
-  # Wield Infinite Monkeywrench
-  export IMW_ROOT=$HOME/ics
-  export PATH=$IMW_ROOT/imw/bin:$PATH
-  # export RUBYLIB=$IMW_ROOT/imw/lib:$RUBYLIB
+  export PATH=$ICS_ROOT/wukong/bin:$PATH
+  export RUBYLIB=$HOME/.rubylib:.
 
   # Use the ruby in /usr/local
-  export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
-  export RUBY_SOURCE_DIR=/usr/local/bin/ruby
+  # export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
+  # export RUBY_SOURCE_DIR=/usr/local/bin/ruby
 
   # Bash Config
   shopt -s cmdhist histappend histverify 
