@@ -22,19 +22,8 @@
   ####################### Shell Stuff ##############################
 
   umask 022 					# readable by all / writeable only by me
-  ulimit -S -c 0					# Turn off core dumps
-  ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
-
-  ###
-  #
-  # Wield Infinite Monkeywrench
-  export IMW_ROOT=$HOME/ics
-  export PATH=$IMW_ROOT/imw/bin:$PATH
-  # export RUBYLIB=$IMW_ROOT/imw/lib:$RUBYLIB
-
-  # Use the ruby in /usr/local
-  export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
-  export RUBY_SOURCE_DIR=/usr/local/bin/ruby
+  ulimit -S -c 0				# Turn off core dumps
+  # ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
 
   # Bash Config
   shopt -s cmdhist histappend histverify 
@@ -61,12 +50,14 @@
   export LC_IDENTIFICATION="en_US.UTF-8"
 
   # Set the command line editor to emacs.
-  set -o emacs                
+  set -o emacs
   export FCEDIT=emacs
-  export VISUAL=emacs
-  export EDITOR=nano
-  export EDITOR="mate -w"
-
+  if [ "$DISPLAY" = "" ] ; then 
+      export ALTERNATE_EDITOR=emacs EDITOR=nano VISUAL=nano
+  else
+    export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+  fi
+  
   #
   # give me back my ^Q, ^S keys, etc.  you can check things with "stty -e"
   #   discard "" dsusp ""   eof ""     eol ""     eol2 ""    erase ""   intr ""    kill ""    lnext ""
