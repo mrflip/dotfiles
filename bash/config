@@ -25,15 +25,6 @@
   ulimit -S -c 0				# Turn off core dumps
   # ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
 
-  ###
-  #
-  export PATH=$ICS_ROOT/wukong/bin:$PATH
-  export RUBYLIB=$HOME/.rubylib:.
-
-  # Use the ruby in /usr/local
-  # export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
-  # export RUBY_SOURCE_DIR=/usr/local/bin/ruby
-
   # Bash Config
   shopt -s cmdhist histappend histverify 
   shopt -s checkwinsize cdspell 
