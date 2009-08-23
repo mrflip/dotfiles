@@ -1,7 +1,7 @@
 # in rails:
 def Object.method_added(method)
   return super(method) unless method == :helper
-  (class<<self;self;end).send(:remove_method, :method_added)
+  (class << self; self; end).send(:remove_method, :method_added)
 
   def helper(*helper_names)
     returning $helper_proxy ||= Object.new do |helper|

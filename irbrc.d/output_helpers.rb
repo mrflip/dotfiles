@@ -29,7 +29,6 @@ end
 #   end
 # end
 
-
 # Inline colorized ri (override wirble's)
 RIARGS = ['-f', 'ansi']
 require 'rdoc/ri/ri_driver'
@@ -72,6 +71,17 @@ end
 
 def most
   spool_output('most')
+end
+
+#
+# clipboard
+#
+def copy(str)
+  IO.popen('pbcopy', 'w') { |f| f << str.to_s }
+end
+
+def paste
+  `pbpaste`
 end
 
 def spool_output(spool_cmd)

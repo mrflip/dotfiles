@@ -9,7 +9,14 @@ IRB.conf[:PROMPT_MODE]  = :DEFAULT
 IRB.conf[:AUTO_INDENT]   = true
 IRB.conf[:IGNORE_SIGINT] = true
 
-[:historian, :method_finder, :output_helpers, :textmate, :rails_console_helpers].each do |irbrc_file|
-  require ENV['HOME'] + "/.irbrc.d/#{irbrc_file}.rb"
+%w[rubygems looksee/shortcuts wirble].each do |gem|
+  begin ; require gem  ;  rescue LoadError ; end
 end
+
+# , :textmate
+[:historian, :method_finder, :output_helpers, :rails_console_helpers].each do |irbrc_file|
+  begin ; require ENV['HOME'] + "/.irbrc.d/#{irbrc_file}.rb" ; rescue LoadError ; end
+end
+IRB.conf[:PROMPT_MODE] = :SIMPLE
+
 load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
