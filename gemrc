@@ -7,5 +7,5 @@ gem:              --no-ri --no-rdoc
 :backtrace:       false
 :benchmark:       false
 :sources:         
-  - http://gems.rubyforge.org
   - http://gems.github.com
+  - http://gems.rubyforge.org
