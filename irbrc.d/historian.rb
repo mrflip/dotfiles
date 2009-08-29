@@ -18,5 +18,3 @@ begin
     end
   end
 end
-
-puts "Hi from #{__FILE__}"

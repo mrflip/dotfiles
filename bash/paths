@@ -37,6 +37,6 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 export WUKONG_PATH=$HOME/ics/wukong/lib:$HOME/ics/wuclan/lib:$HOME/ics/monkeyshines/lib
 
 
-if uname -a | egrep 'Darwin.*9\.6' > /dev/null 2>&1 ; then
+if uname -a | egrep 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
     export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
 fi
