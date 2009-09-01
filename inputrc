@@ -95,13 +95,14 @@ $if bash
   "\C-xfs":	"find . -iname "*""
   "\C-xga":     "git add ."
   "\C-xgc":	"git ci -m \"\" ."
-  "\C-xgs":	"git status"
   "\C-xgd":	"git diff HEAD"
   "\C-xgm":	"git checkout master"
-  "\C-xgw":	"git checkout working"
   "\C-xgp":	"git pull origin "
+  "\C-xgr":	"git remote ; git remote show originb"
   "\C-xgq":	"git push origin "
+  "\C-xgs":	"git status"
   "\C-xgu":	"git submodule update "
+  "\C-xgw":	"git checkout working"
   
 $endif
 

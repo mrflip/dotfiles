@@ -50,12 +50,14 @@
   export LC_IDENTIFICATION="en_US.UTF-8"
 
   # Set the command line editor to emacs.
-  set -o emacs                
+  set -o emacs
   export FCEDIT=emacs
-  export VISUAL=emacs
-  export EDITOR=nano
-  export EDITOR="mate -w"
-
+  if [ "$DISPLAY" = "" ] ; then 
+      export ALTERNATE_EDITOR=emacs EDITOR=nano VISUAL=nano
+  else
+    export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+  fi
+  
   #
   # give me back my ^Q, ^S keys, etc.  you can check things with "stty -e"
   #   discard "" dsusp ""   eof ""     eol ""     eol2 ""    erase ""   intr ""    kill ""    lnext ""
