@@ -31,7 +31,7 @@ export LINUX_PATH=/public/bin
 export LINUX_MPTH=/public/man:/opt/local/man
 
 export PATH
-export MANPATH=${MANPATH-/usr/man}
+export MANPATH=${MANPATH-/usr/local/man}
 if   [ "$MACHINE" == "OSX" ] ; then
   append_path  PATH    $OSX_PATH ;
   append_path  MANPATH $OSX_MPTH ;
