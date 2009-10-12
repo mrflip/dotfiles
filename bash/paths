@@ -29,13 +29,10 @@ export CORE_PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/X11/bin:/
 export OSX_PATH=/Applications/MAMP/Library/bin:/usr/local/git/bin
 export OSX_MPTH=/sw/share/man:/Applications/MAMP/Library/man
 export LINUX_PATH=/public/bin
-export LINUX_MPTH=/public/bin:/opt/local/bin
+export LINUX_MPTH=/public/man:/opt/local/man
 
-# Use the ruby in /usr/local
-# export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
-# export RUBY_SOURCE_DIR=/usr/local/bin/ruby
-export RUBYLIB=$HOME/.rubylib
-
+export PATH
+export MANPATH
 if   [ "$MACHINE" == "OSX" ] ; then
   append_path  PATH    $OSX_PATH ;
   append_path  MANPATH $OSX_MPTH ;
@@ -51,10 +48,13 @@ prepend_path PATH    $PATH_HOME
 PKG_CONFIG_PATH_OSX="/sw/lib/pkgconfig:/sw/share/pkgconfig"
 PKG_CONFIG_PATH_MATH="/public/lib/pkgconfig:/public/share/pkgconfig"
 
+# Use the ruby in /usr/local
+# export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
+# export RUBY_SOURCE_DIR=/usr/local/bin/ruby
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH_OSX:$PKG_CONFIG_PATH_MATH:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 export PERL5LIB=/public/share/perl/lib:/public/share/perl:/usr/local/lib/perl5/site_perl:/usr/share/perl/:/usr/lib/perl:/usr/lib/perl5
+export RUBYLIB=$HOME/.rubylib
 export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/monkeyshines/lib
-export WUKONG_PATH=$HOME/ics/wukong/lib:$HOME/ics/wuclan/lib:$HOME/ics/monkeyshines/lib
 
 ###########################################################################
 #
