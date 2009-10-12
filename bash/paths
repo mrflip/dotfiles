@@ -24,7 +24,7 @@ MPTH_LOCL=/public/man:/usr/local/man
 # Use the ruby in /usr/local
 # export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
 # export RUBY_SOURCE_DIR=/usr/local/bin/ruby
-export RUBYLIB=$HOME/.rubylib:.
+export RUBYLIB=$HOME/.rubylib
 
 export PATH=$PATH_HOME:$PATH_LOCL:$PATH:$MAC_PATH:$EC2_HOME/bin
 export         MANPATH=$MPTH_LOCL:$MANPATH

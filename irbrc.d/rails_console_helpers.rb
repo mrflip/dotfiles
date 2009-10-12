@@ -15,6 +15,10 @@ def Object.method_added(method)
     @controller.send(method, *args, &block) if @controller && method.to_s =~ /_path$|_url$/
   end
 
+  def me
+    User.find_by_email 'flip@mrflip.com'
+  end
+
   helper :application rescue nil
 end if ENV['RAILS_ENV']
 
