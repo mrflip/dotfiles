@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+source ~/.bash/paths
 source ~/.bash/aliases
+source ~/.bash/config
 
 ####################### Interactive Term Stuff ######################
 #

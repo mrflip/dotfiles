@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if    uname -a | egrep 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
+  export MACHINE=OSX
+elif uname -a | egrep '^Linux' > /dev/null 2>&1 ; then
+  # grep -i ubuntu /etc/issue 
+  export MACHINE=LINUX
+fi
+
 # define append_path and prepend_path to add directory paths, e.g. PATH, MANPATH.
 # add to end of path
 append_path()
@@ -32,6 +39,7 @@ export LINUX_MPTH=/public/man:/opt/local/man
 
 export PATH
 export MANPATH=${MANPATH-/usr/local/man}
+PATH=$PATH_LOCL:$PATH
 if   [ "$MACHINE" == "OSX" ] ; then
   append_path  PATH    $OSX_PATH ;
   append_path  MANPATH $OSX_MPTH ;
@@ -41,7 +49,6 @@ elif [ "$MACHINE" == "Linux" ] ; then
   append_path MANPATH $LINUX_MPTH ;
 fi
 prepend_path MANPATH $MPTH_LOCL
-prepend_path PATH    $PATH_LOCL
 prepend_path PATH    $PATH_HOME
 
 PKG_CONFIG_PATH_OSX="/sw/lib/pkgconfig:/sw/share/pkgconfig"
@@ -59,10 +66,23 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 #
 # Amazon EC2 Setup
 #
-export AWS_USER_ID='484232731444'
+
+
+###########################################################################
+#
+# Amazon EC2 Setup
+#
+#
+# In order to communicate with AWS/EC2/S3 stuff first make sure you
+# have a valid AWS account (we do, it's aws@infochimps.org), make sure
+# we've signed up for the corresponding service (we have for EC2 &
+# S3), and make sure we've put in a credit card (we have).
+#
+
+export AWS_ACCOUNT_ID='484232731444'
 export AWS_ACCESS_KEY_ID=02S6Y1EFA7ZZ7KCZH3G2
-export EC2_PRIVATE_KEY=~/.aws/infochimps/pk.pem 
-export EC2_CERT=~/.aws/infochimps/cert.pem  
+export EC2_PRIVATE_KEY=${HOME}/.aws/bonobo/pk.pem
+export EC2_CERT=${HOME}/.aws/bonobo/cert.pem
 export EC2_HOME=/usr/local/share/ec2-api-tools
 
 append_path PATH $EC2_HOME/bin
@@ -74,3 +94,10 @@ elif [ "$MACHINE" == "Linux" ] ; then
   # On linux, it's installed via apt, so lives in /usr/bin/...
   export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
 fi
+
+# Location of EC2 keys.
+export EC2_KEYPAIR_DIR=`dirname "$EC2_PRIVATE_KEY"`
+export EC2_KEYPAIR_NAME=bonobo
+export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
+export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
+export SSH_OPTS=$EC2_SSH_OPTIONS  
