@@ -58,7 +58,7 @@ PKG_CONFIG_PATH_MATH="/public/lib/pkgconfig:/public/share/pkgconfig"
 # export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
 # export RUBY_SOURCE_DIR=/usr/local/bin/ruby
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH_OSX:$PKG_CONFIG_PATH_MATH:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
-export PERL5LIB=/public/share/perl/lib:/public/share/perl:/usr/local/lib/perl5/site_perl:/usr/share/perl/:/usr/lib/perl:/usr/lib/perl5
+# export PERL5LIB=/public/share/perl/lib:/public/share/perl:/usr/local/lib/perl5/site_perl:/usr/share/perl/:/usr/lib/perl:/usr/lib/perl5
 export RUBYLIB=$HOME/.rubylib
 export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/monkeyshines/lib
 
@@ -81,8 +81,8 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 
 export AWS_ACCOUNT_ID='484232731444'
 export AWS_ACCESS_KEY_ID=02S6Y1EFA7ZZ7KCZH3G2
-export EC2_PRIVATE_KEY=${HOME}/.aws/bonobo/pk.pem
-export EC2_CERT=${HOME}/.aws/bonobo/cert.pem
+export EC2_PRIVATE_KEY=${HOME}/.hadoop-ec2/pk.pem
+export EC2_CERT=${HOME}/.hadoop-ec2/cert.pem
 export EC2_HOME=/usr/local/share/ec2-api-tools
 
 append_path PATH $EC2_HOME/bin
@@ -97,7 +97,7 @@ fi
 
 # Location of EC2 keys.
 export EC2_KEYPAIR_DIR=`dirname "$EC2_PRIVATE_KEY"`
-export EC2_KEYPAIR_NAME=bonobo
+export EC2_KEYPAIR_NAME=gibbon
 export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
 export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
 export SSH_OPTS=$EC2_SSH_OPTIONS  
