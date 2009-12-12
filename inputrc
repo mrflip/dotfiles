@@ -89,7 +89,7 @@ $if bash
   "\M-space":	set-mark			# xterm translates C-sp to M-sp
   "\C-`":	set-mark
 
-  "\C-xff":	"for foo in  ; do echo $foo ; done"
+  "\C-xff":	"for foo in  ; do echo $foo ; ; done "
   "\C-xfr":	"rsync -Cuvzrtlp ~/ ~/"
   "\C-xfc":     "sudo true && ./configure --prefix=/usr/local && make -j7 && sudo make install"
   "\C-xfs":	"find . -iname "*""

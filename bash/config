@@ -57,21 +57,3 @@
   else
     export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
   fi
-  
-  #
-  # give me back my ^Q, ^S keys, etc.  you can check things with "stty -e"
-  #   discard "" dsusp ""   eof ""     eol ""     eol2 ""    erase ""   intr ""    kill ""    lnext ""
-  #   ^@         ^Y         ^D         <undef>    <undef>    ^?         ^C         ^@         ^@
-  #   min ""     quit ""    reprint "" start ""   status ""  stop ""    susp ""    time ""    werase ""
-  #   1          ^\         ^@         ^@         ^@         ^@         ^Z         0          ^@
-  # 
-  # lflags: icanon isig iexten echo echoe echok echoke -echonl echoctl
-  #         -echoprt -altwerase -noflsh -tostop -flusho pendin -nokerninfo
-  #         -extproc
-  # iflags: -istrip icrnl -inlcr -igncr -ixon -ixoff -ixany imaxbel -ignbrk
-  #         brkint -inpck ignpar -parmrk
-  # oflags: opost onlcr -oxtabs -onocr -onlret
-  # cflags: cread cs8 -parenb -parodd -hupcl -clocal -cstopb -crtscts
-  #         -dsrflow -dtrflow -mdmbuf
-  stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
-  # stty erase  

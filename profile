@@ -1,4 +1,6 @@
-# ~/.profile
+# -*- mode: sh;-*-
+# ~/.profile 
+
 # if [ "$PROFILE_DEBUG" = "debug" ] ; then echo "Into .profile" >&2; fi
 
 ####################### System  ################################

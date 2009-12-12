@@ -1,5 +1,8 @@
-test -r /sw/bin/init.sh && . /sw/bin/init.sh
+#!/usr/bin/env bash
+
+source ~/.bash/paths
 source ~/.bash/aliases
+source ~/.bash/config
 
 ####################### Interactive Term Stuff ######################
 #
@@ -11,10 +14,7 @@ if [ "$PS1" ]; then
   source ~/.bash/completions
   source ~/.bash/cheat
 fi
-
-source ~/.bash/paths
 source ~/.noyuo/host_nicknames
-
 
 ### emacs.bash --- contact/resume an existing Emacs, or start a new one
 ## This defines a bash command named `edit' which contacts/resumes an
@@ -60,3 +60,5 @@ function edit ()
 
 # arch-tag: 1e1b74b9-bf2c-4b23-870f-9eebff7515cb
 ### emacs.bash ends here
+
+
