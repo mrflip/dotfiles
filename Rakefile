@@ -86,5 +86,6 @@ end
 
 def link_file(src, dest, quiet = false)
   puts "linking #{dest}" unless quiet == :quiet
-  system %Q{ln -s src dest}
+  src  = File.expand_path src
+  system %Q{ln -s #{src} #{dest}}
 end

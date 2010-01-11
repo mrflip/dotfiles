@@ -87,8 +87,8 @@ xterm*vt100*Scrollbar.translations: #override\n\
 !
 
 #ifdef COLOR
-xterm*background:       	black
-xterm*foreground:       	white
+xterm*background:       	white
+xterm*foreground:       	black
 xterm*reverseVideo:       	false
 xterm*vt100*colorBDMode:        true
 xterm*vt100*colorBLMode:	true
