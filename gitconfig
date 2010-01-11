@@ -1,8 +1,8 @@
 [user]
-	name = Philip (flip) Kromer
-	email = flip@infochimps.org
+	name = Carl Knutson
+	email = carl@infochimps.org
 [core]
-	excludesfile = /home/flip/.gitignore
+	excludesfile = /home/doncarlo/.gitignore
 	editor = nano
 [color]
 	diff = auto
@@ -26,9 +26,8 @@
 	ci = commit
 	co = checkout
 [gui]
-	recentrepo = /home/flip/ics/wukong
 [github]
-	user = mrflip
+	user = doncarloknute
 [branch]
 	autosetupmerge = true
 [apply]
