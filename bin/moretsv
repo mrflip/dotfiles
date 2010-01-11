@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "-7" ] ; then
+  shift
+  width=7
+else
+  width=15
+fi
+
+# cut -c1-200 "$@" |
+ruby -ne 'puts $_.chomp.split("\t").map{|s| if (!s || s=="") then "%'${width}'s"%"-" else (s=~/^[-\d\.\s]*$/ ? "%'${width}'s"%s : "%15s"%s ) end }.join("\t")' | less

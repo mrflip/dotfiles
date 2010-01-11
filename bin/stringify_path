@@ -1,0 +1,1 @@
+ruby -ne 'puts $_.chomp.gsub(%r{^_com/_tw/com\.twitter/_},"").gsub(/\W/,"-").gsub(/\W+$/, "")'

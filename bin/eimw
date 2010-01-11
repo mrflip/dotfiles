@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+what=`basename ${0}`
+case "$what" in
+    	# Remember that last specified is first seen
+	eics)	cmd="emacs `/bin/ls -1 ~/ics/site/{app/*/*.*,db/migrate/*,config/{deploy.rb,environment.rb,routes.rb}}`" ;;
+	eimw)	cmd="emacs `/bin/ls -1 ~/ics/imw/{bin/*.*,lib/{tasks,imw}{/*/*.*,/*.*},lib/imw.rb}`" ;;
+	*)      echo "I don't get it -- I'm called '$what' but don't know how to be that."; exit 1
+esac
+# echo $cmd
+if   [[ -z "$DISPLAY" ]] ;
+then $cmd
+else $cmd &
+fi

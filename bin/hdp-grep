@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# hadoop dfs -rmr out/parsed-followers
+input_path=$1  ; shift
+output_path=$1 ; shift
+if [ "$1" == "" ] ; then echo "You need to gimme an input path, an output path, and grep args" ; exit ; fi
+echo ; echo "Grepping for '$@'" ; echo
+hadoop jar /home/flip/hadoop/h/contrib/streaming/hadoop-*-streaming.jar	\
+    -mapper  	"bash -c '/bin/grep $@ ; true'"			      	\
+    -input   	"$input_path"						\
+    -output  	"$output_path"						\
+    -jobconf    mapred.reduce.tasks=0 					

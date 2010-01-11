@@ -1,0 +1,326 @@
+#!/bin/bash
+
+#############################################################
+##
+## .promptrc by Philip 'flip' Kromer, flip@mrflip.com
+##
+## See also:
+##	http://www.linuxdoc.org/HOWTO/Bash-Prompt-HOWTO.html
+##	http://bash.current.nu
+##	Manual page for bash(1) (type "man bash" at prompt)
+##
+##
+#############################################################
+
+#############################################################
+##
+## Probably want to skip to "PROMPT CONFIGURATION" below
+##
+#############################################################
+
+#############################################################
+##
+##                 Set Title
+## 
+## ANSI for "send stuff to the title":   \033]0; .. \007 
+## BASH for "don't appear in prompt":    \[...\]
+## 
+
+function pr_title() 
+{
+    # Check args
+    pr_title_usage="Echos text to set the title on an ANSI terminal\nUsage: pr_title title"
+    if [ $# -eq 0 ] ; then
+	echo "No arguments to pr_title in $0." >&2
+	echo -e $usage >&2
+	return 0
+    fi
+    
+    #Echo title escape
+    echo "\[\033]0;"$*"\007\]"
+}
+
+
+#############################################################
+##
+##                 Fix PWD 
+## 
+## (don't get too long)
+## 
+
+function fix_PWD()
+{
+    #   How many characters of the $PWD should be kept
+    local pwd_length=30
+
+    if [ $(echo -n $PWD | wc -c | tr -d " ") -gt $pwd_length ]
+    then
+       fixPWD="...$(echo -n $PWD | tail -c $pwd_length)"
+    else
+       fixPWD="$PWD"
+    fi
+}
+
+#############################################################
+##
+##                 Set Color
+## 
+## ANSI for "set color":                 \033[..color..m 
+## BASH for "don't appear in prompt":    \[ ... \]
+## 
+
+function pr_color() 
+{
+    # Check args
+    pr_color_usage="Echos escapes to set the text color on an ANSI terminal\nUsage: pr_color colorcode"
+    if [ $# -ne 1 ] ; then
+	echo "Bad arguments (got \"$*\") to pr_color in $0." >&2
+	echo -e $usage >&2
+	return 0
+    fi
+    
+    #Echo color code escape
+    echo "\[\033["$1"m\]"
+}
+
+# make bash understand setenv
+function setenv()
+{
+	if [ $# -ne 2 ] ; then
+		echo "setenv: Too few arguments" >&2
+	else
+		export $1="$2"
+	fi
+}
+
+#############################################################
+##
+##                 Define Colors
+## 
+## 
+
+# Some terminals may do bold;
+# Some may do bright.
+setenv	pr_bold		`pr_color "01"`
+setenv	pr_bright	`pr_color "01"`
+
+setenv	pr_black	`pr_color "0;30"`
+setenv	pr_d_black	`pr_color "0;30"`
+setenv	pr_d_gray	`pr_color "1;30"`	# bright black = dark gray.
+setenv	pr_gray		`pr_color "0;37"`
+setenv	pr_d_white	`pr_color "0;37"`	# dark white = light gray.
+setenv	pr_b_gray	`pr_color "0;37"`
+setenv	pr_b_white	`pr_color "1;37"`
+setenv	pr_white	`pr_color "1;37"`
+
+setenv	pr_d_green	`pr_color "0;32"`
+setenv	pr_b_green	`pr_color "1;32"`
+setenv	pr_green	`pr_color "1;32"`
+
+setenv	pr_d_yellow	`pr_color "0;33"`
+setenv	pr_brown	`pr_color "0;33"`	# dark yellow = brown
+setenv	pr_b_yellow	`pr_color "1;33"`
+setenv	pr_yellow	`pr_color "1;33"`
+
+setenv	pr_d_red	`pr_color "0;31"`
+setenv	pr_b_red	`pr_color "1;31"`
+setenv	pr_red		`pr_color "1;31"`
+
+setenv	pr_d_magenta	`pr_color "0;35"`
+setenv	pr_b_magenta	`pr_color "1;35"`
+setenv	pr_magenta	`pr_color "1;35"`
+
+setenv	pr_d_blue	`pr_color "0;34"`
+setenv	pr_b_blue	`pr_color "1;34"`
+setenv	pr_blue		`pr_color "1;34"`
+
+setenv	pr_d_cyan	`pr_color "0;36"`
+setenv	pr_b_cyan	`pr_color "1;36"`
+setenv	pr_cyan		`pr_color "1;36"`
+
+
+setenv	pr_bg_black	`pr_color "40"`
+setenv	pr_bg_red	`pr_color "41"`
+setenv	pr_bg_green	`pr_color "42"`
+setenv	pr_bg_yellow	`pr_color "43"`
+setenv	pr_bg_blue	`pr_color "44"`
+setenv	pr_bg_magenta	`pr_color "45"`
+setenv	pr_bg_cyan	`pr_color "46"`
+setenv	pr_bg_white	`pr_color "47"`
+
+# Not all of these are useful for prompts
+setenv  pr_none		`pr_color "00"`
+setenv  pr_underscore	`pr_color "04"`
+setenv	pr_blink	`pr_color "05"`
+setenv	pr_reverse	`pr_color "07"`
+setenv	pr_concealed	`pr_color "08"`
+
+#############################################################
+##
+## Probably want to skip all the stuff above and start here.
+##
+#############################################################
+
+#############################################################
+##
+## Prompt Configuration
+##
+
+## Assuming this file is ~/.promptrc, you should add
+##    source ~/.promptrc
+## to your .bashrc (not .profile or .bash_profile)
+##
+
+##
+## Adjust the following lines to suit your preferences 
+## (see comments immediately following)
+##
+
+# Uncomment for ellipses added
+# PROMPT_COMMAND=fix_PWD
+# PR_PROMPT="${pr_brown}$HOSTNAME:${pr_b_green}\${fixPWD}${pr_gray}\$ "
+
+PR_PROMPT="${pr_d_cyan}$HOSTNAME:${pr_d_green}\w${pr_gray}\$ "
+PR_PROMPT2="${pr_d_cyan}end your \"'s... ${pr_b_cyan}>${pr_gray} "
+
+PR_TITLE="`pr_title "\s:\w on \h"`"
+
+PS1=${PR_TITLE}${PR_PROMPT}
+PS2=${PR_TITLE}${PR_PROMPT2}
+
+
+##
+## COLORS
+##
+## Set the foreground color with ${pr_xxx} where xxx is any of
+##
+## 	black	d_gray		gray		white
+## 	d_blue	blue		d_cyan		cyan
+## 	d_red	red		d_magenta	magenta
+## 	d_green	green		brown		yellow	
+## 						
+## 						
+## Set the background color with ${pr_xxx} where xxx is any of
+##  
+## 	bg_black	bg_white
+## 	bg_blue	bg_cyan
+## 	bg_red	bg_magenta
+## 	bg_green	bg_yellow	
+## 						
+## You can also use
+##
+##	pr_none
+##	pr_underscore
+##	pr_blink
+##	pr_reverse
+##	pr_concealed
+##
+## I implore your good taste in doing so.
+##
+##
+##
+##  PROMPTING (from bash(1) man page)
+##
+##  When executing interactively, bash  displays  the  primary
+##  prompt  PS1  when  it  is ready to read a command, and the
+##  secondary prompt PS2 when it needs more input to  complete
+##  a  command.   Bash  allows these prompt strings to be cus-
+##  tomized by inserting a number of backslash-escaped special
+##  characters that are decoded as follows:
+##         \a     an ASCII bell character (07)
+##         \d     the  date  in  "Weekday  Month  Date" format
+##                (e.g., "Tue May 26")
+##         \e     an ASCII escape character (033)
+##         \h     the hostname up to the first `.'
+##         \H     the hostname
+##         \j     the number of jobs currently managed by  the
+##                shell
+##         \l     the  basename of the shell's terminal device
+##                name
+##         \n     newline
+##         \r     carriage return
+##         \s     the name of the shell, the  basename  of  $0
+##                (the portion following the final slash)
+##         \t     the current time in 24-hour HH:MM:SS format
+##         \T     the current time in 12-hour HH:MM:SS format
+##         \@     the current time in 12-hour am/pm format
+##         \u     the username of the current user
+##         \v     the version of bash (e.g., 2.00)
+##         \V     the  release  of  bash, version + patchlevel
+##                (e.g., 2.00.0)
+##         \w     the current working directory
+##         \W     the basename of the current  working  direc-
+##                tory
+##         \!     the history number of this command
+##         \#     the command number of this command
+##         \$     if  the effective UID is 0, a #, otherwise a
+##                $
+##         \nnn   the character  corresponding  to  the  octal
+##                number nnn
+##         \\     a backslash
+##         \[     begin a sequence of non-printing characters,
+##                which could be used to embed a terminal con-
+##                trol sequence into the prompt
+##         \]     end a sequence of non-printing characters
+
+
+
+#############################################################
+##
+## Cleanup
+##
+
+unset pr_bold
+unset pr_bright
+
+unset pr_black
+unset pr_d_black
+unset pr_d_gray
+unset pr_gray
+unset pr_d_white
+unset pr_b_gray
+unset pr_b_white
+unset pr_white
+
+unset pr_d_green
+unset pr_b_green
+unset pr_green
+
+unset pr_d_yellow
+unset pr_brown
+unset pr_b_yellow
+unset pr_yellow
+
+unset pr_d_red
+unset pr_b_red
+unset pr_red
+
+unset pr_d_magenta
+unset pr_b_magenta
+unset pr_magenta
+
+unset pr_d_blue
+unset pr_b_blue
+unset pr_blue
+
+unset pr_d_cyan
+unset pr_b_cyan
+unset pr_cyan
+
+
+unset pr_bg_black
+unset pr_bg_red
+unset pr_bg_green
+unset pr_bg_yellow
+unset pr_bg_blue
+
+unset pr_bg_magenta
+unset pr_bg_cyan
+unset pr_bg_white
+
+# Not all of these are useful for prompts
+unset pr_none
+unset pr_underscore
+unset pr_blink
+unset pr_reverse
+unset pr_concealed

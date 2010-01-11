@@ -1,0 +1,1 @@
+emacs public/stylesheets/sass/* public/javascripts/{application,hello*,open_id*}.js app/views/*/*.haml config/environment.rb  config/routes.rb utils/*.* icss/* app/*/*.rb &

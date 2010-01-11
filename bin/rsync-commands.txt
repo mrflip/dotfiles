@@ -1,0 +1,4 @@
+rsync -Cuvzrltp --exclude="*.ps" --exclude="Junk" ~/now/{ClassInter,KnowLearn,MathDomain,Perspectives}  $KROMER:~/mrflip/classes/2005Spring/
+rsync -Cuvzrltp $MRFLIP:~/now/ ~/now/ 
+rsync -Cuvzrltp ~/now/ $MRFLIP:~/now/ 
+rsync -Cuvzrltp ~/web/mrflip/  $KROMER:~/mrflip/

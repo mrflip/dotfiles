@@ -1,0 +1,9 @@
+for foo in "$@" ; do
+    if [[ $foo == '-rf' ]] ; then
+       true
+    else
+       dir=$HOME/.Trash/"`dirname "$foo"`"
+       mkdir -p "$dir"
+       mv -v "$foo" "$dir"/`basename "$foo"`.`date '+%Y%m%d%H%M%S'`
+    fi
+done

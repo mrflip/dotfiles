@@ -1,0 +1,2 @@
+sudo chown -R root:admin "$@"
+sudo chmod -R ug+rwX     "$@"

@@ -1,0 +1,9 @@
+KOKODIR=${KOKODIR-~/ics/koko}
+emacs "$@" \
+  $KOKODIR/app/stylesheets/*.sass \
+  $KOKODIR/config/{environment.rb,routes.rb,deploy.rb} \
+  $KOKODIR/app/{controllers,helpers,models}/*.rb \
+  $KOKODIR/app/views/datasets/*.haml
+
+#   $KOKODIR/spec/{controllers/*.*,blueprints/*.*,models/*.*,*.*} \
+  

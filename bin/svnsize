@@ -1,0 +1,1 @@
+du -s -o `svn status "$@" | egrep '^\?' | perl -pe 's/^\?\s//;'` | sort -n

@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+ARGV.each do |file|
+  puts File.expand_path(file)
+end

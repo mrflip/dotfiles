@@ -1,0 +1,2 @@
+dest_host="$1" ; shift
+ssh -X -i ~/.aws/aws.pem "$@" root@"$dest_host" 
