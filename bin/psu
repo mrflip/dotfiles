@@ -1,0 +1,1 @@
+/bin/ps x -Awww -o 'ruser,pid,pcpu,pmem,vsz,rss,tty,stat,bsdstart,bsdtime,nice,args' k uid,comm "$@"

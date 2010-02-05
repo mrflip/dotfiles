@@ -1,0 +1,9 @@
+if [[ "$1" != "" && "$2" != "" && "$3" == "" ]] ; then
+
+mv $2 $1
+svn mv --force  $1 $2
+
+else
+   echo exactly two args, please: svnunmove orig-src orig-dest >&2
+   ( echo -n "  (I got '$1'"; shift; for arg in ${@-''};do echo -n " and '$arg'";done; echo ")" ) >&2
+fi

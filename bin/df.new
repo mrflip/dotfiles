@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+# must make a symlink ln -s /bin/df ~/slice/bin/df.orig
+
+
+local $/; 
+   $_=`df.orig -T @ARGV`; 
+   $_=~s/Mounted on/Mounted_on/; 
+   $_=~s/[\r\n]+ +/ /g; 
+   @fields=qw{Filesystem    Type    Size  Used Avail Use% Mounted_on }; 
+
+   @lines=split /[\r\n]+/, $_; 
+   $first=shift @lines; 
+   @lens{@fields}=(0 x (scalar @fields)); 
+   my @vals; 
+
+   for $l (@lines) { 
+   	my %val; 
+	@val{@fields} = ($l =~ m/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(.*?)\s*$/); 
+	for $f (@fields) { $lens{$f} = length($val{$f}) if length($val{$f})>$lens{$f}; }; 
+	push @vals, \%val; 
+   }; 
+
+   my $fmt = join "\t",map { "%-${_}s" } @lens{@fields};  
+
+   printf("$fmt\n", @fields); 
+   for $v (@vals) { 
+   	printf("$fmt\n", (@{$v}{@fields})); 
+   }

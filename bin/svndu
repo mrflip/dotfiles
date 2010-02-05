@@ -1,0 +1,1 @@
+svn status | egrep  '^\?' | cut -c 3- | xargs du -s | sort -n

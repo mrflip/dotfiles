@@ -1,0 +1,1 @@
+mysql -u imw --password=local_pass_14_312 "$@"

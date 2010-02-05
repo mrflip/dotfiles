@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+# Derived from David's simple Backpack API library
+# file = pastie_client.rb (used by pastie.rb)
+ 
+require 'rubygems'
+require 'net/http'
+#require 'xmlsimple'
+require 'active_support'
+ 
+class PastieClient
+  attr_accessor :nickname, :key
+  
+  def initialize(nick=nil, key=nil)
+    @nick, @key = nick, key
+    connect
+  end
+  
+  def connect
+    @connection = Net::HTTP.new("pastie.org", 80)
+  end
+  
+  def request(path, parameters = {})
+# parameters = { "token" => @token }.merge(parameters)
+    
+    response = @connection.post(path , parameters.to_xml.gsub(/<\/?hash>/,""), "Content-Type" => "application/xml", "Accept" => "application/xml")
+    
+    if response.code =~ /20[01]/
+# result = XmlSimple.xml_in(response.body) rescue response.body
+      result=response.body
+      result.empty? ? true : result
+    else
+      raise "Error occured (#{response.code}): #{response.body}"
+    end
+  end
+  alias :r :request
+ 
+  # returns the id if the paste was saved successfully
+  def paste(body, syntax="ruby")
+    request("/pastes/create", { :paste => { :body => body, :parser => syntax }})
+  end
+  alias :p :paste
+  
+end
+
+require 'optparse'
+class CliPastie
+  
+  attr :parser
+  attr :opt
+    
+  def initialize
+    @opt = {
+      :parser   => "ruby",
+      :nick     => "mrflip",
+      :key      => 'bobsibob',
+      :help     => false
+    }
+    
+    @parser = OptionParser.new do |cmd|      
+      cmd.banner += " <filename>\n\nReads from STDIN if not passed a filename.\n\n"
+      cmd.on('-h', '--help', 'Show usage') { puts parser.help; exit }
+#      cmd.on('-u', '--nick NICK', 'Set nickname') { |n| opt[:nick] = n }
+#      cmd.on('-k', '--key KEY', 'Key to authenticate your nick') { |n| opt[:nick] = n }
+      cmd.on('-l', '--language LANG', 'Set language for syntax highlighting') { |l| opt[:parser] = l }
+    end
+  end
+  
+  def run
+    parser.parse!(ARGV)
+    if not ARGV.empty?
+      body = File.read(ARGV[0])
+    else
+      body=STDIN.read
+    end
+    return if body.strip.empty?
+
+    p = PastieClient.new( :nick => opt[:nick], :key => opt[:key] )
+    id = p.paste(body, opt[:parser])
+    puts "http://pastie.org/paste/#{id}"
+  end
+
+end
+
+if __FILE__ == $0
+  CliPastie.new.run
+end

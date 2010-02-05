@@ -1,0 +1,4 @@
+#!/usr/bin/env perl
+my $grepargs = shift @ARGV;
+my $findargs = '"' . (join '" "', @ARGV) . '"';
+print `find $findargs -exec egrep -H \"$grepargs\" {} \\;`;

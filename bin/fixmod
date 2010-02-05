@@ -1,0 +1,3 @@
+echo "Doing 'chmod -R a-x+X+r $*'"
+chown -R flip      "$*"
+chmod -R a-x+X+r   "$*"

@@ -1,8 +1,8 @@
 [user]
-	name = Philip (flip) Kromer
-	email = flip@infochimps.org
+	name = Carl Knutson
+	email = carl@infochimps.org
 [core]
-	excludesfile = /home/flip/.gitignore
+	excludesfile = /home/doncarlo/.gitignore
 	editor = nano
 [color]
 	diff = auto
@@ -10,25 +10,24 @@
 	branch = auto
 	interactive = auto
 [color "branch"]
-	current = yellow reverse
-	local = yellow
+	current = blue
+	local = red
 	remote = green
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+	meta = black bold
+	frag = magenta
+	old = red 
+	new = blue
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+	added = blue
+	changed = magenta
+	untracked = green
 [alias]
 	ci = commit
 	co = checkout
 [gui]
-	recentrepo = /home/flip/ics/wukong
 [github]
-	user = mrflip
+	user = doncarloknute
 [branch]
 	autosetupmerge = true
 [apply]

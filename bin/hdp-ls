@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "-r" ] || [ "$1" == "-R" ] ; then
+    shift
+    action=lsr
+else
+    action=ls
+fi
+
+exec hadoop dfs -$action "$@"

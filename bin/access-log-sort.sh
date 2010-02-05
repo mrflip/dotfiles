@@ -1,0 +1,2 @@
+cat ~/Desktop/infochimps-nginxlogs-20080405/*access* | cut -d' ' -f 11 | grep 'http://del.icio.us' | perl -pe 's!("http://del.icio.us/\w+)\?.*!$1!; s!http://www\.!http://!' | sort | uniq -c | sort -n | egrep -v "http://[^/]*infochimps"
+cat ~/Desktop/infochimps-nginxlogs-20080405/*access* | cut -d' ' -f 11 | perl -pe 's!http://www\.!http://!' | sort | uniq -c | sort -n | egrep -v "http://[^/]*infochimps"

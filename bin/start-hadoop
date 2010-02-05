@@ -1,0 +1,1 @@
+ssh lab5 'start-dfs.sh' ; ssh lab6 'start-mapred.sh' ; sleep 2; ssh lab6 hadoop-daemon.sh stop jobtracker ; ssh lab5 hadoop-daemon.sh stop namenode ; sleep 2 ; ssh lab5 'export HADOOP_NICENESS=0 ; hadoop-daemon.sh start namenode' ; ssh lab6 'export HADOOP_NICENESS=0 ; hadoop-daemon.sh start jobtracker' ;

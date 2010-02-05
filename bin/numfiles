@@ -1,0 +1,1 @@
+( for foo in "$@" ;  do echo -n `find $foo | wc -l` ; echo "	$foo" ; done )| sort -n

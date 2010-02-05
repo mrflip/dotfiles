@@ -1,0 +1,7 @@
+dir=$1
+shift
+adds="`echo "$@" | perl -pe 's/^/\n/; s/\s+/\n/g'`"
+echo svn propset svn:ignore \'"`svn propget svn:ignore $dir`\
+$adds"\' "$dir"
+     svn propset svn:ignore "`svn propget svn:ignore $dir`\
+$adds" "$dir"
