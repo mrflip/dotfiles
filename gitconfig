@@ -1,8 +1,8 @@
 [user]
-	name = Carl Knutson
-	email = carl@infochimps.org
+   name = Philip (flip) Kromer
+   email = flip@infochimps.org
 [core]
-	excludesfile = /home/doncarlo/.gitignore
+	excludesfile = /home/flip/.gitignore
 	editor = nano
 [color]
 	diff = auto
@@ -27,7 +27,7 @@
 	co = checkout
 [gui]
 [github]
-	user = doncarloknute
+	user = mrflip
 [branch]
 	autosetupmerge = true
 [apply]

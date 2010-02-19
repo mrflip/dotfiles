@@ -35,8 +35,8 @@ if [ "$0" = "sh" ] ; then
 else
   case ${TERM-NONE} in
     mrxvt|xterm|rxvt|xterm-color)
-      PS1=${PR_TITLE}${PR_WHITE}
-      PS2=${PR_TITLE}${PR_WHITE2}
+      PS1=${PR_TITLE}${PR_BLACK}
+      PS2=${PR_TITLE}${PR_BLACK2}
       ;;
     dumb)
       # keep it simple (probably emacs)
@@ -46,8 +46,8 @@ else
     NONE)
       if [ -z "$DISPLAY" ] ; then
         # I have a $DISPLAY set, so assume xterm...
-        PS1=${PR_TITLE}${PR_WHITE}
-        PS2=${PR_TITLE}${PR_WHITE2}
+        PS1=${PR_TITLE}${PR_BLACK}
+        PS2=${PR_TITLE}${PR_BLACK2}
       else
         # keep it simple (probably emacs)
         export PS1="\h \w$ "
