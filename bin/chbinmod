@@ -1,0 +1,2 @@
+chmod -R a+x ~/bin/*
+chmod -R a+x $HOME/slice/bin

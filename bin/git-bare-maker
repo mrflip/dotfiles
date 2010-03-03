@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+repo=$1
+remote=${2-origin}
+githost=${3-silicon.ph.utexas.edu}
+
+repodir=/gitrepos/$repo.git 
+origdir=$HOME/$repo 
+
+mkdir -p $origdir
+mkdir -p $repodir 
+cd       $repodir 
+GIT_DIR=$repodir git init 
+git   --bare update-server-info 
+chmod a+x hooks/post-update
+
+cd $origdir
+git config  remote.${remote}.url   "git+ssh://${githost}${repodir}" 
+git config  remote.${remote}.fetch "+refs/heads/*:refs/remotes/${remote}/*"  
+touch       .gitignore
+git add     .
+git ci      -m "initial commit" . 
+git push    $remote master

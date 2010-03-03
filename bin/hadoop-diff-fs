@@ -1,0 +1,7 @@
+hadoop dfs -lsr | cut -f1 | cut -c12- > /tmp/hadoop-lsr-`datename`.txt
+hdfsfiles=`tempfile -p hdfsfiles`;
+localfiles=`tempfile -p localfiles`
+cat /tmp/hadoop-lsr-`datename`.txt  | cut -f1 | cut -c12- | sort > $hdfsfiles
+find ripd | sort > $localfiles
+diff -C0  $localfiles $hdfsfiles > /tmp/hdfs-files-diff.txt
+cat /tmp/hdfs-files-diff.txt  | ruby -ne '$_.chomp! ; next if $_ =~ /updates|isd-lite|additional|gsod\/19(29|3[012345])/; next unless $_ =~ /^\+ .*gz/; $_.gsub!(/^\+ /, ""); puts `hadoop dfs -put #{$_} #{$_}`'

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Pull off pattern as first arg
+pattern="$1"
+shift
+declare -a glob
+glob=$1
+shift 
+
+LS=`which ls`
+GO=`echo $0|perl -ne 's/.*_(go)/$1/;print'`
+
+# No pattern? Too many patterns? give usage
+[ "$glob" == "" ]	&& echo "Not enough params"
+[ "$*"    != "" ]	&& echo "Too many params"
+if ( [ "$glob" == "" ] || [ "$*"    != "" ] ) ; then
+    echo "pattern='$pattern' and glob='$glob'; extra args='$@'" 
+    echo "Usage: $0 's/INPAT/OUTPAT/' filepat1 filepat2 ..."
+    echo "    This causes "
+    echo '	for each $file filepat1 filepat2 ...;do'
+    echo '		mv $file `echo $file | perl -ne "s/INPAT/OUTPAT/ && print;"`'
+    echo "	done"
+    exit
+fi
+
+
+for file in $glob ; do
+    if [ "$GO" != "go" ] ; then
+	echo mv -i "'`printf \"%-60s\" \"$file\"`'" `echo $file | perl -ne "chomp; $pattern; print;"`
+    else
+	mv -i "$file" "`echo $file | perl -ne \"chomp; $pattern; print;\"`"
+    fi
+done
+
+
+
+if [ "$GO" != "go" ] ; then
+    echo "Rerun as $0_go to actually do this thing"
+fi

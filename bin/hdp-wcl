@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+output=out/wcl-`date +%Y%m%d%H%M%S`
+
+cmd="
+  a = load '$1' using PigStorage('\t');
+  b = GROUP a ALL;
+  c = FOREACH b GENERATE COUNT(a.\$0);
+  store '$1', c into '$output';  "
+  
+echo $cmd ; read -p "That look about right? ^C or hit return ..."
+echo $cmd | pig
+echo "Dumped to $output"
+hadoop dfs -cat "$output/part-*" | head 

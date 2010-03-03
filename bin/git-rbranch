@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+# url=$1                                # git://github.com/OTHER/MODULE.git
+# remote=${2-mainline)
+# r_branch=${3-master)
+#
+# cmd="echo"
+#
+# $cmd remote add -f -m master $remote $url
+# $cmd checkout --track -b $remote $remote/$r_branch
+
+# # git://github.com/mrduncan/restful-authentication.git
+# #
+# urlpatts = [
+#   %r{git://([a-z0-9\.]+)/([^/]+)/([^/]+)\.git},
+#   %r{()([^/]+)/([^/]+)},
+# ]
+# urlpatts.find{ |urlpatt| urlpatt.match(ARGV[0]) }
+# host, user, proj = [$1, $2, $3]
+# host =
+#
+# puts "host: #{host} -- #{user} --#{proj}"
+p ARGV
+
+if ARGV.length < 1
+  "#{$0} git_url remote_name remote_branch"
+end
+
+url, remote, r_branch = ARGV
+r_branch ||= 'master'
+if (! remote) && (url =~ %r{.*github[\.\w\-]*[:/]([\w\-]+)/[\w\-]+.git})
+  remote = $1
+end
+
+remote_add_cmd = %Q{ git remote add -f -m #{r_branch} #{remote} #{url} }
+remote_co_cmd  = %Q{ git checkout --track -b #{remote}_#{r_branch} #{remote}/#{r_branch} }
+
+puts [remote_add_cmd, remote_co_cmd]
+print "Hit enter to do this thang... "; $stdin.readline
+puts `#{remote_add_cmd}`
+puts `#{remote_co_cmd}`
+

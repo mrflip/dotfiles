@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+$: << File.dirname(__FILE__)+'/../../lib'
+require 'rubygems'
+require 'edamame'
+require 'monkeyshines/monitor'
+require 'monkeyshines/utils/trollop'
+require 'pathname'
+require File.dirname(__FILE__)+'/edamame_util_opts'
+Log = Monkeyshines.logger
+
+pq = Edamame::PersistentQueue.new( :tube => CONFIG[:tube],
+  :queue => { :type => 'BeanstalkQueue', :uris => [CONFIG[:queue]] },
+  :store => { :type => 'TyrantStore',    :uri =>   CONFIG[:store]  }
+  )
+
+periodic_log = Monkeyshines::Monitor::PeriodicLogger.new(:iters => 1, :time => 30)
+pq.load do |job|
+  obj = job.obj rescue nil
+  periodic_log.periodically{ [ pq.store.size, job.loggable, job.class, obj.inspect ] }
+end

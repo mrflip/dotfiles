@@ -11,7 +11,7 @@
 #         -echoprt -altwerase -noflsh -tostop -flusho pendin -nokerninfo
 #         -extproc
 # iflags: -istrip icrnl -inlcr -igncr -ixon -ixoff -ixany imaxbel -ignbrk
-#         brkint -inpck ignpar -parmrk
+#         brkint -inpck ignpar -parmrk 
 # oflags: opost onlcr -oxtabs -onocr -onlret
 # cflags: cread cs8 -parenb -parodd -hupcl -clocal -cstopb -crtscts
 #         -dsrflow -dtrflow -mdmbuf
@@ -20,9 +20,10 @@ stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
 
 ############################## Set Prompt  ##############################
 export PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
-export PR_PROMPT='\[\033[0;36m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
-export  PR_WHITE='\[\033[0;34m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;30;47m\] '
-export PR_PROMPT2='\[\033[0;36m\]cont... \[\033[1;36m\]>\[\033[0;37m\]$ '
+export  PR_BLACK='\[\033[0;36m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
+export  PR_WHITE='\[\033[1;30m\]'$HOSTNAME' \[\033[0;34m\]\w\[\033[0;30m\] '
+export PR_BLACK2='\[\033[0;43m\]cont... \033[0;37;40m\]> '
+export PR_WHITE2='\[\033[1;31m\]cont... \033[0;30;47m\]> '
 
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
@@ -34,8 +35,8 @@ if [ "$0" = "sh" ] ; then
 else
   case ${TERM-NONE} in
     mrxvt|xterm|rxvt|xterm-color)
-      PS1=${PR_TITLE}${PR_PROMPT}
-      PS2=${PR_TITLE}${PR_PROMPT2}
+      PS1=${PR_TITLE}${PR_BLACK}
+      PS2=${PR_TITLE}${PR_BLACK2}
       ;;
     dumb)
       # keep it simple (probably emacs)
@@ -45,8 +46,8 @@ else
     NONE)
       if [ -z "$DISPLAY" ] ; then
         # I have a $DISPLAY set, so assume xterm...
-        PS1=${PR_TITLE}${PR_PROMPT}
-        PS2=${PR_TITLE}${PR_PROMPT2}
+        PS1=${PR_TITLE}${PR_BLACK}
+        PS2=${PR_TITLE}${PR_BLACK2}
       else
         # keep it simple (probably emacs)
         export PS1="\h \w$ "

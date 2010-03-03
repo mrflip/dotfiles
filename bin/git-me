@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# require 'fileutils'; include FileUtils::Verbose
+#
+# ICS_DIR = File.expand_path('~/ics')
+# repos = {
+#   :main => [
+#     'site', 'pool', 'imw',
+#     'infochimps/assets',
+#     'plugins/rails/restful_authentication', 'apps/example_restauth',
+#   ]
+# }
+#
+# repos.each do |group, repos|
+#   repos.each do |repo|
+#     cd "%s/%s" % [ICS_DIR, repo] do
+#       puts `git branch`
+#       puts `git status`
+#       puts `git remote; git remote show origin`
+#       puts '', "*" * 75, ''
+#     end
+#   end
+# end
+
+ICS_DIR=$HOME/ics
+repos="site pool imw infochimps/assets apps/example_restauth" # plugins/rails/restful_authentication
+banner="---------------------------------------------------------------------------"
+for repo in $repos ; do
+    dir=$ICS_DIR/$repo
+    cd $dir
+    echo $banner; echo -n $dir
+    # for remote in `git remote` ; do git fetch $remote ; done
+    if [[ "`git status -q | wc -l`" == "2" ]] ; then
+	echo " - unchanged" 
+    else
+        echo
+        # git remote
+	git branch
+	git status
+        # echo; echo $banner; echo
+    fi
+done

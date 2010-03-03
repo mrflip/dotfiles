@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+require 'trollop'
+require 'fileutils' ; include FileUtils::Verbose
+
+opts = Trollop::options do
+  opt :append,            "use suffixes of length N (default 2)",       :default => 2
+  opt :lines,             "put NUMBER lines per output file",           :default => '500_000', :required => true
+end
+
+Trollop::die "Only src and optional dest allowed: #{ARGV.join(" ")}" if ARGV.length > 2
+
+#
+# Identify src, dest
+#
+src  = ARGV[0]
+dest = ARGV[1] || src
+dest = src.gsub(%r{\.([^/]+)$}, '-')
+ext  = $1
+
+#
+#
+opts[:lines].gsub!(/_/, '')
+MULT_MAP = { 'k' => 1000, 'M' => 1_000_000 }
+if (opts[:lines] =~ /(\d+)([a-zA-Z])/)
+  mant, exp = [$1, $2]
+  mult = MULT_MAP[exp]
+  Trollop::die "Bad multiplier #{mult} in --lines=#{opts[:lines]}; use #{MULT_MAP.keys.join(",")}" unless mult
+  opts[:lines] = mant.to_i * mult
+end
+
+#
+# Run split
+#
+`split --lines=#{opts[:lines]} --verbose -d --suffix-length=#{opts[:append]} #{src} #{dest} 2>&1`.split("\n").each do |line|
+  line.chomp!
+  split_filename = line.gsub(/creating file \`(.*)\'$/, '\1')
+  unless split_filename =~ /#{dest}\d+$/ then warn "Bad filename #{split_filename}" ; next ; end
+  dest_filename = "#{split_filename}.#{ext}"
+  puts dest_filename
+  FileUtils.mv split_filename, dest_filename
+end

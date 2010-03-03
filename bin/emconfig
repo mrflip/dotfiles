@@ -1,0 +1,2 @@
+#!/bin/sh
+exec emacs $HOME/.xinitrc $HOME/.fvwm2rc95 $HOME/.Xdefaults  $HOME/.xsession $HOME/.fvwmrc $HOME/.bashrc $HOME/.emacs $HOME/.Xkeymaprc
