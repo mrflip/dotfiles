@@ -40,7 +40,7 @@ fi
 
 function histgrep()
 {
-    egrep -hi "$@" ~/.history-bash/*
+    egrep -hi -- "$@" ~/.history-bash/*
 }
 alias hs=histgrep
 
