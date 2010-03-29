@@ -133,8 +133,8 @@ Mrxvt.color15:			white
 Mrxvt.cursorBlink:		False
 Mrxvt.cursorColor:		#ffff00
 Mrxvt.cursorColor2:		#000000
-Mrxvt.background:		#eeeeee
-Mrxvt.foreground:		#000000
+Mrxvt.background:		#000000
+Mrxvt.foreground:		#9a9a9a
 # Tab bar colors
 Mrxvt.itabBackground:		#101010
 Mrxvt.tabBackground:		#000000
