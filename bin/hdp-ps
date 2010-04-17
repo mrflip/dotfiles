@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
-exec hadoop job -list all
+../../ics/wukong/bin/hdp-ps

@@ -1,11 +1,1 @@
-#!/usr/bin/env bash
-
-if [ "$1" == "-r" ] ; then
-    shift
-    action=rmr
-else
-    action=rm
-fi
-echo hadoop dfs -$action "$@"
-# read -p "Hit ctrl-C to abort or enter to do this...."
-exec hadoop dfs -$action "$@"
+../../ics/wukong/bin/hdp-rm
