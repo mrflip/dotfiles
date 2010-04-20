@@ -49,7 +49,7 @@ elif [ "$MACHINE" == "Linux" ] ; then
   append_path MANPATH $LINUX_MPTH ;
 fi
 prepend_path MANPATH $MPTH_LOCL
-prepend_path PATH    $PATH_HOME
+PATH=$PATH_HOME:$PATH
 
 PKG_CONFIG_PATH_OSX="/sw/lib/pkgconfig:/sw/share/pkgconfig"
 PKG_CONFIG_PATH_MATH="/public/lib/pkgconfig:/public/share/pkgconfig"
@@ -85,7 +85,6 @@ export EC2_PRIVATE_KEY=${HOME}/.hadoop-ec2/certs/pk.pem
 export EC2_CERT=${HOME}/.hadoop-ec2/certs/cert.pem
 export EC2_HOME=/usr/local/share/ec2-api-tools
 
-append_path PATH $EC2_HOME/bin
 if   [ "$MACHINE" == "OSX" ] ; then
   export JAVA_HOME=${JAVA_HOME-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home}
   export EC2_AMITOOL_HOME=/usr/local/share/ec2-ami-tools
@@ -98,6 +97,9 @@ elif [ "$MACHINE" == "Linux" ] ; then
   # On linux, it's installed via apt, so lives in /usr/bin/...
   export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
 fi
+append_path PATH $EC2_HOME/bin
+append_path PATH $EC2_AMITOOL_HOME/bin
+append_path PATH $JAVA_HOME/bin
 
 # Location of EC2 keys.
 export EC2_KEYPAIR_DIR=`dirname "$EC2_PRIVATE_KEY"`
