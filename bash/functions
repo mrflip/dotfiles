@@ -40,7 +40,7 @@ fi
 
 function histgrep()
 {
-    egrep -hi "$@" ~/.history-bash/*
+    egrep -hi "$@" ~/.history-bash/2010*
 }
 alias hs=histgrep
 
@@ -88,10 +88,20 @@ function bind_showfuncs()
 
 function status() { st=$? ; echo $st ; perl -e "exit($st)" ;  }
 
-function svn() {
-    if [[ $1 == 'status' ]] ; then
-        `which svn` --ignore-externals "$@"
-    else
-        `which svn` "$@"
-    fi
+# function svn() {
+#     if [[ "$1" == 'status' ]] ; then
+#         `which svn` --ignore-externals "$@"
+#     else
+#         `which svn` "$@"
+#     fi
+# }
+
+function sshkp() {
+  _host=$1                   ; shift          
+  _keypair=${keypair-gibbon} 
+  _as_user=${as_user-ubuntu}
+  echo $_host $_keypair $_as_user "$@"
+  if [[ "$_host" == "" ]] ; then echo "which host?" 
+  else ssh -i ~/.hadoop-ec2/keypairs/${_keypair}.pem ${_as_user}@${_host} "$@" ; fi
+  unset _host _as_user _keypair
 }
