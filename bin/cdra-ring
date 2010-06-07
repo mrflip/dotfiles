@@ -1,0 +1,2 @@
+node=${1-127.0.0.1}
+/usr/local/share/cassandra/bin/nodetool -h $node -p 12345 ring | ruby -ne '$_.chomp! ;ip=$_.slice!(0,14); status=$_.slice!(0,11) ; load = $_.slice!(0,14); size,mult=load.strip.split(" ",2); sz = size.to_f * (mult=="GB" ? 1024 : 1) ; puts [ip, status, "%9.2f"%sz, "MB", $_].join("\t")' 
