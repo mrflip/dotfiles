@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-
-  set   +o history        ###### History ########################################
+  
+  # ###### History ########################################
+  set   +o history
   export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
   export HISTCONTROL=ignoreboth
   if [[ ! -f $HISTFILE ]]; then
@@ -11,28 +12,28 @@
         echo "####### `date +%Y-%W-%w` : `date` #######" >> $HISTFILE
     fi
   fi
-  history -n $HISTFILE
-  set    -o history
   export HISTSIZE=10000
+  history  -n $HISTFILE
+  set    -o history
   unset  HISTFILESIZE
   export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
   alias  histup='history -a $HISTFILE'
   export histchars=""
-
+  
   ####################### Shell Stuff ##############################
-
+  
   umask 022 					# readable by all / writeable only by me
   ulimit -S -c 0				# Turn off core dumps
   # ulimit -S -n 2048				# cure problems with too few file handles.  max is 10240
-
+  
   # Bash Config
   shopt -s cmdhist histappend histverify 
   shopt -s checkwinsize cdspell 
   shopt -s nocaseglob                             # good for non-case-sensitive os
   set   -o ignoreeof 				# don't log out if I hit ^-D
-
+  
   ###### I18n ###########################################
-
+  
   export FIGNORE="~"
   export BASH_ENV=$HOME/.bashrc
   export LANG=en_US.UTF-8
@@ -48,7 +49,7 @@
   export LC_TELEPHONE="en_US.UTF-8"
   export LC_MEASUREMENT="en_US.UTF-8"
   export LC_IDENTIFICATION="en_US.UTF-8"
-
+  
   # Set the command line editor to emacs.
   set -o emacs
   export FCEDIT=emacs

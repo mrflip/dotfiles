@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if    uname -a | egrep 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
+if    uname -a | egrep -q 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
-elif uname -a | egrep '^Linux' > /dev/null 2>&1 ; then
+elif uname -a | egrep -q '^Linux' > /dev/null 2>&1 ; then
   # grep -i ubuntu /etc/issue 
   export MACHINE=LINUX
 fi
@@ -34,8 +34,8 @@ export MPTH_LOCL=/usr/local/man
 export CORE_PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/X11/bin:/usr/X11R6/bin
 export OSX_PATH=/Applications/MAMP/Library/bin:/usr/local/git/bin
 export OSX_MPTH=/sw/share/man:/Applications/MAMP/Library/man
-export LINUX_PATH=/public/bin
-export LINUX_MPTH=/public/man:/opt/local/man
+export LINUX_PATH=''
+export LINUX_MPTH=''
 
 export PATH
 export MANPATH=${MANPATH-/usr/local/man}
@@ -44,7 +44,7 @@ if   [ "$MACHINE" == "OSX" ] ; then
   append_path  PATH    $OSX_PATH ;
   append_path  MANPATH $OSX_MPTH ;
   prepend_path PATH    /sw/bin   ;
-elif [ "$MACHINE" == "Linux" ] ; then
+elif [ "$MACHINE" == "LINUX" ] ; then
   append_path PATH    $LINUX_PATH ;
   append_path MANPATH $LINUX_MPTH ;
 fi
@@ -92,11 +92,12 @@ if   [ "$MACHINE" == "OSX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/local/share/hadoop}
   export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
   append_path PATH $EC2_AMITOOL_HOME/bin
-elif [ "$MACHINE" == "Linux" ] ; then
+elif [ "$MACHINE" == "LINUX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
   # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
   # On linux, it's installed via apt, so lives in /usr/bin/...
   export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
+  export PIG_CLASSPATH=/etc/hadoop/conf
 fi
 
 # Location of EC2 keys.
