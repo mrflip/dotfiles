@@ -2,6 +2,8 @@
 
 if    uname -a | egrep -q 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
+elif    uname -a | egrep 'Darwin.*10\.[0-9]' > /dev/null 2>&1 ; then
+  export MACHINE=OSX
 elif uname -a | egrep -q '^Linux' > /dev/null 2>&1 ; then
   # grep -i ubuntu /etc/issue 
   export MACHINE=LINUX
@@ -49,7 +51,7 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   append_path MANPATH $LINUX_MPTH ;
 fi
 prepend_path MANPATH $MPTH_LOCL
-prepend_path PATH    $PATH_HOME
+PATH=$PATH_HOME:$PATH
 
 PKG_CONFIG_PATH_OSX="/sw/lib/pkgconfig:/sw/share/pkgconfig"
 PKG_CONFIG_PATH_MATH="/public/lib/pkgconfig:/public/share/pkgconfig"
@@ -81,11 +83,10 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 
 export AWS_ACCOUNT_ID='484232731444'
 export AWS_ACCESS_KEY_ID=02S6Y1EFA7ZZ7KCZH3G2
-export EC2_PRIVATE_KEY=${HOME}/.hadoop-ec2/pk.pem
-export EC2_CERT=${HOME}/.hadoop-ec2/cert.pem
+export EC2_PRIVATE_KEY=${HOME}/.hadoop-ec2/certs/pk.pem
+export EC2_CERT=${HOME}/.hadoop-ec2/certs/cert.pem
 export EC2_HOME=/usr/local/share/ec2-api-tools
 
-append_path PATH $EC2_HOME/bin
 if   [ "$MACHINE" == "OSX" ] ; then
   export JAVA_HOME=${JAVA_HOME-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home}
   export EC2_AMITOOL_HOME=/usr/local/share/ec2-ami-tools
@@ -99,10 +100,13 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
   export PIG_CLASSPATH=/etc/hadoop/conf
 fi
+append_path PATH $EC2_HOME/bin
+append_path PATH $EC2_AMITOOL_HOME/bin
+append_path PATH $JAVA_HOME/bin
 
 # Location of EC2 keys.
 export EC2_KEYPAIR_DIR=`dirname "$EC2_PRIVATE_KEY"`
 export EC2_KEYPAIR_NAME=gibbon
-export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
+export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/keypairs/${EC2_KEYPAIR_NAME}.pem"
 export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
 export SSH_OPTS=$EC2_SSH_OPTIONS  

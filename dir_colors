@@ -42,6 +42,7 @@ TERM con80x60
 TERM xterm
 TERM rxvt
 TERM vt100
+TERM xterm-color
 
 # EIGHTBIT, followed by '1' for on, '0' for off. (8-bit output)
 EIGHTBIT 1
