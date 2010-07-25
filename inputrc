@@ -40,33 +40,33 @@ set history-preserve-point 	on
 
 
 # Fix some keyboard issues
-"\e[2~":	paste-from-clipboard		#  Insert
-"\C-v":		paste-from-clipboard		#  Ctrl-V
+"\e[2~":	paste-from-clipboard	
+"\C-v":		paste-from-clipboard	
 
-# "\e[5~":	"\M-5\C-p"			#  Pg Up
-# "\e[6~":	"\M-5\C-n"			#  Pg Down
-# "\e[7~":	"\C-a"				#  Home
-# "\e[8~":	"\C-e"				#  End
-# "\eOc":	"\M-f"				#  Ctrl-Right
-# "\eOd":	"\M-b"				#  Ctrl-Left
+# "\e[5~":	"\M-5\C-p"		
+# "\e[6~":	"\M-5\C-n"		
+# "\e[7~":	"\C-a"			
+# "\e[8~":	"\C-e"			
+# "\eOc":	"\M-f"			
+# "\eOd":	"\M-b"			
 
-"\eOc":		forward-word 			#  Ctrl-Right
-"\eOd":		backward-word			#  Ctrl-Left
-"\e[C":		forward-char			#* Option-Left 
-"\e[D":		backward-char			#* Option-Right
-"\e[1;5C":	forward-word			#* Option-Left 
-"\e[1;5D":	backward-word			#* Option-Right
-"\e[3~":	delete-char			#  Delete
-"\e[4~":	end-of-line			#  End
-"\e[7~":	beginning-of-line		#* Home
-"\e[8~":	end-of-line			#* End
+"\eOc":		forward-word 		
+"\eOd":		backward-word		
+"\e[C":		forward-char		
+"\e[D":		backward-char		
+"\e[1;5C":	forward-word		
+"\e[1;5D":	backward-word		
+"\e[3~":	delete-char		
+"\e[4~":	end-of-line		
+"\e[7~":	beginning-of-line	
+"\e[8~":	end-of-line		
 
 "\M-k":		kill-whole-line 
 
 "\C-w":		kill-region
 "\M-w":		copy-region-as-kill
 
-"\C-z":		undo				# this won't work from shell, use C-S-_
+"\C-z":		undo			
 "\C-q":		quoted-insert
 
 # Search history for command on current line
@@ -85,8 +85,8 @@ $if bash
 
   "\C-x\C-s":	"\M-k\C-lhistsave\C-j\C-y"
   "\C-xs":	"\M-k\C-lhistsave\C-j\C-y"
-  "\C-@":	set-mark			# This probably won't work in xterms -- they think C-space and C-@ are NULL and eat'em
-  "\M-space":	set-mark			# xterm translates C-sp to M-sp
+  "\C-@":	set-mark		
+  "\M-space":	set-mark		
   "\C-`":	set-mark
 
   "\C-xff":	"for foo in  ; do echo $foo ; ; done "
