@@ -11,14 +11,14 @@ $stderr.puts "Placing new history files in #{TMP_DIR}..."
 lines = Set.new
 
 Dir[HIST_DIR+'/*'].sort.each do |hist_file|
-  file_lines = 0
+  uniq_lines = 0 ; total_lines = 0
   File.open(File.join(TMP_DIR, File.basename(hist_file)), 'w') do |out_file|
     File.open(hist_file).each do |line|
-      next if lines.include?(line)
+      total_lines += 1
+      next if lines.include?(line) ; uniq_lines += 1
       lines    << line
       out_file << line
-      file_lines += 1
     end
   end
-  $stderr.puts "  #{file_lines}\t#{hist_file}"
+  $stderr.puts "  #{uniq_lines}\t#{total_lines}\t#{hist_file}"
 end
