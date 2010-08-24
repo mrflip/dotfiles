@@ -103,6 +103,7 @@ $if bash
   "\C-xgs":	"git status"
   "\C-xgu":	"git submodule update "
   "\C-xgw":	"git checkout working"
+  "\C-xtt":     "ctags-exuberant -e --language-force=ruby  `find . -iname '*rb' | egrep -v ./'(vendor|test)'/`"
   
 $endif
 
