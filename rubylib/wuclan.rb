@@ -1,1 +1,1 @@
-../../ics/wuclan2/lib/wuclan.rb
+../../ics/wuclan/lib/wuclan.rb
