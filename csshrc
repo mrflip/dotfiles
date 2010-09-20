@@ -1,0 +1,8 @@
+clusters    = scrapers magilla clyde
+
+scrapers    = s[0-7].infinitemonkeys.info kong.infinitemonkeys.info lance.infinitemonkeys.info
+magilla     = ec2-184-72-222-35.compute-1.amazonaws.com ec2-184-72-183-61.compute-1.amazonaws.com ec2-184-72-173-189.compute-1.amazonaws.com ec2-184-72-180-109.compute-1.amazonaws.com ec2-75-101-168-89.compute-1.amazonaws.com ec2-184-73-54-143.compute-1.amazonaws.com ec2-184-72-155-167.compute-1.amazonaws.com ec2-184-72-145-190.compute-1.amazonaws.com
+clyde       = ec2-184-73-56-134.compute-1.amazonaws.com ec2-184-73-66-182.compute-1.amazonaws.com ec2-184-73-41-216.compute-1.amazonaws.com ec2-67-202-32-128.compute-1.amazonaws.com
+
+space       = 2
+session_max = 10
