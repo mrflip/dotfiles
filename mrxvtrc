@@ -76,7 +76,8 @@ Mrxvt.shading:			75
 # ---------------------------------- FONTS ----------------------------------- #
 #
 Mrxvt.xft:			1
-Mrxvt.xftFont:  		Bitstream Vera Sans Mono
+# Mrxvt.xftFont:  		Bitstream Vera Sans Mono
+Mrxvt.xftFont:  		Menlo
 Mrxvt.xftSize:			11
 Mrxvt.xftAntialias:		1
 Mrxvt.xftBoldWeight:		semibold 
