@@ -18,10 +18,12 @@
 stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
 # stty erase  
 
+export NODENAME=${NODENAME-`cat /etc/nodename 2>/dev/null | /bin/hostname -s`}
+
 ############################## Set Prompt  ##############################
-export PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
-export  PR_BLACK='\[\033[0;36m\]'$HOSTNAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
-export  PR_WHITE='\[\033[1;30m\]'$HOSTNAME' \[\033[0;34m\]\w\[\033[0;30m\] '
+export  PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
+export  PR_BLACK='\[\033[0;36m\]'$NODENAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
+export  PR_WHITE='\[\033[1;30m\]'$NODENAME' \[\033[0;34m\]\w\[\033[0;30m\] '
 export PR_BLACK2='\[\033[0;43m\]cont... \033[0;37;40m\]> '
 export PR_WHITE2='\[\033[1;31m\]cont... \033[0;30;47m\]> '
 
