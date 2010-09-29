@@ -18,7 +18,7 @@
 stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
 # stty erase  
 
-export NODENAME=${NODENAME-`cat /etc/nodename 2>/dev/null | /bin/hostname -s`}
+export NODENAME=${NODENAME-`cat /etc/node_name 2>/dev/null | /bin/hostname -s`}
 
 ############################## Set Prompt  ##############################
 export  PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
