@@ -21,7 +21,7 @@ stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
 export NODENAME=${NODENAME-`cat /etc/node_name 2>/dev/null || /bin/hostname -s`}
 
 ############################## Set Prompt  ##############################
-export  PR_TITLE='\[\033]0;\h:\w $(parse_git_branch)\007\]'
+export  PR_TITLE='\[\033]0;'$NODENAME':\w $(parse_git_branch)\007\]'
 export  PR_BLACK='\[\033[0;36m\]'$NODENAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
 export  PR_WHITE='\[\033[1;30m\]'$NODENAME' \[\033[0;34m\]\w\[\033[0;30m\] '
 export PR_BLACK2='\[\033[0;43m\]cont... \033[0;37;40m\]> '
@@ -32,7 +32,7 @@ function parse_git_branch {
 }
 
 if [ "$0" = "sh" ] ; then
-  PS1="$HOSTNAME (sh) $ "
+  PS1="$NODENAME (sh) $ "
   PS2="cont... > "
 else
   case ${TERM-NONE} in
