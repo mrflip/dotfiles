@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#
+# Remounts drives with noatime enforced.
+#
+# sudo cp ~/bin/plists/com.mrflip.noatime.plist /Library/LaunchDaemons -->
+# sudo cp ~/bin/plists/remount_noatime          /usr/local/bin         -->
+#
+
+/sbin/mount -uwo noatime /
+/sbin/mount -uwo noatime /Volumes/Baracas       
+/sbin/mount -uwo noatime /Volumes/Murdock       
+/sbin/mount -uwo noatime /Volumes/SledgeHammer  
+/sbin/mount -uwo noatime /Volumes/Drobo         
+/sbin/mount -uwo noatime /Volumes/Music         
