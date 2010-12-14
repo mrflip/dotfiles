@@ -1,3 +1,6 @@
 [submodule "emacs.d"]
 	path = emacs.d
 	url = git://github.com/mrflip/emacs-starter-kit.git
+[submodule "bin/cmd-key-happy.git"]
+	path = bin/cmd-key-happy.git
+	url = http://github.com/aim-stuff/cmd-key-happy.git
