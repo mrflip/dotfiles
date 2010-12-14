@@ -1,0 +1,3 @@
+cp misc/com.mrflip.noatime.plist /Library/LaunchDaemons
+sudo chown root:wheel /Library/LaunchDaemons/com.mrflip.noatime.plist
+# then restart. Running `mount` should show the noatime state

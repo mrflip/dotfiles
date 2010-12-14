@@ -40,7 +40,7 @@ fi
 
 function histgrep()
 {
-    egrep -hi -- "$@" ~/.history-bash/*
+    egrep -hi -- "$@" ~/.history-bash/* | ruby -rset -e 'lines=Set.new; $stdin.each{|l| next if lines.include?(l.hash) ; puts l ; lines << l.hash}'
 }
 alias hs=histgrep
 
