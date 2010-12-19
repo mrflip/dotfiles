@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require "digest/md5"
+
+fdigs = Hash.new{|h,k| h[k] = [] }
+
+Dir['**/*'].each do |f|
+  next unless File.file?(f)
+  contents = File.read(f) rescue nil
+  dig      = Digest::MD5.hexdigest(contents) rescue "!!!"
+  fdigs[dig] << f
+end
+
+fdigs.reject!{|dig,fns| fns.length < 2 }
+
+fdigs.sort_by{|dig, fns| File.basename(fns.first) }.each do |dig, fns|
+  fns.each do |f|
+    puts "%s\t%-95s\t%-95s"%[dig, File.basename(f)[0 .. 94], f[0 .. 94]]
+  end
+  puts "--"
+end
