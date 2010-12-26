@@ -1,9 +1,20 @@
-clusters    = scrapers magilla clyde
+clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop
+
+# knife search node cluster_name:bonobo -a cloud | egrep -A1 public_ip
 
 scrapers    = s[0-7].infinitemonkeys.info kong.infinitemonkeys.info lance.infinitemonkeys.info
-magilla     = ec2-184-72-222-35.compute-1.amazonaws.com ec2-184-72-183-61.compute-1.amazonaws.com ec2-184-72-173-189.compute-1.amazonaws.com ec2-184-72-180-109.compute-1.amazonaws.com ec2-75-101-168-89.compute-1.amazonaws.com ec2-184-73-54-143.compute-1.amazonaws.com ec2-184-72-155-167.compute-1.amazonaws.com ec2-184-72-145-190.compute-1.amazonaws.com
+magilla     = 184.73.54.177 184.73.76.102 50.16.36.132 174.129.46.239 50.16.12.79 184.73.123.26 184.73.76.118 50.16.46.133
 clyde       = ec2-184-73-56-134.compute-1.amazonaws.com ec2-184-73-66-182.compute-1.amazonaws.com ec2-184-73-41-216.compute-1.amazonaws.com ec2-67-202-32-128.compute-1.amazonaws.com
+bigsheets   = 174.129.102.247 184.73.103.239 184.73.104.71 184.73.174.3 184.73.56.140 184.73.8.155
+bonobo      = bonobo.infinitemonkeys.info
+gibbon      = gibbon.infinitemonkeys.info
 
+hoolock      = 184.73.41.228 184.73.3.171 184.73.47.173 67.202.2.135 50.16.87.57 67.202.58.153 184.73.54.74 184.73.2.210 50.16.106.15 184.72.75.196 72.44.58.128 204.236.212.109
+hoolock_doop = 184.72.85.1 174.129.158.47 174.129.113.16 184.72.79.172 174.129.93.173 184.72.151.231 75.101.255.170 hoolock.infinitemonkeys.info
 
 space       = 2
-session_max = 10
+session_max = 12
+
+
+# 184.72.85.1 174.129.158.47 174.129.113.16 184.72.79.172 174.129.93.173 184.72.151.231 75.101.255.170
+# 50.16.55.231 184.72.138.238 50.16.68.72 50.16.57.2 67.202.40.156 204.236.197.209 184.72.76.202 174.129.170.75 184.72.204.112

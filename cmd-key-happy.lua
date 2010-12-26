@@ -11,7 +11,7 @@ end
 -- The set of global shortcuts we don't want to swap cmd/alt.
 
 global_excludes = Set{ "shift-cmd-tab",
-		       "cmd-tab", "cmd-space" }
+		       "cmd-tab" }
 
 -- The set of apps we want to consider swapping keys for, with some
 -- notable exclusions. The exclusion means that a "cmd-w" will do the
@@ -19,38 +19,25 @@ global_excludes = Set{ "shift-cmd-tab",
 -- have to use "alt-w" to close a terminal window.
 
 apps = {
-   Terminal = { exclude = Set{ "shift-cmd-[",
-                               "shift-cmd-]",
-                               "shift-cmd-left",
-                               "shift-cmd-right",
-                               "cmd-c",
-                               "cmd-v",
-                               "cmd-t",
-                               "cmd-h",
-                               "cmd-n",
-                               "cmd-`",
-                               "cmd-,",
-                               "cmd- ",
+   Terminal = { exclude = Set{
+                                "cmd-`",
+                                "cmd-,",
+                                "shift-cmd-[",
+                                "shift-cmd-]",
+                                "cmd-c",
+                                "cmd-v",
+                                "cmd-h",
+                                "cmd-n",
+                             -- "cmd-t",
+                             -- "cmd-w",
+                                "cmd-1",
+                                "cmd-2",
+                                "cmd-3",
+                                "cmd-space",
+  				"shift-cmd-right",
+				"shift-cmd-left",
 			 } },
 }
-
--- 
---    "cmd-w",	
---       "cmd-1",
---       "cmd-2",
---       "cmd-3",
--- 
--- Eclipse  = { exclude = {} },
--- Xcode    = { exclude = {} },
--- TextMate = { exclude = Set { "cmd-1",
--- 	"cmd-2",
--- 	"cmd-3",
--- 	"cmd-4",
--- 	"cmd-t" ,
--- 	"cmd-fn-right",
--- 	"cmd-fn-left",
---   } },
--- 
 
 -- Return true to swap cmd/alt, otherwise false.
 
