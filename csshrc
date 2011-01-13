@@ -1,4 +1,4 @@
-clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop hoolock_b bobo microchimp
+clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop hoolock_b hoolock_c bobo microchimp
 
 # knife search node cluster_name:bonobo -a cloud | egrep -A1 public_ip
 
@@ -13,6 +13,10 @@ microchimp   = ec2-50-16-34-36.compute-1.amazonaws.com ec2-204-236-205-29.comput
 
 hoolock      = 174.129.95.10 184.72.130.238 184.72.133.157 50.16.105.246 67.202.45.11 50.16.106.159 50.16.21.172 72.44.58.128 204.236.198.96 67.202.14.51 184.72.72.250 184.73.21.248
 hoolock_b    = 184.73.77.226 50.16.104.39 75.101.202.228 184.72.131.60
+
+hoolock_c    = 75.101.184.196 50.16.12.5 67.202.15.124 50.16.5.40
+
+
 hoolock_doop = hoolock.infinitemonkeys.info 
 # 184.72.137.56
 
