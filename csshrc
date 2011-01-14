@@ -1,4 +1,4 @@
-clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop hoolock_b hoolock_c bobo microchimp
+clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop hoolock_b hoolock_c bobo microchimp ham
 
 # knife search node cluster_name:bonobo -a cloud | egrep -A1 public_ip
 
@@ -11,14 +11,12 @@ gibbon      = gibbon.infinitemonkeys.info
 
 microchimp   = ec2-50-16-34-36.compute-1.amazonaws.com ec2-204-236-205-29.compute-1.amazonaws.com ec2-72-44-40-207.compute-1.amazonaws.com ec2-50-16-10-57.compute-1.amazonaws.com
 
-hoolock      = 174.129.95.10 184.72.130.238 184.72.133.157 50.16.105.246 67.202.45.11 50.16.106.159 50.16.21.172 72.44.58.128 204.236.198.96 67.202.14.51 184.72.72.250 184.73.21.248
-hoolock_b    = 184.73.77.226 50.16.104.39 75.101.202.228 184.72.131.60
-
-hoolock_c    = 75.101.184.196 50.16.12.5 67.202.15.124 50.16.5.40
-
-
+hoolock      = 174.129.95.10 184.72.130.238 184.72.133.157 50.16.105.246 67.202.45.11 50.16.106.159 50.16.21.172 72.44.58.128 204.236.198.96 67.202.14.51
+hoolock_b    = 184.72.72.250 184.73.21.248 184.73.77.226 50.16.104.39 75.101.202.228 184.72.131.60
+hoolock_c    = 50.16.12.5 75.101.184.196 67.202.15.124 50.16.5.40 50.16.47.219 184.73.32.52 
 hoolock_doop = hoolock.infinitemonkeys.info 
-# 184.72.137.56
+
+ham = 184.73.203.79 50.16.113.241 67.202.62.163
 
 bobo         = 50.16.83.230 50.16.105.220 184.72.65.255 75.101.212.83
 
@@ -47,3 +45,7 @@ session_max = 12
 # hoolock-slave-2       	10.116.178.118	ip-10-116-178-118.ec2.internal	2  	10.116.178.118	50.16.116.64  	20110104173214Z
 # hoolock-slave-1       	10.116.169.28 	ip-10-116-169-28.ec2.internal 	1  	10.116.169.28 	50.16.141.83  	20110104173151Z
 # hoolock-slave-0       	10.196.242.79 	ip-10-196-242-79.ec2.internal 	0  	10.196.242.79 	50.16.105.170 	20110104173139Z
+
+# ham-regionserver-0	10.116.67.5	ip-10-116-67-5.ec2.internal	0  	10.116.67.5	50.16.113.241	20110113182315Z
+# ham-regionserver-1	10.242.47.0	ip-10-242-47-0.ec2.internal	1  	10.242.47.0	67.202.62.163	20110113182325Z
+
