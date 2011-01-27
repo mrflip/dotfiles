@@ -34,6 +34,7 @@ apps = {
                                 "cmd-2",
                                 "cmd-3",
                                 "cmd-space",
+                                "cmd-backspace",
   				"shift-cmd-right",
 				"shift-cmd-left",
 			 } },
