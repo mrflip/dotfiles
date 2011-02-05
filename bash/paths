@@ -97,7 +97,11 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
   # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
   # On linux, it's installed via apt, so lives in /usr/bin/...
-  export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
+  if [ -e /usr/lib/jvm/java-6-sun/bin/java ] ; then
+    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun}
+  else
+    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
+  fi
   export PIG_CLASSPATH=/etc/hadoop/conf
 fi
 append_path PATH $EC2_HOME/bin

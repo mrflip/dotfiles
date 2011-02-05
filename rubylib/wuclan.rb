@@ -1,1 +1,0 @@
-../../ics/wuclan/lib/wuclan.rb
