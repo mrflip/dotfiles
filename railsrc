@@ -1,9 +1,7 @@
 #!/usr/bin/ruby
 
-begin
-  require 'hirb' # sudo gem install cldwalker-hirb --source http://gems.github.com
+safely_require 'hirb' do
   Hirb.enable
-rescue LoadError
 end
 
 def change_log(stream)

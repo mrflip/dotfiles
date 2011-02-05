@@ -9,14 +9,30 @@ IRB.conf[:PROMPT_MODE]  = :DEFAULT
 IRB.conf[:AUTO_INDENT]   = true
 IRB.conf[:IGNORE_SIGINT] = true
 
-%w[rubygems looksee/shortcuts wirble].each do |gem|
-  begin ; require gem  ;  rescue LoadError ; end
+def safely_require gem, &block
+  begin
+    require gem
+    block.call if block
+  rescue LoadError => e ; puts e ; end
 end
 
-# , :textmate
-[:historian, :method_finder, :output_helpers, :rails_console_helpers].each do |irbrc_file|
-  begin ; require ENV['HOME'] + "/.irbrc.d/#{irbrc_file}.rb" ; rescue LoadError ; end
+def railsness
+  case
+  when ENV['RAILS_ENV']             then true
+  when defined?(Rails) && Rails.env then true
+  else false end
 end
-IRB.conf[:PROMPT_MODE] = :SIMPLE
 
-load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV']
+%w[rubygems looksee/shortcuts ap].each do |gem|
+  safely_require gem
+end
+
+safely_require 'wirble' do
+  Wirble.init
+  Wirble.colorize
+end
+
+[:method_finder].each do |irb_helper|
+  safely_require ENV['HOME']+"/.irbrc.d/#{irb_helper}.rb"
+end
+load File.dirname(__FILE__)+'/.railsrc' if railsness && File.exists?(File.dirname(__FILE__)+'/.railsrc')
