@@ -4,7 +4,7 @@
 ####################### System  ################################
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 source ~/.bash/paths
-source ~/.noyuo/host_nicknames
+if [ -f ~/.noyuo/host_nicknames ]; then source ~/.noyuo/host_nicknames ; fi
 
 ####################### Interactive Term Stuff ######################
 
@@ -15,3 +15,5 @@ fi
 if [ -f ~/.localrc ]; then
   source ~/.localrc
 fi
+
+source ~/.bash/rvm
