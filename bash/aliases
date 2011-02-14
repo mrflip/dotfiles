@@ -4,9 +4,14 @@
 unalias -a
 
 # Fix my ls options
-eval `dircolors -b ~/.dir_colors`           # -b for bash
-export LS_OPTIONS=" -CF -SX -b -T 0"
-if [ "$TERM" == "dumb" ] ; then LS_OPTIONS=" --color=none $LS_OPTIONS" ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
+if [ -z `which dircolors` ] ; then false ; else
+  eval `dircolors -b ~/.dir_colors`           # -b for bash
+fi 
+export LS_OPTIONS=" -CF "
+if `ls --help | grep -q gnu` ; then
+  LS_OPTIONS="$LS_OPTIONS -SX -b -T 0"
+  if [ "$TERM" == "dumb" ] ; then false ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
+fi
 alias ls='ls $LS_OPTIONS'
 
 # Fix my less options

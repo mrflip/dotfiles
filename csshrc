@@ -1,4 +1,4 @@
-clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock hoolock_doop hoolock_b hoolock_c bobo microchimp ham
+clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock yellowhat microchimp ham
 
 # knife search node cluster_name:bonobo -a cloud | egrep -A1 public_ip
 
@@ -16,13 +16,15 @@ hoolock_b    = 184.72.72.250 184.73.21.248 184.73.77.226 50.16.104.39 75.101.202
 hoolock_c    = 50.16.12.5 75.101.184.196 67.202.15.124 50.16.5.40 50.16.47.219 184.73.32.52 
 hoolock_doop = hoolock.infinitemonkeys.info 
 
-ham          = 184.73.203.79 50.16.113.241 67.202.62.163 50.16.60.172 184.72.215.241 174.129.103.82
+ham          = 184.73.203.79 184.73.142.14 184.73.143.65 67.202.33.9 184.73.140.40 204.236.195.68 50.16.141.31 184.73.139.237 50.16.32.71 50.16.149.24 50.16.66.215 184.72.153.103 67.202.2.39 184.73.56.117 50.16.150.154 184.73.0.145
 
-
-bobo         = 50.16.83.230 50.16.105.220 184.72.65.255 75.101.212.83
+yellowhat    = ec2-184-73-143-32.compute-1.amazonaws.com ec2-50-16-176-20.compute-1.amazonaws.com ec2-50-17-16-94.compute-1.amazonaws.com
 
 space       = 2
 session_max = 12
+
+
+
 
 
 # hoolock-data_esnode-0 	10.117.9.178  	ip-10-117-9-178.ec2.internal  	0  	10.117.9.178  	174.129.95.10 	20101222144913Z
