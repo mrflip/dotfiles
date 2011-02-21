@@ -1,57 +1,19 @@
-clusters    = scrapers magilla clyde bigsheets bonobo gibbon hoolock yellowhat microchimp ham
+clusters    = scrapers clyde magilla bonobo gibbon microchimp hoolock ham yellowhat
 
 # knife search node cluster_name:bonobo -a cloud | egrep -A1 public_ip
 
 scrapers    = s[0-7].infinitemonkeys.info kong.infinitemonkeys.info lance.infinitemonkeys.info
-magilla     = 184.73.54.177 184.73.76.102 50.16.36.132 174.129.46.239 50.16.12.79 184.73.123.26 184.73.76.118 50.16.46.133
-clyde       = ec2-184-73-56-134.compute-1.amazonaws.com ec2-184-73-66-182.compute-1.amazonaws.com ec2-184-73-41-216.compute-1.amazonaws.com ec2-67-202-32-128.compute-1.amazonaws.com
-bigsheets   = 174.129.102.247 184.73.103.239 184.73.104.71 184.73.174.3 184.73.56.140 184.73.8.155
+clyde       = 184.73.56.134 184.73.66.182 184.73.41.216 67.202.32.128
+# magilla     = 
 bonobo      = bonobo.infinitemonkeys.info
 gibbon      = gibbon.infinitemonkeys.info
 
-microchimp   = ec2-50-16-34-36.compute-1.amazonaws.com ec2-204-236-205-29.compute-1.amazonaws.com ec2-72-44-40-207.compute-1.amazonaws.com ec2-50-16-10-57.compute-1.amazonaws.com
+microchimp   = 50.16.34.36 204.236.205.29 72.44.40.207 50.16.10.57
 
-hoolock      = 174.129.95.10 184.72.130.238 184.72.133.157 50.16.105.246 67.202.45.11 50.16.106.159 50.16.21.172 72.44.58.128 204.236.198.96 67.202.14.51
-hoolock_b    = 184.72.72.250 184.73.21.248 184.73.77.226 50.16.104.39 75.101.202.228 184.72.131.60
-hoolock_c    = 50.16.12.5 75.101.184.196 67.202.15.124 50.16.5.40 50.16.47.219 184.73.32.52 
-hoolock_doop = hoolock.infinitemonkeys.info 
-
-ham          = 184.73.203.79 184.73.142.14 184.73.143.65 67.202.33.9 184.73.140.40 204.236.195.68 50.16.141.31 184.73.139.237 50.16.32.71 50.16.149.24 50.16.66.215 184.72.153.103 67.202.2.39 184.73.56.117 50.16.150.154 184.73.0.145
-
-yellowhat    = ec2-184-73-143-32.compute-1.amazonaws.com ec2-50-16-176-20.compute-1.amazonaws.com ec2-50-17-16-94.compute-1.amazonaws.com
+hoolock      = 184.72.218.180 184.73.205.98 67.202.15.124 50.16.5.40 50.16.47.219 184.73.32.52 50.16.139.161 67.202.4.154
+ham          = 184.73.203.79 184.73.142.14 184.73.56.117 204.236.195.68 50.16.66.215 50.16.141.31 50.16.149.24 67.202.2.39 184.72.153.103 184.73.139.237 50.16.32.71 50.16.150.154 184.73.0.145 67.202.33.9 184.73.140.40 184.73.143.65
+yellowhat    = 184.73.143.32 50.16.176.20 50.17.16.94
 
 space       = 2
-session_max = 12
-
-
-
-
-
-# hoolock-data_esnode-0 	10.117.9.178  	ip-10-117-9-178.ec2.internal  	0  	10.117.9.178  	174.129.95.10 	20101222144913Z
-# hoolock-data_esnode-1 	10.117.23.150 	ip-10-117-23-150.ec2.internal 	1  	10.117.23.150 	184.72.130.238	20101222144916Z
-# hoolock-data_esnode-2 	10.117.31.211 	ip-10-117-31-211.ec2.internal 	2  	10.117.31.211 	184.72.137.56 	20101222144932Z
-# hoolock-data_esnode-3 	10.117.15.112 	ip-10-117-15-112.ec2.internal 	3  	10.117.15.112 	50.16.105.246 	20101222144938Z
-# hoolock-data_esnode-4 	10.102.23.141 	ip-10-102-23-141.ec2.internal 	4  	10.102.23.141 	67.202.45.11  	20101222150652Z
-# hoolock-data_esnode-5 	10.117.15.74  	ip-10-117-15-74.ec2.internal  	5  	10.117.15.74  	50.16.106.159 	20101222150700Z
-# hoolock-data_esnode-6 	10.117.11.133 	ip-10-117-11-133.ec2.internal 	6  	10.117.11.133 	50.16.21.172  	20101222150703Z
-# hoolock-data_esnode-7 	10.113.1.107  	ip-10-113-1-107.ec2.internal  	7  	10.113.1.107  	72.44.58.128  	20101222150706Z
-# hoolock-data_esnode-8 	10.116.253.169	ip-10-116-253-169.ec2.internal	8  	10.116.253.169	204.236.198.96	20101222150715Z
-# hoolock-data_esnode-9 	10.117.5.128  	ip-10-117-5-128.ec2.internal  	9  	10.117.5.128  	67.202.14.51  	20101222150717Z
-# hoolock-data_esnode-10	10.116.254.230	ip-10-116-254-230.ec2.internal	10 	10.116.254.230	184.72.72.250 	20101222150718Z
-# hoolock-data_esnode-11	10.102.41.43  	ip-10-102-41-43.ec2.internal  	11 	10.102.41.43  	184.73.21.248 	20101222150722Z
-# hoolock-data_esnode-12	10.117.106.47 	ip-10-117-106-47.ec2.internal 	12 	10.117.106.47 	184.73.77.226 	20101222150726Z
-# hoolock-data_esnode-13	10.117.110.126 	ip-10-117-110-126.ec2.internal 	13 	10.117.110.126 	50.16.104.39 	20101222150726Z
-# hoolock-data_esnode-14	10.218.55.169 	ip-10-218-55-169.ec2.internal 	14 	10.218.55.169 	75.101.202.228	20101222150731Z
-# hoolock-data_esnode-15	10.102.41.139 	ip-10-102-41-139.ec2.internal 	15 	10.102.41.139 	184.72.131.60 	20101222174228Z
-
-
-# hoolock-slave-2       	10.116.178.118	ip-10-116-178-118.ec2.internal	2  	10.116.178.118	50.16.116.64  	20110104173214Z
-# hoolock-slave-1       	10.116.169.28 	ip-10-116-169-28.ec2.internal 	1  	10.116.169.28 	50.16.141.83  	20110104173151Z
-# hoolock-slave-0       	10.196.242.79 	ip-10-196-242-79.ec2.internal 	0  	10.196.242.79 	50.16.105.170 	20110104173139Z
-
-# ham-regionserver-0	10.116.67.5  	ip-10-116-67-5.ec2.internal  	0  	10.116.67.5  	50.16.113.241 	20110113182315Z
-# ham-regionserver-1	10.242.47.0  	ip-10-242-47-0.ec2.internal  	1  	10.242.47.0  	67.202.62.163 	20110113182325Z
-# ham-regionserver-2	10.116.109.63	ip-10-116-109-63.ec2.internal	2  	10.116.109.63	50.16.60.172  	20110114223228Z
-# ham-regionserver-3	10.98.71.63  	ip-10-98-71-63.ec2.internal  	3  	10.98.71.63  	184.72.215.241	20110114223245Z
-# ham-regionserver-4	10.244.50.175	ip-10-244-50-175.ec2.internal	4  	10.244.50.175	174.129.103.82	20110114223808Z
+session_max = 16
 
