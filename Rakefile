@@ -46,7 +46,7 @@ def link_from src, dest, replace=false
         replace_file(src, dest)
       when 'd'
         system('diff', '-uw', dest, src)
-        redo
+        link_from src, dest, replace
       when 'y'
         replace_file(src, dest)
       when 'q'
