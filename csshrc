@@ -4,7 +4,7 @@ clusters    = scrapers clyde magilla bonobo gibbon microchimp hoolock ham yellow
 
 scrapers    = s[0-7].infinitemonkeys.info kong.infinitemonkeys.info lance.infinitemonkeys.info
 clyde       = 184.73.56.134 184.73.66.182 184.73.41.216 67.202.32.128
-# magilla     = 
+magilla     = 1.2.3.4
 bonobo      = bonobo.infinitemonkeys.info
 gibbon      = gibbon.infinitemonkeys.info
 
@@ -12,8 +12,9 @@ microchimp   = 50.16.34.36 204.236.205.29 72.44.40.207 50.16.10.57
 
 hoolock      = 184.72.218.180 184.73.205.98 67.202.15.124 50.16.5.40 50.16.47.219 184.73.32.52 50.16.139.161 67.202.4.154
 ham          = 184.73.203.79 184.73.142.14 184.73.56.117 204.236.195.68 50.16.66.215 50.16.141.31 50.16.149.24 67.202.2.39 184.72.153.103 184.73.139.237 50.16.32.71 50.16.150.154 184.73.0.145 67.202.33.9 184.73.140.40 184.73.143.65
-yellowhat    = 184.73.143.32 50.16.176.20 50.17.16.94
+yellowhat    = 50.16.6.128 50.16.106.14 50.16.4.182 50.17.89.109
 
 space       = 2
 session_max = 16
+
 
