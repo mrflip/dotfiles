@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sort -n | tail -n 100 | ruby -ne 's,f = $_.split(/\s+/,2); puts "%15.3f\t%15d\t%s" % [s.to_f / (1024**2), s, f] '
+sort -n | ruby -ne 's,f = $_.split(/\s+/,2); puts "%15.3f\t%15d\t%s" % [s.to_f / (1024**2), s, f] '
