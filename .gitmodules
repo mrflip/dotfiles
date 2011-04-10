@@ -4,3 +4,6 @@
 [submodule "bin/cmd-key-happy.git"]
 	path = bin/cmd-key-happy.git
 	url = http://github.com/aim-stuff/cmd-key-happy.git
+[submodule "vendor/solarized"]
+	path = vendor/solarized
+	url = https://github.com/mrflip/solarized.git
