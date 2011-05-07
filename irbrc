@@ -23,7 +23,7 @@ def railsness
   else false end
 end
 
-%w[rubygems looksee/shortcuts ap].each do |gem|
+%w[rubygems looksee ap].each do |gem|
   safely_require gem
 end
 
