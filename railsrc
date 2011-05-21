@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+# gem 'irbtools', :require => 'irbtools/configure'
+
 safely_require 'hirb' do
   Hirb.enable
 end
