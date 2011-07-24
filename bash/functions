@@ -46,9 +46,30 @@ alias hs=histgrep
 
 function histsave()
 {
-    history -a
+    history -w
     echo "Saved History."
 }
+
+# archive_history()
+# {
+#     HISTORYOLD=${HISTFILE}.archive
+#     CURTIME=`date`
+#     CURTTY=`tty`
+#     if  [ x$HISTDUMPPED = x ]; then
+#       echo "#-${HOSTNAME}-- ${CURBASHDATE} - ${CURTIME} ($CURTTY) ----" >>   $HISTORYOLD
+#       history $(($HISTCMD-${CURBASHSTART-0})) | sed -e 's/^[ ]*[0-9][0-9]* [ ]*//g'  >> $HISTORYOLD
+#       export HISTDUMPPED=1
+#     fi
+# }
+# 
+# exit ()
+# {
+#    archive_history
+#    builtin exit
+# }
+#
+#trap 'archive_history' EXIT
+#
 
 function bind_showall()
 {

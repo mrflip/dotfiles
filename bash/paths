@@ -81,10 +81,13 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 # S3), and make sure we've put in a credit card (we have).
 #
 
-export AWS_ACCOUNT_ID='484232731444'
-export AWS_ACCESS_KEY_ID=02S6Y1EFA7ZZ7KCZH3G2
-export EC2_PRIVATE_KEY=${HOME}/.hadoop-ec2/certs/pk.pem
-export EC2_CERT=${HOME}/.hadoop-ec2/certs/cert.pem
+export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID-'484232731444'}
+export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID-02S6Y1EFA7ZZ7KCZH3G2}
+export EC2_CERTS_DIR=${EC2_CERTS_DIR-${HOME}/.chef/certs}
+export EC2_KEYPAIR_DIR=`readlink -f ${EC2_KEYPAIR_DIR-${HOME}/.chef/keypairs}`
+
+export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
+export EC2_CERT=${EC2_CERTS_DIR}/cert.pem
 export EC2_HOME=/usr/local/share/ec2-api-tools
 
 if   [ "$MACHINE" == "OSX" ] ; then
@@ -109,8 +112,7 @@ append_path PATH $EC2_AMITOOL_HOME/bin
 append_path PATH $JAVA_HOME/bin
 
 # Location of EC2 keys.
-export EC2_KEYPAIR_DIR=`dirname "$EC2_PRIVATE_KEY"`
-export EC2_KEYPAIR_NAME=gibbon
-export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/keypairs/${EC2_KEYPAIR_NAME}.pem"
+export EC2_KEYPAIR_NAME=${EC2_KEYPAIR_NAME-gibbon}
+export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
 export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
 export SSH_OPTS=$EC2_SSH_OPTIONS  
