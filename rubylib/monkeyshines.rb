@@ -1,1 +1,0 @@
-../../ics/monkeyshines/lib/monkeyshines.rb
