@@ -4,7 +4,7 @@ require 'irb/ext/save-history'
 require 'date'
 
 IRB.conf[:SAVE_HISTORY] = 10000
-IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.history-irb/history_ruby_" + (Date::today.strftime('%Y_%W'))
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.history-irb/history_ruby_" + (Date::today.strftime('%Y_%W')) + '.hist'
 IRB.conf[:PROMPT_MODE]  = :DEFAULT
 IRB.conf[:AUTO_INDENT]   = true
 IRB.conf[:IGNORE_SIGINT] = true

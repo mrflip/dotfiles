@@ -1,41 +1,44 @@
 #!/usr/bin/env bash
 
 if `perl -e "'$MACHTYPE'=~/apple/ or exit(1)"`; then
-    function psgrep()
-    {
-        /bin/ps -Awwwc -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
-    }
-    function ps()
-    {
-            # -c for no command line
-        if [ "$*" == "" ] ; then
-            /bin/ps x -Awww -o 'pid,time,ruser,start,command'
-        else
-            /bin/ps "$@"
-        fi
-    }
-    function rmdir {
-	for foo in "$@" ; do
-	    if [[ -f "$foo"/.DS_Store ]] ; then rm "$foo"/.DS_Store ; fi
-	    `which rmdir` "$foo"
-	done
-    }
-    
+  function psgrep()
+  {
+    /bin/ps -Awwwc -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
+  }
+  function ps()
+  {
+    # -c for no command line
+    if [ "$*" == "" ] ; then
+      /bin/ps x -Awww -o 'pid,time,ruser,start,command'
+    else
+      /bin/ps "$@"
+    fi
+  }
+  function rmdir {
+    rmdir_flags=""
+    for foo in "$@" ; do
+      if [[ "$foo" =~ "-"       ]] ; then rmdir_flags="$rmdir_flags $foo" ; continue ; fi
+      if [[ -f "$foo"/.DS_Store ]] ; then rm "$foo"/.DS_Store ; fi
+      # echo "mkdir rmdir_flags $rmdir_flags arg '$foo'"
+      `which rmdir` $rmdir_flags "$foo"
+    done
+  }
+  
 else
-        # not apple
-    function psgrep()
-    {
-        /bin/ps -Awww -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
-    }
-    function ps()
-    {
+  # not apple
+  function psgrep()
+  {
+    /bin/ps -Awww -o 'pid,time,ruser,start,command' | grep -i $1 | grep -iv grep
+  }
+  function ps()
+  {
         # -c for no command line
-        if [ "$*" == "" ] ; then
-            /bin/ps x -Awww -o 'pid,time,ruser,start,comm' k uid,comm
-        else
-            /bin/ps "$@"
-        fi
-    }
+    if [ "$*" == "" ] ; then
+      /bin/ps x -Awww -o 'pid,time,ruser,start,comm' k uid,comm
+    else
+      /bin/ps "$@"
+    fi
+  }
 fi
 
 function histgrep()
