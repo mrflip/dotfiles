@@ -2,7 +2,7 @@
 
 if    uname -a | egrep -q 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
-elif    uname -a | egrep 'Darwin.*10\.[0-9]' > /dev/null 2>&1 ; then
+elif    uname -a | egrep 'Darwin.* 1[01]\.[0-9]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
 elif uname -a | egrep -q '^Linux' > /dev/null 2>&1 ; then
   # grep -i ubuntu /etc/issue 
@@ -30,45 +30,26 @@ prepend_path()
 #
 # PATH
 #
-export PATH_HOME=$HOME/bin:$HOME/slice/bin
-export PATH_LOCL=/usr/local/bin
-export MPTH_LOCL=/usr/local/man
-export CORE_PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/X11/bin:/usr/X11R6/bin
-export OSX_PATH=/Applications/MAMP/Library/bin:/usr/local/git/bin
-export OSX_MPTH=/sw/share/man:/Applications/MAMP/Library/man
-export LINUX_PATH=''
-export LINUX_MPTH=''
-
 export PATH
 export MANPATH=${MANPATH-/usr/local/man}
-PATH=$PATH_LOCL:$PATH
+
+export CORE_PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/X11/bin:/usr/X11R6/bin
+
 if   [ "$MACHINE" == "OSX" ] ; then
-  append_path  PATH    $OSX_PATH ;
-  append_path  MANPATH $OSX_MPTH ;
   prepend_path PATH    /sw/bin   ;
+  prepend_path PATH    /sw/share/man ;
 elif [ "$MACHINE" == "LINUX" ] ; then
-  append_path PATH    $LINUX_PATH ;
-  append_path MANPATH $LINUX_MPTH ;
+  true # pass
 fi
-prepend_path MANPATH $MPTH_LOCL
-PATH=$PATH_HOME:$PATH
+prepend_path PATH    /usr/local/bin:/usr/local/sbin
+prepend_path MANPATH /usr/local/man:/usr/local/share/man
+prepend_path PATH    $HOME/bin:$HOME/slice/bin
 
 PKG_CONFIG_PATH_OSX="/sw/lib/pkgconfig:/sw/share/pkgconfig"
-PKG_CONFIG_PATH_MATH="/public/lib/pkgconfig:/public/share/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH_OSX:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
-# Use the ruby in /usr/local
-# export GEM_PATH=/usr/local/lib/ruby/gems/1.8:/Library/Ruby/Gems/1.8/:/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/lib/ruby/gems/1.8/
-# export RUBY_SOURCE_DIR=/usr/local/bin/ruby
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH_OSX:$PKG_CONFIG_PATH_MATH:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
-# export PERL5LIB=/public/share/perl/lib:/public/share/perl:/usr/local/lib/perl5/site_perl:/usr/share/perl/:/usr/lib/perl:/usr/lib/perl5
 export RUBYLIB=$HOME/.rubylib
-export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/monkeyshines/lib
-
-###########################################################################
-#
-# Amazon EC2 Setup
-#
-
+export WUKONG_PATH=${HOME}/ics/wukong/lib
 
 ###########################################################################
 #
@@ -84,7 +65,7 @@ export WUKONG_PATH=${HOME}/ics/wukong/lib:${HOME}/ics/wuclan/lib:${HOME}/ics/mon
 export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID-'484232731444'}
 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID-02S6Y1EFA7ZZ7KCZH3G2}
 export EC2_CERTS_DIR=${EC2_CERTS_DIR-${HOME}/.chef/certs}
-export EC2_KEYPAIR_DIR=`readlink -f ${EC2_KEYPAIR_DIR-${HOME}/.chef/keypairs}`
+export EC2_KEYPAIR_DIR=${EC2_KEYPAIR_DIR-${HOME}/.chef/keypairs}
 
 export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
 export EC2_CERT=${EC2_CERTS_DIR}/cert.pem

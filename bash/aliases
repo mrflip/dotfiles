@@ -3,12 +3,18 @@
 # Clear all aliases
 unalias -a
 
+if   [ "$MACHINE" == "OSX" ] ; then
+  brew_prefix=/usr/local
+  source $HOME/.bash/brew_aliases
+  unalias printf # leave it at the system one
+fi
+
 # Fix my ls options
 if [ -z `which dircolors` ] ; then false ; else
   eval `dircolors -b ~/.dir_colors`           # -b for bash
 fi 
 export LS_OPTIONS=" -CF "
-if `ls --help | grep -q gnu` ; then
+if `ls --help 2>/dev/null | grep -q gnu` ; then
   LS_OPTIONS="$LS_OPTIONS -SX -b -T 0"
   if [ "$TERM" == "dumb" ] ; then false ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
 fi
@@ -25,6 +31,29 @@ export RI='-f ansi'
 
 alias gemdocs="gem server >/dev/null 2>&1 & sleep 0.2 ; open http://localhost:8808"
 
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias whois="whois -h whois-servers.net"
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache"
+
+# View HTTP traffic
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# Start an HTTP server from a directory
+alias server="open http://localhost:8080/ && python -m SimpleHTTPServer 8080"
+
+# Show/Hide hidden files in Finder
+alias finder_hidden_show="defaults write com.apple.Finder AppleShowAllFiles -bool true && killall Finder"
+alias finder_hidden_hide="defaults write com.apple.Finder AppleShowAllFiles -bool false && killall Finder"
+
+# Show/Hide all desktop icons (useful when presenting)
+alias finder_desktop_show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias finder_desktop_hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 
 ####################### Configure Commands########################
 

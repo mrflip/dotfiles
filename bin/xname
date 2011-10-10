@@ -1,21 +1,21 @@
-#! /bin/sh
+#!/bin/bash
 # Change xterm window title bar and icon name.
 # -LCParmelee 10-Apr-90
 
 CODE=0
 case "$1" in
-	-i)  CODE=1 ; shift ;;
-	-t)  CODE=2 ; shift ;;
-	-) shift ;;
-	-*) usage="Error:  Unknown Option: '$1'";;
+  -i)  CODE=1 ; shift ;;
+  -t)  CODE=2 ; shift ;;
+  -) shift ;;
+  -*) usage="Error:  Unknown Option: '$1'";;
 esac
 if [ "xterm" != "$TERM" -a "hpterm" != "$TERM" -a -z "$DISPLAY" ] ; then
-	exit 1
+  exit 1
 fi
 
 if [ 1 -gt "$#" -o -n "$usage" ] ; then
-	NAME=`basename $0`
-	cat <<USAGE
+  NAME=`basename $0`
+  cat <<USAGE
 	$usage
 	Usage:
 	$NAME [ -[i|t] ] text
@@ -24,7 +24,7 @@ if [ 1 -gt "$#" -o -n "$usage" ] ; then
 		"-t": Change only the title bar name.
 	    Normal action is to change both.
 USAGE
-	exit 1
+  exit 1
 fi
 
 # escape 033

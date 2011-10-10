@@ -36,7 +36,7 @@ if [ "$0" = "sh" ] ; then
   PS2="cont... > "
 else
   case ${TERM-NONE} in
-    mrxvt|xterm|rxvt|xterm-color)
+    mrxvt|xterm|rxvt|xterm-color|xterm-256color)
       PS1=${PR_TITLE}${PR_BLACK}
       PS2=${PR_TITLE}${PR_BLACK2}
       ;;
