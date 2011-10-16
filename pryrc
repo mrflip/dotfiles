@@ -55,4 +55,4 @@ load(ENV['HOME']+'/.railsrc') if defined?(Rails) && Rails.env
 #
 
 Pry.config.editor = lambda{|f,l| "open -a Emacs #{f}" }
-Pry.config.prompt = [lambda{|obj, level| "#{RUBY_VERSION} #{obj}:#{level}> " }, lambda{|obj, level| "#{RUBY_VERSION} #{obj}:#{level} ...> " }]
+Pry.config.prompt = [lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level}> " }, lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level} ...> " }]
