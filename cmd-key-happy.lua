@@ -34,7 +34,6 @@ apps = {
 				"cmd-2",
 				"cmd-3",
 				"cmd-4",
-				"cmd-t" ,
 			     --	"cmd-fn-right",
 			     --	"cmd-fn-left",
 			     -- "cmd-right",
