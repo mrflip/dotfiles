@@ -26,9 +26,9 @@ if  defined?(Readline::HISTORY)
     #   p Readline::HISTORY.length # => 12139
     #
     def dedupe!
-      deduped_lines = uniq_by_last(self)
-      self.clear
-      deduped_lines.each{|line| self << line }
+      # deduped_lines = uniq_by_last(self)
+      # self.clear
+      # deduped_lines.each{|line| self << line }
       length
     end
   end
