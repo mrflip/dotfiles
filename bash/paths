@@ -33,11 +33,9 @@ prepend_path()
 export PATH
 export MANPATH=${MANPATH-/usr/local/man}
 
-export CORE_PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/X11/bin:/usr/X11R6/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
-prepend_path PATH    /usr/local/bin
-prepend_path PATH    /usr/local/sbin
 prepend_path PATH    $HOME/bin
 prepend_path PATH    $HOME/slice/bin
 prepend_path MANPATH /usr/local/share/man
