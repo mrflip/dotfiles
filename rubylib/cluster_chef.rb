@@ -1,0 +1,1 @@
+../../ics/sysadmin/cluster_chef/lib/cluster_chef.rb

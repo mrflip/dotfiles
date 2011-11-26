@@ -33,9 +33,12 @@ prepend_path()
 export PATH
 export MANPATH=${MANPATH-/usr/local/man}
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
+# export CORE_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
+prepend_path PATH    /usr/local/bin
+prepend_path PATH    /usr/local/sbin
 prepend_path PATH    $HOME/bin
 prepend_path PATH    $HOME/slice/bin
 prepend_path MANPATH /usr/local/share/man
@@ -44,6 +47,14 @@ append_path  MANPATH /usr/share/man
 
 export RUBYLIB=$HOME/.rubylib
 export WUKONG_PATH=${HOME}/ics/wukong/lib
+
+###########################################################################
+#
+# Chef setup
+#
+
+export CHEF_USER=mrflip
+export CHEF_REPO_ROOT=$HOME/ics/sysadmin
 
 ###########################################################################
 #
