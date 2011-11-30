@@ -1,4 +1,5 @@
 # -*- mode: sh;-*-
+set +o history
 # if [ "$PROFILE_DEBUG" = "debug" ] ; then echo "Into .profile" >&2; fi
 
 ####################### System  ################################
@@ -17,3 +18,4 @@ if [ -f ~/.localrc ]; then
 fi
 
 source ~/.bash/rvm
+set -o history

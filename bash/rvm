@@ -1,1 +1,5 @@
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  
+# -*- sh -*-
+
+if [ "$MACHINE" == "OSX" ] ; then
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  
+fi

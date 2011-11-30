@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set     +o history
 source ~/.bash/paths
 source ~/.bash/aliases
 
@@ -13,3 +14,4 @@ if [ "$PS1" ]; then
   source ~/.bash/cheat
   source ~/.bash/config
 fi
+set     -o history

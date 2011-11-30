@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 # ###### History ########################################
-set   +o history
 export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
-export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignorespace:erasedups
 if [[ ! -f $HISTFILE ]]; then
 cat ~/.history-bash/hist-201*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 2000 > $HISTFILE 
 # Write a divider to identify where the prior week's session history ends
@@ -11,7 +10,7 @@ echo "####### `date +%Y-%W-%w` : `date` #######" >> $HISTFILE
 fi
 export HISTSIZE=10000
 history -n $HISTFILE
-set     -o history
+
 unset  HISTFILESIZE
 export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
 alias  histup='history -a $HISTFILE'
@@ -60,3 +59,4 @@ fi
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 complete -W "NSGlobalDomain" defaults
+  
