@@ -87,5 +87,7 @@ end
 def link_file(src, dest, quiet = false)
   puts "linking #{dest}" unless quiet == :quiet
   src  = File.expand_path src
-  system %Q{ln -s #{src} #{dest}}
+  home = File.expand_path ENV['HOME']
+  src.gsub!(%r{^#{home}/}, '')
+  system %Q{ln -nfs #{src} #{dest}}
 end
