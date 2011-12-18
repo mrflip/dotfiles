@@ -13,7 +13,9 @@ fi
 # add to end of path
 append_path()
 {
-  if ! eval test -z "\"\${$1##*:$2:*}\"" -o -z "\"\${$1%%*:$2}\"" -o -z "\"\${$1##$2:*}\"" -o -z "\"\${$1##$2}\"" ; then
+  if [ "${!1}" == "" ] ; then
+    eval "$1=$2"
+  elif ! eval test -z "\"\${$1##*:$2:*}\"" -o -z "\"\${$1%%*:$2}\"" -o -z "\"\${$1##$2:*}\"" -o -z "\"\${$1##$2}\"" ; then
     eval "$1=\$$1:$2"
   fi
 }
@@ -21,7 +23,9 @@ append_path()
 # add to front of path
 prepend_path()
 {
-  if ! eval test -z "\"\${$1##*:$2:*}\"" -o -z "\"\${$1%%*:$2}\"" -o -z "\"\${$1##$2:*}\"" -o -z "\"\${$1##$2}\"" ; then
+  if [ "${!1}" == "" ] ; then
+    eval "$1=$2"
+  elif ! eval test -z "\"\${$1##*:$2:*}\"" -o -z "\"\${$1%%*:$2}\"" -o -z "\"\${$1##$2:*}\"" -o -z "\"\${$1##$2}\"" ; then
     eval "$1=$2:\$$1"
   fi
 }
@@ -47,6 +51,9 @@ append_path  MANPATH /usr/share/man
 
 export RUBYLIB=$HOME/.rubylib
 export WUKONG_PATH=${HOME}/ics/wukong/lib
+
+export NODE_PATH
+prepend_path NODE_PATH /usr/local/lib/node_modules
 
 ###########################################################################
 #

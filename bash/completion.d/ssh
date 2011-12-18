@@ -347,7 +347,8 @@ _scp()
     _expand || return 0
 
     if [[ "$cur" == *:* ]]; then
-        _scp_local_files
+        cur=${cur#*:}
+        _filedir
         return 0
     fi
 

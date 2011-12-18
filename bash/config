@@ -54,9 +54,6 @@ else
 export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
 fi
 
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
-
-# Add tab completion for `defaults read|write NSGlobalDomain`
-complete -W "NSGlobalDomain" defaults
-  
+# set up tab completion
+[[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion

@@ -1,1 +1,18 @@
-bash/completion
+# -*- sh -*-
+
+bcomp_dir=$HOME/.bash/completion.d
+
+if   [ "$MACHINE" == "OSX" ] ; then
+  # https://gist.github.com/839902/
+  source $bcomp_dir/open
+  source $bcomp_dir/launchctl
+  source $bcomp_dir/procps
+  source $bcomp_dir/defaults
+fi
+
+source $bcomp_dir/ssh
+
+# source      $bcomp_dir/bash_notilde
+
+complete -C $bcomp_dir/rake_completion -o default rake
+

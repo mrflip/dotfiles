@@ -10,7 +10,6 @@ source ~/.bash/aliases
 if [ "$PS1" ]; then 
   source ~/.bash/prompt
   source ~/.bash/functions
-  source ~/.bash/completion
   source ~/.bash/cheat
   source ~/.bash/config
 fi

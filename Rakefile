@@ -62,8 +62,8 @@ end
 
 def link_is_same(src, dest)
   return false unless File.symlink?(dest)
-  src  = File.expand_path src
-  dest = File.expand_path File.readlink(dest)
+  src  = File.realdirpath(src)
+  dest = File.realdirpath(dest)
   src == dest
 end
 
