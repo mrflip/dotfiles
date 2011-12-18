@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+export USER_BASH_COMPLETION_DIR=$HOME/.bash/completion
+
+# source      $USER_BASH_COMPLETION_DIR/git_completion
+# # complete -C $USER_BASH_COMPLETION_DIR/rake_completion          -o default rake
+# complete -C $USER_BASH_COMPLETION_DIR/project_completion       -o default c
+# complete -C $USER_BASH_COMPLETION_DIR/capistrano_completion    -o default cap
+# complete -C $USER_BASH_COMPLETION_DIR/svn_completion.sh        -o default svn
+
+source      $USER_BASH_COMPLETION_DIR/osx-open-completion.sh
+source      $USER_BASH_COMPLETION_DIR/bash_notilde.sh
+
+[[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion
