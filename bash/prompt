@@ -21,24 +21,27 @@ stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
 export NODENAME=${NODENAME-`cat /etc/node_name 2>/dev/null || /bin/hostname -s`}
 
 ############################## Set Prompt  ##############################
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
+}
+
+if  [ -z "$PR_BLACK" ] ; then 
+
 export  PR_TITLE='\[\033]0;'$NODENAME':\w $(parse_git_branch)\007\]'
 export  PR_BLACK='\[\033[0;36m\]'$NODENAME' \[\033[0;32m\]\w\[\033[0;37;40m\]$ '
 export  PR_WHITE='\[\033[1;30m\]'$NODENAME' \[\033[0;34m\]\w\[\033[0;30m\] '
 export PR_BLACK2='\[\033[0;43m\]cont... \033[0;37;40m\]> '
 export PR_WHITE2='\[\033[1;31m\]cont... \033[0;30;47m\]> '
 
-function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
-}
-
 if [ "$0" = "sh" ] ; then
-  PS1="$NODENAME (sh) $ "
-  PS2="cont... > "
+  export PS1="$NODENAME (sh) $ "
+  export PS2="cont... > "
 else
   case ${TERM-NONE} in
     mrxvt|xterm|rxvt|xterm-color|xterm-256color)
-      PS1=${PR_TITLE}${PR_BLACK}
-      PS2=${PR_TITLE}${PR_BLACK2}
+      export PS1=${PR_TITLE}${PR_BLACK}
+      export PS2=${PR_TITLE}${PR_BLACK2}
       ;;
     dumb)
       # keep it simple (probably emacs)
@@ -48,8 +51,8 @@ else
     NONE)
       if [ -z "$DISPLAY" ] ; then
         # I have a $DISPLAY set, so assume xterm...
-        PS1=${PR_TITLE}${PR_BLACK}
-        PS2=${PR_TITLE}${PR_BLACK2}
+        export PS1=${PR_TITLE}${PR_BLACK}
+        export PS2=${PR_TITLE}${PR_BLACK2}
       else
         # keep it simple (probably emacs)
         export PS1="\h \w$ "
@@ -57,4 +60,6 @@ else
       fi
       ;;
   esac
+fi
+
 fi
