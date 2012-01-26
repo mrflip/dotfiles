@@ -3,7 +3,7 @@
 # Clear all aliases
 unalias -a
 
-if   [ "$MACHINE" == "OSX" ] ; then
+if [ "$MACHINE" == "OSX" ] && [ -d /usr/local/.git ] ; then
   brew_prefix=/usr/local
   source $HOME/.bash/brew_aliases
   unalias printf # leave it at the system one
