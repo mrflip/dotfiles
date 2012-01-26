@@ -46,9 +46,14 @@ safely_require('hirb') do
 end
 safely_require(File.join(CONSOLE_HELPERS_DIR, 'toy'))
 safely_require(File.join(CONSOLE_HELPERS_DIR, 'history_deduper'))
+# safely_require(File.join(CONSOLE_HELPERS_DIR, 'rails_console'))
 
-# loading rails configuration if it is running as a rails console
-load(ENV['HOME']+'/.railsrc') if defined?(Rails) && Rails.env
+
+if defined?(Rails) && Rails.env
+  # loading rails configuration if it is running as a rails console
+  load(ENV['HOME']+'/.railsrc')
+  extend Rails::ConsoleMethods
+end
 
 #
 # Pry
