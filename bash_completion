@@ -14,5 +14,5 @@ source $bcomp_dir/ssh
 
 # source      $bcomp_dir/bash_notilde
 
-complete -C $bcomp_dir/rake_completion -o default rake
+complete -C $bcomp_dir/rake -o default rake
 
