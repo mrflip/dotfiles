@@ -52,7 +52,7 @@ safely_require(File.join(CONSOLE_HELPERS_DIR, 'history_deduper'))
 if defined?(Rails) && Rails.env
   # loading rails configuration if it is running as a rails console
   load(ENV['HOME']+'/.railsrc')
-  extend Rails::ConsoleMethods
+  extend Rails::ConsoleMethods if defined?(Rails::ConsoleMethods) # rails 3.2+
 end
 
 #
