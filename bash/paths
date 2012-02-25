@@ -61,8 +61,6 @@ prepend_path NODE_PATH /usr/local/lib/node_modules
 #
 
 export CHEF_USER=mrflip
-export CHEF_HOMEBASE=$HOME/ics/sysadmin/homebase
-export CHEF_REPO_ROOT=$HOME/ics/sysadmin
 
 ###########################################################################
 #
