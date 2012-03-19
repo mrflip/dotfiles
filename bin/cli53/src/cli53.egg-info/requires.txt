@@ -1,0 +1,4 @@
+boto
+dnspython
+elementtree
+uuid
