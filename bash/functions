@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
+}
+
 if `perl -e "'$MACHTYPE'=~/apple/ or exit(1)"`; then
   function psgrep()
   {

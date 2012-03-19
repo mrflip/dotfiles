@@ -1,6 +1,6 @@
-# Cache, and complete, Cheats
+# Cache, and complete, Cheats -*- sh -*-
 if [ ! -r ~/.cheats ]; then
-        echo "Rebuilding Cheat cache... "
-        cheat sheets | egrep '^ ' | awk {'print $1'} > ~/.cheats
+  echo "Rebuilding Cheat cache... "
+  cheat sheets | egrep '^ ' | awk {'print $1'} > ~/.cheats
 fi
-complete -W "$(cat ~/.cheats)" cheat
+

@@ -38,16 +38,21 @@ export PATH
 export MANPATH=${MANPATH-/usr/local/man}
 
 # export CORE_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
-prepend_path PATH    /usr/local/bin
-prepend_path PATH    /usr/local/sbin
+# move these to the front
+PATH=${PATH//\:\/usr\/local\/bin\:\/usr\/local\/sbin\:/\:}
+
+prepend_path PATH    /usr/local/share/python
+prepend_path PATH    $HOME/.rbenv/bin
 prepend_path PATH    $HOME/bin
 prepend_path PATH    $HOME/slice/bin
+prepend_path PATH    /usr/local/bin
+prepend_path PATH    /usr/local/sbin
 prepend_path MANPATH /usr/local/share/man
 prepend_path MANPATH /usr/local/man
 append_path  MANPATH /usr/share/man
+prepend_path PYTHONPATH /usr/local/lib/python
 
 export RUBYLIB=$HOME/.rubylib
 export WUKONG_PATH=${HOME}/ics/wukong/lib
@@ -73,8 +78,8 @@ export CHEF_USER=mrflip
 # S3), and make sure we've put in a credit card (we have).
 #
 
-export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID-'484232731444'}
-export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID-02S6Y1EFA7ZZ7KCZH3G2}
+# export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID-'484232731444'}
+# export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID-02S6Y1EFA7ZZ7KCZH3G2}
 export EC2_CERTS_DIR=${EC2_CERTS_DIR-${HOME}/.chef/${CHEF_ORGANIZATION}-credentials/certificates}
 export EC2_KEYPAIR_DIR=${EC2_KEYPAIR_DIR-${HOME}/.chef/keypairs}
 
@@ -93,7 +98,6 @@ if   [ "$MACHINE" == "OSX" ] ; then
   export EC2_AMITOOL_HOME=/usr/local
   export HADOOP_HOME=${HADOOP_HOME-/usr/local/share/hadoop}
   export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
-  append_path PATH $EC2_AMITOOL_HOME/bin
 elif [ "$MACHINE" == "LINUX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
   # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
@@ -105,8 +109,8 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   fi
   export PIG_CLASSPATH=/etc/hadoop/conf
 fi
-append_path PATH $EC2_HOME/bin
-append_path PATH $EC2_AMITOOL_HOME/bin
+# append_path PATH $EC2_HOME/bin
+# append_path PATH $EC2_AMITOOL_HOME/bin
 append_path PATH $JAVA_HOME/bin
 
 # Location of EC2 keys.
