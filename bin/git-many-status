@@ -1,1 +1,4 @@
-../../ics/sysadmin/mojojojo/bin/git-many-status
+#!/usr/bin/env bash
+for foo in `find . -type d -name .git | egrep -v '(vendor)' ` ; do
+  (repo=`dirname $foo` ; echo $repo ; cd $repo && git status ) | egrep -v '(On branch master|nothing to commit)'
+done

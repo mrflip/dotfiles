@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+#
+# Script to list nodes in a given cluster. Caches the info for
+# later use.
+#
+cl=$1
+if [ "$cl" == "" ] ; then echo -e "Usage: $0 cluster\n\n\texample: $0 gibbon\n" ; exit ; fi
+
+mjuserdir=/tmp/mj-${USER}
+mjcl_all=${mjuserdir}/servers-all.log
+mjcl_info=${mjuserdir}/${cl}-info.log
+mjcl_hosts=${mjuserdir}/${cl}-hosts.log
+
+source "$HOME/.hadoop-ec2/aws_private_setup.sh"
+mkdir -p ${mjuserdir}
+knife ec2 server list |  tail -n+2 | ruby -ne '$_.strip!; id,pub,priv,size,ami,groups,state = (0..6).map{|i| $_[(i*186)..((i+1)*186)].to_s.strip }; groups = groups.split(/, /).reject{|h| h =~ /^(#.*|nfs-client|default|chef-client)$/}.sort.join(",") ; puts "%7s\t%-15s\t%-15s\t%-15s\t%-15s\t%-15s\t%s" % [id,pub,priv,size,ami,state,groups]' > "$mjcl_all"
+grep "${cl}" $mjcl_all | grep 'running' > $mjcl_info
+cat "$mjcl_info"
+cat "$mjcl_info" | cut -f2 > "$mjcl_hosts"
+
+# From hadoop-ec2 list:
+#
+# role  instance_id     ami             public hostname                                 private hostname                state   cluster         size            created_at                      region
+# slave i-bf3174d2      ami-ad3ad1c4    ec2-50-16-34-4.compute-1.amazonaws.com          ip-10-98-234-40.ec2.internal    running chimpmark       c1.xlarge       2010-11-25T08:26:40.000Z        us-east-1d
+#
+# From knife ec2 server list:
+# instance_id   public_ip       private_ip      size            ami             security groups         state
+# i-b73174da    174.129.158.83  10.196.195.79   c1.xlarge       ami-ad3ad1c4    nfs-client, chimpmark-slave, default, #poolparty-chimpmark-slave, chef-client, chimpmark	running
+# i-b13174dc    174.129.76.85   10.212.190.31   c1.xlarge       ami-ad3ad1c4    nfs-client, chimpmark-slave, default, #poolparty-chimpmark-slave, chef-client, chimpmark	running
+
+# role            1     
+# instance_id     2     1
+# ami             3     5
+# public_host     4     2
+# private_host    5     3
+# state           6     7
+# cluster         7      
+# size            8     4
+# created_at      9      
+# region          10     
+# security_groups       6
+
+
+

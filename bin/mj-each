@@ -1,1 +1,29 @@
-../../ics/sysadmin/mojojojo/bin/mj-each
+#!/usr/bin/env bash
+
+#
+# Ssh into every node in a given cluster, using validation, and
+# execute specified command
+#
+cl=${1} ; shift
+script_dir=`dirname $0`
+script_name=`basename $0`
+
+if [ "$*" == "" ] ; then echo -e "Usage: $0 clustername command\n\n\texample: $0 gibbon sudo service chef-client restart\n" ; exit ; fi
+
+mjuserdir=/tmp/mj-${USER}
+mjhosts=${mjuserdir}/${cl}-hosts.log
+
+echo $mjhosts
+if [ ! -e "$mjhosts" ] ; then echo "Please run mj-cl-list to generate hosts first." ; exit ; fi
+
+# iterate through list of nodes
+for host in `cat ${mjhosts}`; do
+  if [ $script_name == 'mj-each-bg' ] ; then
+    echo -e ${host}"\t"`${script_dir}/mj-ssh ${cl} ${host} "$@"` &
+  else
+    echo -e ${host}"\t"`${script_dir}/mj-ssh ${cl} ${host} "$@"`
+  fi  
+done
+if [ $script_name == 'mj-each-bg' ] ; then
+  ps ux | grep -v grep | egrep "ssh.*${cl}.*@"
+fi    

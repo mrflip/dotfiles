@@ -1,1 +1,11 @@
-../../ics/sysadmin/mojojojo/bin/tyrant-tcrmgr
+#!/usr/bin/env bash
+
+#
+# Gets generic stats on tokyo tyrant db on every node in cluster
+#
+cluster_name=${1} ; shift
+port=${1}         ; shift
+
+if [ "$cluster_name" == "" ] ; then echo -e "Usage: $0 cluster_name port\n\n\texample: $0 gibbon 12004\n" ; exit ; fi
+
+make_the_rounds ${cluster_name} tcrmgr inform -port ${port} -st localhost

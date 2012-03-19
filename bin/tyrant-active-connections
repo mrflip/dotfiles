@@ -1,1 +1,8 @@
-../../ics/sysadmin/mojojojo/bin/tyrant-active-connections
+#!/usr/bin/env bash
+
+#
+# Counts number of active tokyo tyrant db connections are open on single node
+#
+
+num=`sudo lsof -i | grep ttserver | wc -l`
+echo "active tyrantdb connections: "${num}

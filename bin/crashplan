@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+action=${1-unload}
+
+sudo launchctl $action  /Library/LaunchDaemons/com.crashplan.engine.plist

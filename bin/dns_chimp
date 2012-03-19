@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SLUG="$1" ; shift
+ZONE=${2-chimpy.us} ; shift
+IP=`curl http://whatismyip.org/`
+
+if [ "$SLUG" = "" ] || [ "$*" != "" ] ; then echo "usage: $0 SLUG [ZONE] -- eg '$0 foo' will set foo.chimpy.us; '$0 foo bar.com' will set foo.bar.com" ; exit ; fi
+if [ "$IP" = "Too Frequent!" ] ; then echo "Too frequent!" ; exit ; fi
+
+echo "Setting A record of '$SLUG.$ZONE' to '$IP'"
+echo cli53.py rrcreate -x 600 "$ZONE" "$SLUG" A "$IP" --replace --wait

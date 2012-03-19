@@ -1,1 +1,10 @@
-../../ics/sysadmin/mojojojo/bin/mj-cl-proxy
+#!/usr/bin/env bash
+
+#
+# Setup ssh proxy for viewing jobtracker in firefox
+#
+cl=$1
+if [ "$cl" == "" ] ; then echo "$0 clustername" ; exit ; fi
+alreadyrunning=`ps aux | egrep "ssh.*6666" | wc -l`
+if [ "$alreadyrunning" -gt 1 ] ; then exit ; fi
+ssh -i $HOME/.hadoop-ec2/keypairs/${cl}.pem -f -N -D 6666 -o StrictHostKeyChecking=no -o "ConnectTimeout=10" -o "ServerAliveInterval=60" -o "ControlPath=none" ubuntu@${cl}.infinitemonkeys.info

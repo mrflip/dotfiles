@@ -1,1 +1,12 @@
-../../ics/sysadmin/mojojojo/bin/mj-scp
+#!/usr/bin/env bash
+
+#
+# Take "localfile" and scp it to "remotefile" on "host" in cluster "cl"
+#
+cl=$1           ; shift
+host=${1}       ; shift
+localfile=${1}  ; shift
+remotefile=${1}
+
+if [ "$cl" == "" ] ; then echo -e "\nUsage: $0 clustername host localfile remotefile \n\n\texample: $0 gibbon 12.34.56.78 blah.txt /tmp/blah.txt\n" ; exit ; fi
+exec scp -i ~/.hadoop-ec2/keypairs/${cl}.pem ${localfile} ubuntu@${host}:${remotefile}

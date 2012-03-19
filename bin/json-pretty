@@ -1,1 +1,11 @@
-../../ics/sysadmin/mojojojo/bin/json-pretty
+#!/usr/bin/env ruby
+
+require 'rubygems'
+['yajl/json_gem', 'json', 'json/pure'].each do |gem_name|
+  begin
+    require gem_name
+  rescue LoadError ; next ; end
+  break
+end
+
+puts JSON.pretty_generate(JSON.load($stdin))
