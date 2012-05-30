@@ -36,14 +36,15 @@ Pry.class_eval do
   end
 end
 
+
 #
 # Console Helpers
 #
 
-safely_require('ap')
-safely_require('hirb') do
-  Pry.config.print = lambda{|out,val| Hirb::View.view_or_page_output(val) || Pry::DEFAULT_PRINT.call(out, val) }
-end
+# safely_require('ap')
+# safely_require('hirb') do
+#   Pry.config.print = lambda{|out,val| Hirb::View.view_or_page_output(val) || Pry::DEFAULT_PRINT.call(out, val) }
+# end
 safely_require(File.join(CONSOLE_HELPERS_DIR, 'toy'))
 safely_require(File.join(CONSOLE_HELPERS_DIR, 'history_deduper'))
 # safely_require(File.join(CONSOLE_HELPERS_DIR, 'rails_console'))
@@ -55,9 +56,15 @@ if defined?(Rails) && Rails.env
   extend Rails::ConsoleMethods if defined?(Rails::ConsoleMethods) # rails 3.2+
 end
 
+
 #
 # Pry
 #
 
 Pry.config.editor = lambda{|f,l| "open -a Emacs #{f}" }
 Pry.config.prompt = [lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level}> " }, lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level} ...> " }]
+
+Pry.config.exception_handler = proc do |output, exception, _|
+  output.puts "#{exception.class}: #{exception.message}"
+  output.puts "  #{exception.backtrace.first(3).join("\n  ")}"
+end

@@ -78,10 +78,8 @@ export CHEF_USER=mrflip
 # S3), and make sure we've put in a credit card (we have).
 #
 
-# export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID-'484232731444'}
-# export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID-02S6Y1EFA7ZZ7KCZH3G2}
-export EC2_CERTS_DIR=${EC2_CERTS_DIR-${HOME}/.chef/${CHEF_ORGANIZATION}-credentials/certificates}
-export EC2_KEYPAIR_DIR=${EC2_KEYPAIR_DIR-${HOME}/.chef/keypairs}
+export EC2_CERTS_DIR=${EC2_CERTS_DIR-${HOME}/.chef/credentials/ec2_certs}
+export EC2_KEYPAIR_DIR=${EC2_KEYPAIR_DIR-${HOME}/.chef/ec2_keys}
 
 export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
 export EC2_CERT=${EC2_CERTS_DIR}/cert.pem
@@ -114,7 +112,7 @@ fi
 append_path PATH $JAVA_HOME/bin
 
 # Location of EC2 keys.
-export EC2_KEYPAIR_NAME=${EC2_KEYPAIR_NAME-gibbon}
+export EC2_KEYPAIR_NAME=${EC2_KEYPAIR_NAME-burninator}
 export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
 export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
 export SSH_OPTS=$EC2_SSH_OPTIONS  
