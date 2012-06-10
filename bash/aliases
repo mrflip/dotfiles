@@ -24,8 +24,6 @@ alias ls='ls $LS_OPTIONS'
 export LESS="-eFXir"                 # -r means 'show raw ctrl chars' -- makes output colored
 alias more=less
 
-# cap1 works better with current (2008Jan) rails
-alias cap1="`which cap` _1.4.1_"
 # pretty ruby dox
 export RI='-f ansi'
 

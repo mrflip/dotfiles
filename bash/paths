@@ -54,9 +54,6 @@ prepend_path MANPATH /usr/local/man
 append_path  MANPATH /usr/share/man
 prepend_path PYTHONPATH /usr/local/lib/python
 
-export RUBYLIB=$HOME/.rubylib
-export WUKONG_PATH=${HOME}/ics/wukong/lib
-
 export NODE_PATH
 prepend_path NODE_PATH /usr/local/lib/node_modules
 
@@ -100,8 +97,8 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
   # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
   # On linux, it's installed via apt, so lives in /usr/bin/...
-  if [ -e /usr/lib/jvm/java-6-sun/bin/java ] ; then
-    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun}
+  if [ -e /usr/lib/jvm/jdk1.6.0_32/bin/java ] ; then
+    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/jdk1.6.0_32}
   else
     export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
   fi

@@ -1,1 +1,0 @@
-/Users/flip/ics/rubygems/awesome_print-1.0.2/lib/ap.rb

@@ -1,59 +1,66 @@
 #!/usr/bin/env bash
 
-# ###### History ########################################
-export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
-export HISTCONTROL=ignorespace:erasedups
-if [[ ! -f $HISTFILE ]]; then
-cat ~/.history-bash/hist-201*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 2000 > $HISTFILE 
-# Write a divider to identify where the prior week's session history ends
-echo "####### `date +%Y-%W-%w` : `date` #######" >> $HISTFILE
-fi
-export HISTSIZE=10000
-history -n $HISTFILE
+  # ###### History ########################################
+  # set   +o history
+  export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
+  export HISTCONTROL=ignorespace:erasedups
+  if [[ ! -f $HISTFILE ]]; then
+  cat ~/.history-bash/hist-201*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 2000 > $HISTFILE 
+  # Write a divider to identify where the prior week's session history ends
+  echo "####### `date +%Y-%W-%w` : `date` #######" >> $HISTFILE
+  fi
+  export HISTSIZE=10000
+  history -n $HISTFILE
+  # set   -o history
+  
+  unset  HISTFILESIZE
+  export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
+  alias  histup='history -a $HISTFILE'
+  export histchars=""
+  
+  ####################### Shell Stuff ##############################
+  
+  umask 022 					# readable by all / writeable only by me
+  ulimit -S -c 0	            			# Turn off core dumps
+  
+  # Bash Config
+  shopt -s cmdhist histappend histverify 
+  shopt -s checkwinsize cdspell 
+  shopt -s nocaseglob                             # good for non-case-sensitive os
+  set   -o ignoreeof 				# don't log out if I hit ^-D
+  
+  ###### I18n ###########################################
+  
+  export FIGNORE="~"
+  export BASH_ENV=$HOME/.bashrc
+  export LANG=en_US.UTF-8
+  export LC_CTYPE=en_US.UTF-8
+  export LC_NUMERIC="en_US.UTF-8"
+  export LC_TIME="en_US.UTF-8"
+  export LC_COLLATE="en_US.UTF-8"
+  export LC_MONETARY="en_US.UTF-8"
+  export LC_MESSAGES="en_US.UTF-8"
+  export LC_PAPER="en_US.UTF-8"
+  export LC_NAME="en_US.UTF-8"
+  export LC_ADDRESS="en_US.UTF-8"
+  export LC_TELEPHONE="en_US.UTF-8"
+  export LC_MEASUREMENT="en_US.UTF-8"
+  export LC_IDENTIFICATION="en_US.UTF-8"
+  
+  # Set the command line editor to emacs.
+  set -o emacs
+  export FCEDIT=emacs
+  if [ "$DISPLAY" = "" ] ; then 
+  export ALTERNATE_EDITOR=emacs EDITOR=nano VISUAL=nano
+  else
+  export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+  fi
+  
+  # set up tab completion
+  [[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
+  [[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion
 
-unset  HISTFILESIZE
-export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
-alias  histup='history -a $HISTFILE'
-export histchars=""
-
-####################### Shell Stuff ##############################
-
-umask 022 					# readable by all / writeable only by me
-ulimit -S -c 0	            			# Turn off core dumps
-
-# Bash Config
-shopt -s cmdhist histappend histverify 
-shopt -s checkwinsize cdspell 
-shopt -s nocaseglob                             # good for non-case-sensitive os
-set   -o ignoreeof 				# don't log out if I hit ^-D
-
-###### I18n ###########################################
-
-export FIGNORE="~"
-export BASH_ENV=$HOME/.bashrc
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_NUMERIC="en_US.UTF-8"
-export LC_TIME="en_US.UTF-8"
-export LC_COLLATE="en_US.UTF-8"
-export LC_MONETARY="en_US.UTF-8"
-export LC_MESSAGES="en_US.UTF-8"
-export LC_PAPER="en_US.UTF-8"
-export LC_NAME="en_US.UTF-8"
-export LC_ADDRESS="en_US.UTF-8"
-export LC_TELEPHONE="en_US.UTF-8"
-export LC_MEASUREMENT="en_US.UTF-8"
-export LC_IDENTIFICATION="en_US.UTF-8"
-
-# Set the command line editor to emacs.
-set -o emacs
-export FCEDIT=emacs
-if [ "$DISPLAY" = "" ] ; then 
-export ALTERNATE_EDITOR=emacs EDITOR=nano VISUAL=nano
-else
-export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
-fi
-
-# set up tab completion
-[[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
-[[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion
+  # # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+  # [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+  # # Add tab completion for `defaults read|write NSGlobalDomain`
+  # complete -W "NSGlobalDomain" defaults
