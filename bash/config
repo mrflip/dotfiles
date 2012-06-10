@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-  
+
   # ###### History ########################################
-  set   +o history
+  # set   +o history
   export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
-  export HISTCONTROL=ignoreboth:erasedups
+  export HISTCONTROL=ignorespace:erasedups
   if [[ ! -f $HISTFILE ]]; then
   cat ~/.history-bash/hist-201*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 2000 > $HISTFILE 
   # Write a divider to identify where the prior week's session history ends
@@ -11,7 +11,8 @@
   fi
   export HISTSIZE=10000
   history -n $HISTFILE
-  set     -o history
+  # set   -o history
+  
   unset  HISTFILESIZE
   export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
   alias  histup='history -a $HISTFILE'
@@ -55,9 +56,11 @@
   export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
   fi
   
-  # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-  [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
-  
-  # Add tab completion for `defaults read|write NSGlobalDomain`
-  complete -W "NSGlobalDomain" defaults
-  
+  # set up tab completion
+  [[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
+  [[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion
+
+  # # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+  # [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+  # # Add tab completion for `defaults read|write NSGlobalDomain`
+  # complete -W "NSGlobalDomain" defaults

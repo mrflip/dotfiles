@@ -1,0 +1,8 @@
+setup.py
+src/cli53.egg-info/PKG-INFO
+src/cli53.egg-info/SOURCES.txt
+src/cli53.egg-info/dependency_links.txt
+src/cli53.egg-info/entry_points.txt
+src/cli53.egg-info/not-zip-safe
+src/cli53.egg-info/requires.txt
+src/cli53.egg-info/top_level.txt

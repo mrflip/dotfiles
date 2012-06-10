@@ -1,1 +1,7 @@
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  
+# # -*- sh -*-
+# 
+# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# 
+# if [ "$MACHINE" == "OSX" ] ; then
+#   [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  
+# fi

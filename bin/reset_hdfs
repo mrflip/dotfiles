@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+script_name="reset_hdfs"
+
+function hadoop_daemons () {
+  # action must be either (start, stop, restart, or status)
+  action=$@
+  for foo in namenode secondarynamenode jobtracker tasktracker datanode; do
+    service hadoop-0.20-$foo $action
+  done
+}
+
+function nuke_metadata () {
+  echo "Removing all existing namenode and secondary namenode metadata..."
+  rm -rf /mnt*/hadoop/hdfs
+}
+
+function format_namenode () {
+  echo "Formatting new namenode..."
+  yes Y | sudo -u hdfs hadoop namenode -format
+}
+
+function fix_hdfs_permissions () {
+  sudo -u hdfs hadoop fs -chown -R hadoop:hadoop /
+  sudo -u hdfs hadoop fs -chmod -R g+rw /  
+}
+
+if [ $(whoami) != "root" ]; then
+  echo "You need to run this script as root."
+  echo "Use 'sudo ./$script_name' then enter your password when prompted."
+  exit 1
+fi
+
+echo "About to nuke all existing data on the hdfs and create fresh hdfs."
+echo "All data on the existing hdfs will be lost!"
+read -p "Continue (y/n)? "
+if [ $REPLY != "y" ]; then
+	echo "Exiting..."
+	exit 1
+fi
+
+# Assuming you're running hadoop-0.20 from cloudera
+hadoop_daemons "stop"
+
+# Assuming you've put all your hdfs data under /mnt*/hadoop/hdfs
+nuke_metadata
+
+# Assuming you've got chef-client installed and that it will regenerate the appropriate dirs
+echo "Rerunning chef-client to generate fresh hdfs metadata directories..."
+chef-client
+
+# Stop hadoop daemons again since chef restarts them
+hadoop_daemons "stop"
+
+# Fomat namenode so we can use it
+format_namenode
+
+# Start hadoop daemons again
+hadoop_daemons "start"
+sleep 10
+
+# Fix permissions
+fix_hdfs_permissions
+
+# Finally, restart
+hadoop_daemons "restart"

@@ -1,0 +1,3 @@
+[console_scripts]
+cli53 = cli53.cli53:main
+

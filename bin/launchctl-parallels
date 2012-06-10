@@ -1,0 +1,2 @@
+sudo launchctl ${1-stop} com.parallels.desktop.launchdaemon
+launchctl ${1-stop} com.parallels.vm.prl_pcproxy

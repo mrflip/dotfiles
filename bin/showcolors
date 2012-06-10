@@ -10,11 +10,11 @@ initializeANSI()
   esc=""
 
   blackf="${esc}[30m";   redf="${esc}[31m";    greenf="${esc}[32m"
-  yellowf="${esc}[33m"   bluef="${esc}[34m";   purplef="${esc}[35m"
+  yellowf="${esc}[33m"   bluef="${esc}[34m";   purpf="${esc}[35m"
   cyanf="${esc}[36m";    whitef="${esc}[37m"
   
   blackb="${esc}[40m";   redb="${esc}[41m";    greenb="${esc}[42m"
-  yellowb="${esc}[43m"   blueb="${esc}[44m";   purpleb="${esc}[45m"
+  yellowb="${esc}[43m"   blueb="${esc}[44m";   purpb="${esc}[45m"
   cyanb="${esc}[46m";    whiteb="${esc}[47m"
 
   boldon="${esc}[1m";    boldoff="${esc}[22m"
@@ -31,13 +31,16 @@ initializeANSI()
 initializeANSI
 
 cat << EOF
-${boldoff}${yellowf}Normal:
-${blackf}blackf	${redf}redf		${greenf}greenf	${yellowf}yellowf
-${bluef}bluef 	${purplef}purplef		${cyanf}cyanf	${whitef}whitef
 
-${boldon}${yellowf}Bold:
-${ulon}${blackf}blackf	${redf}redf		${greenf}greenf	${yellowf}yellowf
-${italicson}${bluef}bluef 	${purplef}purplef		${cyanf}cyanf	${whitef}whitef
+${ulon}${yellowf}Underlined:  	${redf}red       	${greenf}green   	${boldon}${cyan}cyan${boldoff}${uloff}
+${italicson}${yellowf}Italics: 	${redf}red       	${greenf}green   	${boldon}${cyan}cyan${boldoff}${italicsoff}
 
+_________|_________2_________|_________4_________|_________6_________|_________8
 
+${boldoff}${yellowf}
+${boldoff}${yellowf}Normal:	${bluef}blue   	${purpf}purple	${cyanf}cyan 	${whitef}white  
+${boldoff}${yellowf}      	${blackf}black 	${redf}red  	${greenf}green	${yellowf}yellow	${bluef}blue	${purpf}purple	${cyanf}cyan	${whitef}white
+${boldon}${yellowf}Bold:  	${blackf}black 	${redf}red   	${greenf}green	${yellowf}yellow	${bluef}blue	${purpf}purple	${cyanf}cyan	${whitef}white
+${boldon}${yellowf}      	${bluef}blue   	${purpf}purple	${cyanf}cyan 	${whitef}white
+${uloff}${boldoff}${italicsoff}${reset}
 EOF

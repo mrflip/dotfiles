@@ -62,8 +62,8 @@ end
 
 def link_is_same(src, dest)
   return false unless File.symlink?(dest)
-  src  = File.expand_path src
-  dest = File.expand_path File.readlink(dest)
+  src  = File.realdirpath(src)
+  dest = File.realdirpath(dest)
   src == dest
 end
 
@@ -87,5 +87,7 @@ end
 def link_file(src, dest, quiet = false)
   puts "linking #{dest}" unless quiet == :quiet
   src  = File.expand_path src
-  system %Q{ln -s #{src} #{dest}}
+  home = File.expand_path ENV['HOME']
+  src.gsub!(%r{^#{home}/}, '')
+  system %Q{ln -nfs #{src} #{dest}}
 end

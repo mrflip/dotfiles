@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+find -s / \! \( -fstype hfs -or -fstype ufs \) -prune   \
+    -or -path /tmp -prune                            \
+    -or -path /var/tmp -prune                        \
+    -or -path /private/tmp -prune                    \
+    -or -path /Developer/Platforms -prune            \
+    -or -path /Users/Shared/Jenkins -prune           \
+    -or -path /Library/Caches -prune                 \
+    -or -path /Users/flip/Library/Caches -prune      \
+    -or -path /Users/flip/.rbenv -prune              \
+    -or -path /Users/flip/.rvm -prune                \
+    -or -path /lion-away -prune                      \
+    -or -path /foo -prune                            \
+    -or -path /data/ripd -prune                      \
+    -or -path /Users/flip/Library/Mail -prune        \
+    -or -path /System/Library/CoreServices -prune    \
+    -or -path /Volumes/Time\ Machine\ Backups -prune \
+    -or -print \
+  > /foo/all_files-`date +%Y%m%d`.log

@@ -4,6 +4,7 @@ require 'set'
 require 'configliere'; Settings.use :commandline
 
 Settings.define :hist_dir,    :type => :filename, :default => File.dirname( ENV['HISTFILE'] ), :description => 'The directory to cull. Taken from $HISTFILE by default.'
+Settings.define :hist_file,   :type => :filename, :default => nil,                             :description => 'A single file to cull. Otherwise everything in --hist_dir is culled.'
 Settings.define :clobber,     :type => :boolean,  :default => false, :description => "Write to copies of the history files (and not directly into the --hist_dir"
 Settings.resolve!
 
@@ -27,7 +28,13 @@ end
 # Track each unique line
 lines = Set.new
 
-Dir[Settings.hist_dir+'/*'].sort.reverse.each do |hist_file|
+if Settings.hist_file
+  hist_files = [Settings.hist_file]
+else
+  hist_files = Dir[Settings.hist_dir+'/*']
+end
+
+hist_files.sort.reverse.each do |hist_file|
   dest_file = File.join(DEST_DIR, File.basename(hist_file))
   bkup_file = File.join(BKUP_DIR, File.basename(hist_file))
   FileUtils.cp hist_file, bkup_file

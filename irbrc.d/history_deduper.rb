@@ -34,7 +34,7 @@ if  defined?(Readline::HISTORY)
   end
 
   if    defined?(Pry)
-    Pry.add_hook(:after_session){ Readline::HISTORY.dedupe! }
+    Pry.config.hooks.add_hook(:after_session, :dedupe_history){ Readline::HISTORY.dedupe! }
   elsif defined?(IRB)
     IRB.conf[:AT_EXIT].unshift(lambda{ Readline::HISTORY.dedupe! })
   end
