@@ -1,1 +1,10 @@
-../../ics/sysadmin/mojojojo/bin/mj-sed
+#!/usr/bin/env bash
+
+#
+# Replace all strings matching "fromstr" in "file" with "tostr"
+#
+file=${1}    ; shift
+fromstr=${1} ; shift
+tostr=${1}   ; shift
+
+exec sed -i "s/${fromstr}/${tostr}/" ${file} "$@"

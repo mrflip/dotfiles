@@ -1,1 +1,1 @@
-../../ics/sysadmin/mojojojo/bin/motd
+cat /etc/motd

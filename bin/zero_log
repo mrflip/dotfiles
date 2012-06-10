@@ -1,1 +1,7 @@
-../../ics/sysadmin/mojojojo/bin/zero_log
+#!/usr/bin/env bash
+
+for foo in "$@" ; do
+  ts=`date "+%Y%m%d_%H%M%S"`
+  sudo cp -p $foo $foo-$ts
+  sudo bash -c "echo -n > $foo"
+done  

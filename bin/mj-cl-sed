@@ -1,1 +1,16 @@
-../../ics/sysadmin/mojojojo/bin/mj-cl-sed
+#!/usr/bin/env bash
+
+# mj-cl-sed clyde run_list run_away /etc/chef/client-config.json `cat /tmp/mj-flip/clyde-hosts.log `
+
+#
+# Ssh into given node with authentication and replace all strings
+# matching fromstr with tostr
+#
+cl=${1}      ; shift
+fromstr=${1} ; shift
+tostr=${1}   ; shift
+file=${1}    ; shift
+
+for host in $@ ; do
+  mj-ssh ${cl} ${host} "sudo sed -i 's/${fromstr}/${tostr}/' ${file}" &
+done
