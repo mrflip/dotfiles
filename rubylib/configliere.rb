@@ -1,0 +1,1 @@
+../../ics/core/configliere/lib/configliere.rb
