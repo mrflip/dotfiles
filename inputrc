@@ -73,7 +73,20 @@ set history-preserve-point 	on
 "\M-\C-s":	history-search-forward
 "\M-\C-r":	history-search-backward
 
+"\C-x\C-r":     re-read-init-file
+
+"\C-o": "jack"
+
+$if node
+  "\C-o": "jack"
+$endif
+
+$if v8
+  "\C-o": "jack"
+$endif
+
 $if bash
+
   set match-hidden-files 		off
   # Fix completion options
   set completion-ignore-case 		on
@@ -89,7 +102,7 @@ $if bash
   "\M-space":	set-mark		
   "\C-`":	set-mark
 
-  "\C-xff":	"for foo in  ; do echo $foo ; ; done "
+  "\C-xff":	"for foo in  ; do echo \"  === $foo\" ; ; done bbbb"
   "\C-xfr":	"rsync -Cuvzrtlp ~/ ~/"
   "\C-xfc":     "sudo true && ./configure --prefix=/usr/local && make -j7 && sudo make install"
   "\C-xfs":	"find . -iname "*""

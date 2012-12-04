@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+delay="$1" 	; shift
+cmd="$1"	; shift
+
+sleep 		"$delay"
+
+exec -a "$cmd" "$cmd" "$@"

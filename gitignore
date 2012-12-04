@@ -1,9 +1,15 @@
+## OS
 .DS_Store
-Icon?
+Icon
 nohup.out
 .bak
+
+*.pem
+
+## EDITORS
 \#*
-.#*
+.\#*
+\#*\#
 *~
 *.swp
 REVISION
@@ -14,7 +20,14 @@ tmtags
 *.tmproj
 .project
 .settings
-mkmf.log
+
+## COMPILED
+a.out
+*.o
+*.pyc
+*.so
+
+## OTHER SCM
 .bzr
 .hg
 .svn

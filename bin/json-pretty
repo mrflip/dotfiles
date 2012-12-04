@@ -8,4 +8,6 @@ require 'rubygems'
   break
 end
 
-puts JSON.pretty_generate(JSON.load($stdin))
+$stdin.each do |line|
+  puts JSON.pretty_generate(JSON.load(line))
+end

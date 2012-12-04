@@ -1,3 +1,20 @@
+#!/usr/bin/env bash
+
+function nuke_rbenv(){
+  PATH=${PATH//$HOME\/.rbenv\/bin\:/}
+  PATH=${PATH//$HOME\/.rbenv\/shims\:/}
+  which rbenv || echo 'no rbenv' ; which ruby  || echo 'no ruby' ; ruby --version
+}
+
+function yay_rbenv(){
+  prepend_path PATH    $HOME/bin
+  PATH=${PATH//$HOME\/bin\:/$HOME\/bin\:$HOME\/.rbenv\/bin\:$HOME\/.rbenv\/shims}
+  if [ -x "`which rbenv`" ] ; then 
+    eval "$(rbenv init -)"
+  fi
+  which rbenv || echo 'no rbenv' ; which ruby  || echo 'no ruby' ; ruby --version
+}
+
 if [ -x "`which rbenv`" ] ; then 
   eval "$(rbenv init -)"
 fi

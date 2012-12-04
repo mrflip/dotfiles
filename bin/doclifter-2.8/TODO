@@ -1,0 +1,24 @@
+Bugs:
+
+* Docbook 5 translation is incomplete; inclusions won't work,
+  entities are untested.
+
+* I haven't come up with a reliable way to distinguish command synopses 
+  from stuff that should be treated as plain text.  This has a couple
+  of consequences:
+
+  1. doclifter doesn't recognize command synopses in displays, only in 
+     Synopsis sections.
+
+  2. When command synopses have a trailing text section (explanatory
+     paragraph) doclifter doesn't always detect that and cope well.
+
+* .Xo/.Xc Berkeley macro needs work. See elf.5.
+
+* Look at lwres_getaddrinfo.3 -- good type case for resuming function parse
+  after text.  sox(1) and soxmix(1) show the same problem with command syntax.
+
+* CA.pl.1ssl -- CA.pl is not properly tagged as a command.
+
+See the BUGS file for other, more minor problems mainly due to bad markup.
+

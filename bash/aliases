@@ -53,8 +53,8 @@ alias finder_hidden_hide="defaults write com.apple.Finder AppleShowAllFiles -boo
 alias finder_desktop_show="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 alias finder_desktop_hide="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 
-# emacs from the commandline
-alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs -nw"
+# # emacs from the commandline
+# alias emacs="/usr/local/Cellar/emacs/HEAD/Emacs.app/Contents/MacOS/Emacs -nw"
 
 ####################### Configure Commands########################
 
@@ -72,3 +72,5 @@ export TIMEFORMAT=$'\nreal\t%3lR\tuser\t%3lU\tsys\t%3lS\tpct\t%P'
 
 # misc
 alias reload='. ~/.bash_profile'
+
+alias diff=colordiff

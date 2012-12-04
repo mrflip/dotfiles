@@ -28,7 +28,7 @@
   shopt -s checkwinsize cdspell 
   shopt -s nocaseglob                             # good for non-case-sensitive os
   set   -o ignoreeof 				# don't log out if I hit ^-D
-  
+
   ###### I18n ###########################################
   
   export FIGNORE="~"

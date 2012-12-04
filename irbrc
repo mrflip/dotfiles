@@ -1,4 +1,5 @@
 # -*- ruby -*-
+require 'rubygems' unless defined?(Gem)
 
 CONSOLE_HELPERS_DIR = File.expand_path('~/.irbrc.d')     unless defined?(CONSOLE_HELPERS_DIR)
 CONSOLE_HIST_DIR    = File.expand_path('~/.history-irb') unless defined?(CONSOLE_HIST_DIR)
