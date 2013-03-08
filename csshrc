@@ -1,10 +1,13 @@
-clusters   = gibbon bonobo colobus cerulean ultram periwinkle stark
+clusters   = gibbon bonobo colobus cerulean ultram periwinkle stark es_loader projectes
 
-gibbon	   = gibbon-master-0.chimpy.us  gibbon-worker-[0-6].chimpy.us
-bonobo	   = bonobo-master-0.chimpy.us  bonobo-worker-[0-4].chimpy.us
-colobus	   = colobus-master-0.chimpy.us colobus-worker-[0-5].chimpy.us
+gibbon	   =  gibbon-master-0.infochimps.chimpy.us  gibbon-worker-[0-6].infochimps.chimpy.us
+bonobo	   =  bonobo-master-0.infochimps.chimpy.us  bonobo-worker-[0-4].infochimps.chimpy.us
+colobus	   = colobus-master-0.infochimps.chimpy.us colobus-worker-[0-9].infochimps.chimpy.us
 
-stark      = stark-elasticsearch-[0-3].infomart.chimpy.us
+es_loader  = es-loader-master-0.test.chimpy.us es-loader-hworker-[0-5].test.chimpy.us
+projectes  = projectes-elasticsearch-[0-5].test.chimpy.us
+
+stark      = stark-elasticsearch-[0-3].infomart.infochimps.chimpy.us
 
 cerulean   = 10.51.5.181 10.51.5.182 10.51.5.185 10.51.5.186 
 ultram	   = 10.51.5.171

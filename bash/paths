@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-if    uname -a | egrep -q 'Darwin.*9\.[6789]' > /dev/null 2>&1 ; then
+if    uname -a | egrep 'Darwin.* 1[012]\.[0-9]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
-elif    uname -a | egrep 'Darwin.* 1[01]\.[0-9]' > /dev/null 2>&1 ; then
+elif  uname -a | egrep -q 'Darwin.*9\.[6789]'   > /dev/null 2>&1 ; then
   export MACHINE=OSX
 elif uname -a | egrep -q '^Linux' > /dev/null 2>&1 ; then
-  # grep -i ubuntu /etc/issue 
+  # grep -i ubuntu /etc/issue
   export MACHINE=LINUX
 fi
 
@@ -41,16 +41,15 @@ export MANPATH=${MANPATH-/usr/local/man}
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
 # remove these, so they can be added to the front
-shopt -s extglob 
+shopt -s extglob
 PATH=${PATH//\/usr\/local\/bin\:/}
 PATH=${PATH//\/usr\/local\/sbin\:/}
 PATH=${PATH//$HOME\/.rbenv\/shims\:/}
 
 # PATH=/Users/flip/slice/bin:/Users/flip/bin:/Users/flip/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/Users/flip/.rbenv/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin
 
+PATH=/usr/local/bin:/usr/local/sbin:${PATH}
 prepend_path PATH    /usr/local/share/python
-prepend_path PATH    /usr/local/bin
-prepend_path PATH    /usr/local/sbin
 prepend_path PATH    $HOME/.rbenv/bin
 prepend_path PATH    $HOME/.rbenv/shims
 prepend_path PATH    $HOME/bin
@@ -76,7 +75,7 @@ if [ "$MACHINE" == "OSX" ] ; then export HOMEBREW_TEMP=/tmp ; fi
 
 export CHEF_USER="mrflip"
 export CSTN_ORG="local"
-export CSTN_CLUSTER="fleep" 
+export CSTN_CLUSTER="fleep"
 export CSTN_FACET="$NODENAME"
 export CSTN_DIR=$HOME/ics/sysadmin/chimpstation-homebase
 
@@ -100,7 +99,7 @@ export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
 # export EC2_KEYPAIR_NAME=${EC2_KEYPAIR_NAME-burninator}
 # export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
 # export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
-# export SSH_OPTS=$EC2_SSH_OPTIONS  
+# export SSH_OPTS=$EC2_SSH_OPTIONS
 
 
 if [ "$EC2_HOME" = "" ] ; then
@@ -108,7 +107,7 @@ if [ "$EC2_HOME" = "" ] ; then
     export EC2_HOME=/usr/local/share/ec2-api-tools
   else
     export EC2_HOME=`/bin/ls -1d  /usr/local/Cellar/ec2-api-tools/*/jars 2>/dev/null | sort | tail -n1`
-  fi  
+  fi
 fi
 
 if   [ "$MACHINE" == "OSX" ] ; then
@@ -129,4 +128,3 @@ elif [ "$MACHINE" == "LINUX" ] ; then
   export PIG_CLASSPATH=/etc/hadoop/conf
 fi
 append_path PATH $JAVA_HOME/bin
-
