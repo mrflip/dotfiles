@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ANSI Color -- use these variables to easily have different color
-#    and format output. Make sure to output the reset sequence after 
+#    and format output. Make sure to output the reset sequence after
 #    colors (f = foreground, b = background), and use the 'off'
 #    feature for anything you turn on.
 
@@ -9,38 +9,59 @@ initializeANSI()
 {
   esc=""
 
-  blackf="${esc}[30m";   redf="${esc}[31m";    greenf="${esc}[32m"
-  yellowf="${esc}[33m"   bluef="${esc}[34m";   purpf="${esc}[35m"
-  cyanf="${esc}[36m";    whitef="${esc}[37m"
-  
-  blackb="${esc}[40m";   redb="${esc}[41m";    greenb="${esc}[42m"
-  yellowb="${esc}[43m"   blueb="${esc}[44m";   purpb="${esc}[45m"
-  cyanb="${esc}[46m";    whiteb="${esc}[47m"
+  # foreground
+  blkf="${esc}[30m";   redf="${esc}[31m";  grnf="${esc}[32m"
+  ylwf="${esc}[33m"    bluf="${esc}[34m";  purf="${esc}[35m"
+  cyaf="${esc}[36m";  whtf="${esc}[37m"
 
-  boldon="${esc}[1m";    boldoff="${esc}[22m"
-  italicson="${esc}[3m"; italicsoff="${esc}[23m"
-  ulon="${esc}[4m";      uloff="${esc}[24m"
-  invon="${esc}[7m";     invoff="${esc}[27m"
+  # background
+  blkb="${esc}[40m";   redb="${esc}[41m";  grnb="${esc}[42m"
+  ylwb="${esc}[43m"    blub="${esc}[44m";  purb="${esc}[45m"
+  cyab="${esc}[46m";  whtb="${esc}[47m"
+
+  # effects
+  bldY="${esc}[1m";    bld_="${esc}[22m"
+  itaY="${esc}[3m";    ita_="${esc}[23m"
+  ulnY="${esc}[4m";    uln_="${esc}[24m"
+  invY="${esc}[7m";    inv_="${esc}[27m"
 
   reset="${esc}[0m"
 }
 
-# note in this first use that switching colors doesn't require a reset
-# first - the new color overrides the old one.
-
 initializeANSI
 
 cat << EOF
+${reset}
+${ulnY}${ylwf}Underlined:  	${redf}red       	${grnf}green   	${bldY}${cya}cyan${bld_}${uln_}
+${itaY}${ylwf}Italics: 	${redf}red       	${grnf}green   	${bldY}${cya}cyan${bld_}${ita_}
 
-${ulon}${yellowf}Underlined:  	${redf}red       	${greenf}green   	${boldon}${cyan}cyan${boldoff}${uloff}
-${italicson}${yellowf}Italics: 	${redf}red       	${greenf}green   	${boldon}${cyan}cyan${boldoff}${italicsoff}
+${bld_}${cyaf}_________|_________2_________|_________4_________|_________6_________|_________8_________|_________0_________|_________2_________|_________4_________|_________6_________|_________8_________|_________0
+${bld_}${cyaf}123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+${bldY}${cyaf}_________|_________2_________|_________4_________|_________6_________|_________8_________|_________0_________|_________2_________|_________4_________|_________6_________|_________8_________|_________0
+${bldY}${cyaf}123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+${uln_}${bld_}${ita_}${reset}
 
-_________|_________2_________|_________4_________|_________6_________|_________8
+${bld_}${ylwf}Normal:	${bluf}blue   	${purf}purple	${cyaf}cyan 	${whtf}white
+${bld_}${ylwf}       	${blkf}black 	${redf}red  	${grnf}green	${ylwf}yellow	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${bldY}${ylwf}Bold:  	${blkf}black 	${redf}red   	${grnf}green	${ylwf}yellow	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${bldY}${ylwf}       	${bluf}blue   	${purf}purple	${cyaf}cyan 	${whtf}white
+${uln_}${bld_}${ita_}${reset}
 
-${boldoff}${yellowf}
-${boldoff}${yellowf}Normal:	${bluef}blue   	${purpf}purple	${cyanf}cyan 	${whitef}white  
-${boldoff}${yellowf}      	${blackf}black 	${redf}red  	${greenf}green	${yellowf}yellow	${bluef}blue	${purpf}purple	${cyanf}cyan	${whitef}white
-${boldon}${yellowf}Bold:  	${blackf}black 	${redf}red   	${greenf}green	${yellowf}yellow	${bluef}blue	${purpf}purple	${cyanf}cyan	${whitef}white
-${boldon}${yellowf}      	${bluef}blue   	${purpf}purple	${cyanf}cyan 	${whitef}white
-${uloff}${boldoff}${italicsoff}${reset}
+${bldY}${cyaf}_______|_______2_______|_______4_______|_______6_______|_______8_______|_______0_______|_______2_______|_______4_______|_______6_______|_______8_______|_______0
+${bldY}${cyaf}1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567
+${bld_}${ylwf}Norm:   ${bluf}blue    ${purf}purple  ${cyaf}cyan    ${whtf}white
+${bld_}${ylwf}        ${blkf}black   ${redf}red     ${grnf}green   ${ylwf}yellow  ${bluf}blue    ${purf}purple  ${cyaf}cyan    ${whtf}white
+${bldY}${ylwf}Bold:   ${blkf}black   ${redf}red     ${grnf}green   ${ylwf}yellow  ${bluf}blue    ${purf}purple  ${cyaf}cyan    ${whtf}white
+${bldY}${ylwf}        ${bluf}blue    ${purf}purple  ${cyaf}cyan    ${whtf}white
+${uln_}${bld_}${ita_}${reset}
+
+${bld_}${cyaf}_______	_______	______	_______	______	_______	______	_______	______	_______	______	_______	______	_______	______	_______	______	_______	______	_______
+${bld_}${cyaf}1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567	1234567
+${bld_}${ylwf}Norm:	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${bld_}${ylwf}	${blkf}black	${redf}red	${grnf}green	${ylwf}yellow	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${bldY}${ylwf}Bold:	${blkf}black	${redf}red	${grnf}green	${ylwf}yellow	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${bldY}${ylwf}	${bluf}blue	${purf}purple	${cyaf}cyan	${whtf}white
+${uln_}${bld_}${ita_}${reset}
+
 EOF
+
