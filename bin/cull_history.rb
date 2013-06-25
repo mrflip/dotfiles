@@ -31,7 +31,7 @@ lines = Set.new
 if Settings.hist_file
   hist_files = [Settings.hist_file]
 else
-  hist_files = Dir[Settings.hist_dir+'/*']
+  hist_files = Dir[File.join(Settings.hist_dir, '*.hist')]
 end
 
 hist_files.sort.reverse.each do |hist_file|

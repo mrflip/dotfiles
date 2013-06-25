@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if   [ -f "$JAVA_HOME/bin/jvisualvm" ]  ; then VV_EXE="$JAVA_HOME/bin/jvisualvm"
+elif [ -f "$JAVA_HOME/bin/visualvm" ]   ; then VV_EXE="$JAVA_HOME/bin/visualvm"
+else VV_EXE="/usr/bin/visualvm"
+fi
+
+VV_ARGS="$VV_ARGS -cp:a `dirname "$0"`/jmxremote_optional.jar"
+
+VV_ARGS="$VV_ARGS -J-Dnetbeans.system_socks_proxy=localhost:6666 -J-Djava.net.useSystemProxies=true"
+
+echo "$VV_EXE" $VV_ARGS "$@"
+
+"$VV_EXE" $VV_ARGS "$@"

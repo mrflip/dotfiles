@@ -2,35 +2,36 @@
 
   # ###### History ########################################
   # set   +o history
-  export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"  # No ~ here
+  export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`.hist"
   export HISTCONTROL=ignorespace:erasedups
   if [[ ! -f $HISTFILE ]]; then
-  cat ~/.history-bash/hist-201*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 2000 > $HISTFILE 
+  cat ~/.history-bash/hist-201[23]*.hist | ruby -rset -e 'LINES = Set.new; $stdin.each do |line| next if LINES.include?(line.hash) ; puts line ; LINES << line.hash ; end' | tail -n 4000 > $HISTFILE
   # Write a divider to identify where the prior week's session history ends
   echo "####### `date +%Y-%W-%w` : `date` #######" >> $HISTFILE
   fi
   export HISTSIZE=10000
   history -n $HISTFILE
   # set   -o history
-  
+
   unset  HISTFILESIZE
   export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
   alias  histup='history -a $HISTFILE'
   export histchars=""
-  
+
+  # trap 'archive_history' EXIT
+
   ####################### Shell Stuff ##############################
-  
-  umask 022 					# readable by all / writeable only by me
-  ulimit -S -c 0	            			# Turn off core dumps
-  
-  # Bash Config
-  shopt -s cmdhist histappend histverify 
-  shopt -s checkwinsize cdspell 
-  shopt -s nocaseglob                             # good for non-case-sensitive os
-  set   -o ignoreeof 				# don't log out if I hit ^-D
+
+  umask 022 				 # readable by all / writeable only by me
+  ulimit -S -c 0	            	 # Turn off core dumps
+
+  shopt -s cmdhist histappend histverify #
+  shopt -s checkwinsize cdspell
+  shopt -s nocaseglob                    # good for non-case-sensitive os
+  set   -o ignoreeof 			 # don't log out if I hit ^-D
 
   ###### I18n ###########################################
-  
+
   export FIGNORE="~"
   export BASH_ENV=$HOME/.bashrc
   export LANG=en_US.UTF-8
@@ -46,16 +47,16 @@
   export LC_TELEPHONE="en_US.UTF-8"
   export LC_MEASUREMENT="en_US.UTF-8"
   export LC_IDENTIFICATION="en_US.UTF-8"
-  
+
   # Set the command line editor to emacs.
   set -o emacs
   export FCEDIT=emacs
-  if [ "$DISPLAY" = "" ] ; then 
+  if [ "$DISPLAY" = "" ] ; then
   export ALTERNATE_EDITOR=emacs EDITOR=nano VISUAL=nano
   else
   export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
   fi
-  
+
   # set up tab completion
   [[ $PS1 && -f                        /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
   [[ $PS1 && -f /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion ]] && source /usr/local/Library/LinkedKegs/bash-completion/etc/bash_completion
@@ -64,3 +65,37 @@
   # [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
   # # Add tab completion for `defaults read|write NSGlobalDomain`
   # complete -W "NSGlobalDomain" defaults
+
+  archive_history() {
+    set +o history
+
+    curr_tty=$(basename `tty`)
+    flat_date=`date +"%Y%m%d"`
+    flat_time=`date +"%H%M%S"`
+
+    #
+    # Since we can often have many windows exit simultaneously, try to be atomic
+
+    full_hist="$HOME/.history-bash/hist-`date +%Y-00`.hist"
+    dest_hist="$HOME/.history-bash/hist-`date +%Y-%W`.hist"
+    temp_hist="$HOME/.history-bash/_temp-$flat_date-$flat_time-$NODENAME-$curr_tty"
+    curr_hist="$HOME/.history-bash/_curr-$flat_date-$flat_time-$NODENAME-$curr_tty"
+    old_histsize=$HISTSIZE
+    HISTSIZE=100000
+
+    HISTFILE="$curr_hist"
+    touch $HISTFILE
+    history -a
+
+    echo "Saving `history | wc -l` lines for `tty` on $NODENAME for $HISTFILE" 1>&2
+
+    cat $HOME/.history-bash/{hist-2013*.hist,_curr-$flat_date-*} | ruby -e 'LINES = Hash.new; $stdin.each do |line| LINES.delete(line.hash) ; LINES[line.hash] = line ; end ; LINES.each{|_,line| puts line }' > $temp_hist
+
+    rm -f "$curr_hist"
+    mv "$temp_hist" "$full_hist"
+    tail -n 2000 "$full_hist" > "$dest_hist"
+    HISTFILE=$dest_hist
+    HISTSIZE=$old_histsize
+
+    set -o history
+  }

@@ -41,8 +41,9 @@ dumpstr = <<-EOF
 #{BLDY}#{CYAF}_______._______._______._______._______._______._______._______._______._______._______._______._______._______._______._______._______._______._______._______
 #{BLDY}#{CYAF}1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567 1234567
     #{ULN_}#{BLD_}#{ITA_}#{RESET}
-#{ULNY}#{YLWF}Underlined:  	#{REDF}red       	#{GRNF}green   	#{BLDY}#{CYAF}cyan#{BLD_}#{ULN_}
-#{ITAY}#{YLWF}Italics: 	#{REDF}red       	#{GRNF}green   	#{BLDY}#{CYAF}cyan#{BLD_}#{ITA_}
+#{ULNY}#{YLWF}Underlined:     #{REDF}red     #{GRNF}green   #{CYAF}cyan#{BLD_}    #{BLDY}#{REDF}red     #{GRNF}green   #{CYAF}cyan#{BLD_}#{ULN_}
+    #{ULN_}#{BLD_}#{ITA_}#{RESET}
+#{ITAY}#{YLWF}Italics:        #{REDF}red     #{GRNF}green   #{CYAF}cyan#{BLD_}    #{BLDY}#{REDF}red     #{GRNF}green   #{CYAF}cyan#{BLD_}#{ITA_}
     #{ULN_}#{BLD_}#{ITA_}#{RESET}
 #{BLD_}#{YLWF}Norm:   #{BLUF}blue    #{PURF}purple  #{CYAF}cyan    #{WHTF}white   #{CYAF}cyan    #{REDF}red     #{GRNF}green   #{BLKF}black
 #{BLD_}#{YLWF}        #{BLKF}black   #{REDF}red     #{GRNF}green   #{YLWF}yellow  #{BLUF}blue    #{PURF}purple  #{CYAF}cyan    #{WHTF}white

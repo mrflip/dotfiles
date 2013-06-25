@@ -1,16 +1,20 @@
-clusters   = gibbon bonobo colobus cerulean ultram periwinkle stark es_loader projectes
+clusters   = projectes patrick spongebob gary neptune garybeta patrickbeta spongebobbeta sandy teapot
 
-gibbon	   =  gibbon-master-0.infochimps.chimpy.us  gibbon-worker-[0-6].infochimps.chimpy.us
-bonobo	   =  bonobo-master-0.infochimps.chimpy.us  bonobo-worker-[0-4].infochimps.chimpy.us
-colobus	   = colobus-master-0.infochimps.chimpy.us colobus-worker-[0-9].infochimps.chimpy.us
-
-es_loader  = es-loader-master-0.test.chimpy.us es-loader-hworker-[0-5].test.chimpy.us
-projectes  = projectes-elasticsearch-[0-5].test.chimpy.us
-
-stark      = stark-elasticsearch-[0-3].infomart.infochimps.chimpy.us
-
-cerulean   = 10.51.5.181 10.51.5.182 10.51.5.185 10.51.5.186 
-ultram	   = 10.51.5.171
-periwinkle = 10.51.5.191 
+screen_bounds = { 0, 0, 1860, 1178 }
+master_height = 60
+action_key    = \017
 
 session_max = 16
+
+projectes  = projectes-elasticsearch-[0-7].test.chimpy.us
+
+patrick    = patrick-search-[0-7].spongecell.chimpy.us
+spongebob  = spongebob-worker-[0-15].spongecell.chimpy.us
+gary       = gary-zookeeper-[0-3].spongecell.chimpy.us
+neptune    = neptune-alpha-0.spongecell.chimpy.us neptune-beta-0.spongecell.chimpy.us neptune-worker-[0-2].spongecell.chimpy.us
+sandy      = sandy-storage-[0-1].spongecell.chimpy.us
+
+teapot     = teapot-nimbus-0.spongecell.chimpy.us teapot-worker-0.spongecell.chimpy.us teapot-search-0.spongecell.chimpy.us teapot-kafka-0.spongecell.chimpy.us
+patrickbeta = patrickbeta-search-[0-7].spongecell.chimpy.us
+spongebobbeta  = spongebobbeta-nimbus-0.spongecell.chimpy.us spongebobbeta-worker-[0-3].spongecell.chimpy.us
+
