@@ -1,0 +1,3 @@
+#!/bin/bash
+
+filebot -non-strict --log all --encoding UTF-8 --lang en --action move --format '/Media/MoviesToWatch/{genres[0]}/{n} ({y}{", "+director}){" CD"+pi}' --db TheMovieDB -rename "$@"

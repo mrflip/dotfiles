@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -z "$1" ] ; then echo "Please give a path to scan" ; exit ; fi
+
+echo "pass -non-strict to get backup matches"
+
+filebot -r --log all --output srt --encoding UTF-8 --lang en -get-missing-subtitles  "$@"

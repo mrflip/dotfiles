@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Filebot Renamer script run on `date`"
+
+/usr/local/bin/filebot -script ~/bin/filebot-rename-either.groovy --action move --lang en --encoding UTF-8 --log all "$@"

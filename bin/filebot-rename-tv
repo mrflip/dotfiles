@@ -1,0 +1,3 @@
+#!/bin/bash
+
+filebot -non-strict --log all --encoding UTF-8 --lang en --action move --format "/Media/TV/{n}/{n+' S'+s.pad(2)}/{n} - {sxe} - {t}" --db=TheTVDB -rename "$@"
