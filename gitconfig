@@ -1,0 +1,86 @@
+[user]
+	name            = Philip (flip) Kromer
+	email = flip@mrflip.com
+[github]
+	user = mrflip
+	token           = 83c606ccb5c4e919fa2248a33c6f057c
+[credential]
+	helper = osxkeychain
+[gui]
+	recentrepo      = /home/flip/ics/wukong
+	
+[core]
+	excludesfile    = ~/.gitignore
+	editor          = nano
+	askpass         = /Users/flip/bin/git-password
+	autocrlf = input
+	# pager         = less -FRSX
+	# whitespace    = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	
+[diff]  
+	renames         = copy # makes the diff much shorter when moving or copying files
+
+[fetch]
+        recurseSubmodules = true
+[push]
+	default = tracking
+[branch]
+	autosetupmerge = true
+	autosetuprebase = always
+[apply]
+	whitespace      = nowarn
+[merge]
+        log             = 20
+		
+[pretty]
+       changelog        = format:* %H %s
+       graph            = format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+        
+[alias]
+	ci              = commit
+	co              = checkout
+        lg              = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+	dw              = diff --word-diff
+
+	missing         = cherry --verbose
+	
+        # tell git to ignore a file
+        ignore          = "!f() { [ -z "$@" ] && echo "git: usage git ignore [file]" || ( ([ ! -e .gitignore ] && touch .gitignore); echo $1 >>.gitignore && echo "Ignoring file $1" && git rm --cached "$@" > /dev/null 2>&1 && git status -s ); }; f"
+
+        # add files to the staging area
+        freeze          = "!f() { ( [ -z $@ ] && git add -A || git add -A "$@" ) && git status -s; }; f"
+        
+        # remove files from the staging area
+        unfreeze        = "!f() { ([ -z "$@" ] && (git reset -q HEAD > /dev/null 2>&1 || echo "first commit must be unfrozen file by file. better error message coming soon") || (git reset -q HEAD -- $@ > /dev/null 2>&1 || git rm -q --cached $@ ) ) && git status -s ; }; f"
+        
+        # eventually we want to make nicer output but for now
+        st              = status -s
+        	
+[color]
+	diff            = auto
+	status          = auto
+	branch          = auto
+	interactive     = auto
+	ui              = auto
+        showbranch      = auto
+	pager           = true
+	
+[color "branch"]
+	current         = yellow reverse
+	local           = yellow
+	remote          = green
+[color "diff"]
+	meta            = yellow bold
+	frag            = magenta bold
+	old             = red bold
+	new             = green bold
+[color "status"]
+	added           = yellow
+	changed         = green
+	untracked       = cyan
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
