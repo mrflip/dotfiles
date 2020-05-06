@@ -1,6 +1,7 @@
-clusters   = projectes patrick spongebob gary neptune garybeta patrickbeta spongebobbeta sandy teapot
+clusters   = projectes patrick spongebob gary neptune patrickbeta spongebobbeta sandy teapot
 
-screen_bounds = { 0, 0, 1860, 1178 }
+screen_bounds = { 0, 0, 1860, 1078 }
+# screen_bounds = { -1900, -121, 1860, 1078 }
 master_height = 60
 action_key    = \017
 
@@ -14,7 +15,8 @@ gary       = gary-zookeeper-[0-3].spongecell.chimpy.us
 neptune    = neptune-alpha-0.spongecell.chimpy.us neptune-beta-0.spongecell.chimpy.us neptune-worker-[0-2].spongecell.chimpy.us
 sandy      = sandy-storage-[0-1].spongecell.chimpy.us
 
-teapot     = teapot-nimbus-0.spongecell.chimpy.us teapot-worker-0.spongecell.chimpy.us teapot-search-0.spongecell.chimpy.us teapot-kafka-0.spongecell.chimpy.us
+teapot     = teapot-worker-[0-8].spongecell.chimpy.us
+# teapot-nimbus-0.spongecell.chimpy.us teapot-search-0.spongecell.chimpy.us teapot-kafka-0.spongecell.chimpy.us
 patrickbeta = patrickbeta-search-[0-7].spongecell.chimpy.us
 spongebobbeta  = spongebobbeta-nimbus-0.spongecell.chimpy.us spongebobbeta-worker-[0-3].spongecell.chimpy.us
 

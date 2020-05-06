@@ -26,7 +26,7 @@ module AnsiColors
   INVY = "#{ESC}[7m";    INV_ = "#{ESC}[27m"
 
   RESET = "#{ESC}[0m"
-  
+
 end
 
 include AnsiColors

@@ -62,7 +62,7 @@ end
 #
 
 Pry.config.editor = lambda{|f,l| "open -a Emacs #{f}" }
-Pry.config.prompt = [lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level}> " }, lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj}:#{level} ...> " }]
+Pry.config.prompt = [lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..60]}:#{level}> " }, lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..40]}:#{level} ...> " }]
 
 Pry.config.exception_handler = proc do |output, exception, _|
   output.puts "#{exception.class}: #{exception.message}"

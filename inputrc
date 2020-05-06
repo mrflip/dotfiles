@@ -12,19 +12,19 @@ $include /etc/Inputrc
 #
 # Set various bindings for emacs mode.
 
-set editing-mode emacs 
+set editing-mode emacs
 $if mode=emacs
 
 $endif
 # use a visible bell if one is available
 set bell-style 			visible
 # Set full bit operation
-set meta-flag     		on	
+set meta-flag     		on
 set input-meta 	  		on
 set output-meta   		on
 set convert-meta  		off
 # don't go to home recalling history
-set history-preserve-point 	on	
+set history-preserve-point 	on
 
 # You can see all your kebindings with
 #   bind -p
@@ -40,33 +40,33 @@ set history-preserve-point 	on
 
 
 # Fix some keyboard issues
-"\e[2~":	paste-from-clipboard	
-"\C-v":		paste-from-clipboard	
+"\e[2~":	paste-from-clipboard
+"\C-v":		paste-from-clipboard
 
-# "\e[5~":	"\M-5\C-p"		
-# "\e[6~":	"\M-5\C-n"		
-# "\e[7~":	"\C-a"			
-# "\e[8~":	"\C-e"			
-# "\eOc":	"\M-f"			
-# "\eOd":	"\M-b"			
+# "\e[5~":	"\M-5\C-p"
+# "\e[6~":	"\M-5\C-n"
+# "\e[7~":	"\C-a"
+# "\e[8~":	"\C-e"
+# "\eOc":	"\M-f"
+# "\eOd":	"\M-b"
 
-"\eOc":		forward-word 		
-"\eOd":		backward-word		
-"\e[C":		forward-char		
-"\e[D":		backward-char		
-"\e[1;5C":	forward-word		
-"\e[1;5D":	backward-word		
-"\e[3~":	delete-char		
-"\e[4~":	end-of-line		
-"\e[7~":	beginning-of-line	
-"\e[8~":	end-of-line		
+"\eOc":		forward-word
+"\eOd":		backward-word
+"\e[C":		forward-char
+"\e[D":		backward-char
+"\e[1;5C":	forward-word
+"\e[1;5D":	backward-word
+"\e[3~":	delete-char
+"\e[4~":	end-of-line
+"\e[7~":	beginning-of-line
+"\e[8~":	end-of-line
 
-"\M-k":		kill-whole-line 
+"\M-k":		kill-whole-line
 
 "\C-w":		kill-region
 "\M-w":		copy-region-as-kill
 
-"\C-z":		undo			
+"\C-z":		undo
 "\C-q":		quoted-insert
 
 # Search history for command on current line
@@ -74,16 +74,6 @@ set history-preserve-point 	on
 "\M-\C-r":	history-search-backward
 
 "\C-x\C-r":     re-read-init-file
-
-"\C-o": "jack"
-
-$if node
-  "\C-o": "jack"
-$endif
-
-$if v8
-  "\C-o": "jack"
-$endif
 
 $if bash
 
@@ -93,13 +83,13 @@ $if bash
   set completion-query-items 		100
   set expand-tilde 			off
   set visible-stats 			on
-  set bell-style 			visible	
+  set bell-style 			visible
   set mark-symlinked-directories 	on
 
   "\C-x\C-s":	"\M-k\C-lhistsave\C-j\C-y"
   "\C-xs":	"\M-k\C-lhistsave\C-j\C-y"
-  "\C-@":	set-mark		
-  "\M-space":	set-mark		
+  "\C-@":	set-mark
+  "\M-space":	set-mark
   "\C-`":	set-mark
 
   "\C-xff":	"for foo in  ; do echo \"  === $foo\" ; ; done bbbb"
@@ -107,9 +97,9 @@ $if bash
   "\C-xfc":     "sudo true && ./configure --prefix=/usr/local && make -j7 && sudo make install"
   "\C-xfs":	"find . -iname "*""
   "\C-xga":     "git add ."
-  "\C-xgc":	"git ci -m \"\" ."
+  "\C-xgc":	"git ci -m \"\""
   "\C-xgd":	"git diff HEAD"
-  "\C-xgk":	"git cherry-pick "
+  "\C-xgk":	"git rebase --continue "
   "\C-xgl":	"git log -p --ignore-all-space --follow -- "
   "\C-xgm":	"git checkout master"
   "\C-xgp":	"git pull "
@@ -119,7 +109,7 @@ $if bash
   "\C-xgu":	"git submodule update "
   "\C-xgw":	"git checkout working"
   "\C-xtt":     "ctags-exuberant -e --language-force=ruby  `find . -iname '*rb' | egrep -v ./'(vendor|test)'/`"
-  
+
 $endif
 
 # For FTP

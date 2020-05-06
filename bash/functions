@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
@@ -27,7 +26,7 @@ if `perl -e "'$MACHTYPE'=~/apple/ or exit(1)"`; then
       `which rmdir` $rmdir_flags "$foo"
     done
   }
-  
+
 else
   # not apple
   function psgrep()
@@ -47,7 +46,7 @@ fi
 
 function histgrep()
 {
-    egrep -hi -- "$@" ~/.history-bash/* | ruby -rset -e 'lines=Set.new; $stdin.each{|l| next if lines.include?(l.hash) ; puts l ; lines << l.hash}'
+    egrep -hi -- "$@" ~/.history-bash/hist-* | ruby -rset -e 'lines=Set.new; $stdin.each{|l| next if lines.include?(l.hash) ; puts l ; lines << l.hash}'
 }
 alias hs=histgrep
 
@@ -68,7 +67,7 @@ function histsave()
 #       export HISTDUMPPED=1
 #     fi
 # }
-# 
+#
 # exit ()
 # {
 #    archive_history
@@ -80,36 +79,36 @@ function histsave()
 
 function bind_showall()
 {
-    ( bind -p | perl -ne 'chomp; 
-        if (m/^(.+): (.*)$/) { 
-                ($key,$cmd)=("$1:",$2); 
-        } else { 
-                ($key,$cmd)=("",$_); 
-        }; 
+    ( bind -p | perl -ne 'chomp;
+        if (m/^(.+): (.*)$/) {
+                ($key,$cmd)=("$1:",$2);
+        } else {
+                ($key,$cmd)=("",$_);
+        };
         printf "%10s\t%s\n", $key, $cmd;
-    ' ) | sort -t':' -k 2 
+    ' ) | sort -t':' -k 2
 }
 
 
 function bind_grep()
 {
-    ( bind -p | perl -ne 'chomp; 
-        if (m/^(.+): (.*)$/) { 
-                ($key,$cmd)=("$1:",$2); 
-        } else { 
-                ($key,$cmd)=("",$_); 
-        }; 
+    ( bind -p | perl -ne 'chomp;
+        if (m/^(.+): (.*)$/) {
+                ($key,$cmd)=("$1:",$2);
+        } else {
+                ($key,$cmd)=("",$_);
+        };
         printf "%10s\t%s\n", $key, $cmd;
-    ' ) | grep -Pi -- "$1" | sort -t':' -k 2 
+    ' ) | grep -Pi -- "$1" | sort -t':' -k 2
 }
 
 function bind_showfuncs()
 {
-    bind -P | perl -ne 'chomp; 
-        next unless $_; 
-        m/^(.*) is not bound to any keys/ && do { ($cmd,$keys)=($1,"") }; 
-        m/^(.*) can be found on (.*)$/    && do { ($cmd,$keys)=($1,$2) }; 
-        $keys =~ s/\.$//; 
+    bind -P | perl -ne 'chomp;
+        next unless $_;
+        m/^(.*) is not bound to any keys/ && do { ($cmd,$keys)=($1,"") };
+        m/^(.*) can be found on (.*)$/    && do { ($cmd,$keys)=($1,$2) };
+        $keys =~ s/\.$//;
         printf "%-40s: %s\n", ($cmd || "!!$_!!"), join "\t", (split ", ", $keys);
     '
 }
@@ -125,12 +124,12 @@ function status() { st=$? ; echo $st ; perl -e "exit($st)" ;  }
 # }
 
 function sshkp() {
-  _host=$1                   ; shift          
-  _keypair=${kp-gibbon} 
-  _keypair=${keypair-gibbon} 
+  _host=$1                   ; shift
+  _keypair=${kp-gibbon}
+  _keypair=${keypair-gibbon}
   _as_user=${as_user-ubuntu}
   echo $_host $_keypair $_as_user "$@"
-  if [[ "$_host" == "" ]] ; then echo "which host?" 
+  if [[ "$_host" == "" ]] ; then echo "which host?"
   else ssh -i ~/.hadoop-ec2/keypairs/${_keypair}.pem ${_as_user}@${_host} "$@" ; fi
   unset _host _as_user _keypair
 }

@@ -1,1 +1,1 @@
-echo "use fixnewlines --fix --type=unix $@ instead"
+/usr/local/bin/dos2unix

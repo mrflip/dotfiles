@@ -1,1 +1,1 @@
-../../ics/core/wukong_og/lib/wukong.rb
+../../ics/core/wukong/lib/wukong.rb

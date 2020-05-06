@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+lines=${L-60}
+start=${S-0}
+cols=${C-250}
+
+tail -n +$start "$@" | head -n $lines | cut -c 1-$cols

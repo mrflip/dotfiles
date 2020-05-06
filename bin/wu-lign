@@ -118,8 +118,8 @@ FORMAT_GUESSING_LINES = 500
 # widest column to set
 MAX_MAX_WIDTH = 100
 
-INT_RE   = /\A[\d,]+\z/
-FLOAT_RE = /\A([\d,]+)(?:\.(\d+))?(?:e-?\d+)?\z/
+INT_RE   = /\A[\-\+]?[\d,]+\z/
+FLOAT_RE = /\A([\-\+]?[\d,]+)(?:\.(\d+))?(?:e[\+\-]?\d+)?\z/
 
 REPLACEMENT_CHAR = "\uFFFD"
 def repair_line(line)
@@ -179,7 +179,7 @@ FORMAT_GUESSING_LINES.times do
   col_widths.each_with_index{|cw,i| maxw[i] = [[cw,maxw[i]].compact.max, MAX_MAX_WIDTH].min }
   row.each_with_index{|col,i|
     next if skip_col[i]
-    # Let the first row be text (headers)
+    # Allow the first row to be text (headers)
     col_types[i] = consensus_type(col, col_types[i], rows.length == 1)
     if col_types[i] == :float
       mantissa, radix = f_width(col)
@@ -195,10 +195,12 @@ end
 format = maxw.zip(col_types, col_minmag, col_maxmag, FORMAT_SPECS).map do |width, type, minmag, maxmag, default|
   next(lambda{|s| default % s rescue s }) if default.to_s != ''
   case type
-  when :mixed, nil then lambda{|s| "%-#{width}s" % s }
-  when :str        then lambda{|s| "%-#{width}s" % s }
-  when :int        then lambda{|s| "%#{width}d"  % s.gsub(/[^\d\-\+]+/, "").to_i }
-  when :float      then lambda{|s| "%#{maxmag+minmag+2}.#{minmag}f" % s.gsub(/[^\d\.eE\-\+]+/, "").to_f }
+  when :mixed, nil then lambda{|ss| "%-#{width}s" % ss }
+  when :str        then lambda{|ss| "%-#{width}s" % ss }
+  when :int        then lambda{|ss| ss = ss.gsub(/[^\d\-\+]+/, "");
+      (ss.empty? ? ("%-#{width}s"%ss) : ("%-#{width}d" % ss.to_i)) }
+  when :float      then lambda{|ss| ss = ss.gsub(/[^\d\.eE\-\+]+/, '');
+      (ss.empty? ? ("%-#{maxmag+minmag+2}s"%ss) : ("%#{maxmag+minmag+2}.#{minmag}f" % ss.to_f)) }
   else raise "oops type #{type}"  end
 end
 
@@ -207,6 +209,10 @@ def dump_row row, format
 end
 def dump_header row, maxw
   puts row.zip(maxw).map{|col, width| "%-#{width}s" % col.to_s }.join("\t")
+end
+
+if ENV['WULIGN_DEBUG'] == 'true'
+  $stderr.puts "maxw:\t#{maxw.zip(col_types, col_minmag, col_maxmag).inspect}"
 end
 
 pad = [''] * maxw.length

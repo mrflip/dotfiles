@@ -3,6 +3,8 @@
 bcomp_dir=$HOME/.bash/completion.d
 
 if   [ "$MACHINE" == "OSX" ] ; then
+  # workaround a bug where otherwise you get '\' prepended to any '$'.
+  shopt -s direxpand
   # https://gist.github.com/839902/
   source $bcomp_dir/open
   source $bcomp_dir/launchctl

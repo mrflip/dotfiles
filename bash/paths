@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+# -*- sh -*-
 
-if    uname -a | egrep 'Darwin.* 1[012]\.[0-9]' > /dev/null 2>&1 ; then
+if    uname -a | egrep 'Darwin.* 1[0-9]\.[0-9]' > /dev/null 2>&1 ; then
   export MACHINE=OSX
 elif  uname -a | egrep -q 'Darwin.*9\.[6789]'   > /dev/null 2>&1 ; then
   export MACHINE=OSX
@@ -40,32 +40,59 @@ export MANPATH=${MANPATH-/usr/local/man}
 # export CORE_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
+# PATH=/Users/flip/slice/bin:/Users/flip/bin:/Users/flip/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/Users/flip/.rbenv/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/System/Library/Frameworks/JavaVM.framework/Home/bin
+
 # remove these, so they can be added to the front
 shopt -s extglob
 PATH=${PATH//\/usr\/local\/bin\:/}
 PATH=${PATH//\/usr\/local\/sbin\:/}
-PATH=${PATH//$HOME\/.rbenv\/shims\:/}
+# PATH=${PATH//$HOME\/.rbenv\/shims\:/}
+# PATH=${PATH//$HOME\/.rbenv\/bin\:/}
 
-# PATH=/Users/flip/slice/bin:/Users/flip/bin:/Users/flip/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/Users/flip/.rbenv/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home/bin
 
-PATH=/usr/local/bin:/usr/local/sbin:${PATH}
-prepend_path PATH    /usr/local/share/python
-prepend_path PATH    $HOME/.rbenv/bin
-prepend_path PATH    $HOME/.rbenv/shims
+PATH=/usr/local/bin:/usr/local/sbin:/usr/libexec:${PATH}
+prepend_path PATH    /usr/local/heroku/bin
+
+## Add ruby
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+# export RUBYLIB=$HOME/.rubylib
+# export JRUBY_OPTS="--1.9"
+# prepend_path PATH    $HOME/.rbenv/bin
+# prepend_path PATH    $HOME/.rbenv/shims
+
+## Force my dirs first
 prepend_path PATH    $HOME/bin
 prepend_path PATH    $HOME/slice/bin
+append_path  PATH    $HOME/Library/Python/2.7/bin
+
 prepend_path MANPATH /usr/local/share/man
 prepend_path MANPATH /usr/local/man
 append_path  MANPATH /usr/share/man
 prepend_path PYTHONPATH /usr/local/lib/python
 
-export RUBYLIB=$HOME/.rubylib
-export JRUBY_OPTS="--1.9"
+LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
+if [ -f $LUNCHY_DIR/lunchy-completion.bash ]; then
+  . $LUNCHY_DIR/lunchy-completion.bash
+fi
 
 export NODE_PATH
 prepend_path NODE_PATH /usr/local/lib/node_modules
 
 if [ "$MACHINE" == "OSX" ] ; then export HOMEBREW_TEMP=/tmp ; fi
+
+# if [ "$MACHINE" == "OSX" ] ; then 
+#   # export DOCKER_IP=192.168.59.103
+#   # export DOCKER_HOST=tcp://${DOCKER_IP}:2375
+#   # export DOCKER_CERT_PATH=/Users/flip/.boot2docker/certs/boot2docker-vm
+#   # export DOCKER_TLS_VERIFY=1
+# fi
+
+export DOCKER_API_USER='mrflip'
+export DOCKER_API_EMAIL='flip@infochimps.com'
+# export DOCKER_API_PASS=''
 
 
 ###########################################################################
@@ -90,16 +117,12 @@ export CSTN_DIR=$HOME/ics/sysadmin/chimpstation-homebase
 # S3), and make sure we've put in a credit card (we have).
 #
 
-export   EC2_CERTS_DIR=${EC2_CERTS_DIR-./.chef/credentials/ec2_certs}
+# export   EC2_CERTS_DIR=${EC2_CERTS_DIR-./.chef/credentials/ec2_certs}
+# export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
+# export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
+export   EC2_CERTS_DIR=${EC2_CERTS_DIR-$HOME/.aws}
 export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
 export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
-
-# # Location of EC2 keys.
-# export EC2_KEYPAIR_DIR=${EC2_KEYPAIR_DIR-./.chef/credentials/ec2_keys}
-# export EC2_KEYPAIR_NAME=${EC2_KEYPAIR_NAME-burninator}
-# export EC2_KEYPAIR_FILE="${EC2_KEYPAIR_DIR}/${EC2_KEYPAIR_NAME}.pem"
-# export EC2_SSH_OPTIONS="-i ${EC2_KEYPAIR_FILE} -o StrictHostKeyChecking=no -o ServerAliveInterval=30"
-# export SSH_OPTS=$EC2_SSH_OPTIONS
 
 
 if [ "$EC2_HOME" = "" ] ; then
@@ -111,11 +134,15 @@ if [ "$EC2_HOME" = "" ] ; then
 fi
 
 if   [ "$MACHINE" == "OSX" ] ; then
-  # export JAVA_HOME=${JAVA_HOME-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home}
-  export JAVA_HOME=${JAVA_HOME-/Library/Java/Home}
+  export JAVA_HOME=$(/usr/libexec/java_home)
   export EC2_AMITOOL_HOME=/usr/local
   export HADOOP_HOME=${HADOOP_HOME-/usr/local/share/hadoop}
-  export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
+  append_path PATH   $HADOOP_HOME/sbin
+  append_path PATH   $HADOOP_HOME/bin
+  export PIG_HOME=${PIG_HOME-$HOME/ics/data_science_fun_pack/pig/pig}
+  export FORREST_HOME=${FORREST_HOME-/usr/local/share/apache-forrest}
+  export ANT_OPTS="-Xmx3000m -Xms512m -Dforrest.home=$FORREST_HOME -Dant.logger.defaults=$PIG_HOME/conf/ant-logger.properties -Divy.cache.ttl.default=eternal"
+  export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 elif [ "$MACHINE" == "LINUX" ] ; then
   export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
   # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}

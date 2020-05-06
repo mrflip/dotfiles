@@ -87,6 +87,8 @@ ORPHAN		01;31		# symlink to nonexistent file
 .log		00;32			# Log files
 .sys		01;30;38;5;238		# device drivers
 
+.lock           01;30;38;5;238		# yarn.lock, etc
+
 ##################################################################
 # Red:		Archives or Compressed
 
@@ -199,9 +201,6 @@ EXEC		00;32
 .fli		00;35;38;5;53
 .flc		00;35;38;5;53
 
-.rb		01;36		# Ruby
-
-
 ##################################################################
 # Cyan:		Prog files
 
@@ -219,6 +218,7 @@ EXEC		00;32
 .i		00;36		# SWIG
 .sql		01;36		# SQL
 
+
 .rb 		01;36		# ruby
 .haml		01;37;38;5;80	# HTML and friends
 .sass		00;32;38;5;33
@@ -227,6 +227,11 @@ EXEC		00;32
 
 .vi		01;36		# LabView
 .js		01;36;38;5;44	# Javascript
+.jsx            01;36
+.ts             01;36
+.tsx            01;36
+.d.ts           01;36;36;5;30
+
 .jar		00;36;38;5;44	# Java
 .nb		01;36;38;5;38	# Mathematica
 .m		01;36;38;5;38	# Matlab
@@ -252,6 +257,7 @@ EXEC		00;32
 .reg		01;37		# Windows Registry
 .ini		01;37
 
+.md             01;37
 
 .doc		01;37;38;5;138	# MS Office
 .dot		01;37;38;5;138
@@ -267,6 +273,10 @@ EXEC		00;32
 
 .yaml		01;37;38;5;85
 .yml		01;37;38;5;85
+
+.graphql        01;36;38;5;84
+
+.json		01;37;38;5;80
 
 .htm		01;37;38;5;80	# HTML and friends
 .html		01;37;38;5;80

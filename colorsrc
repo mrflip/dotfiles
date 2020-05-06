@@ -54,33 +54,23 @@ TERM vt100
 .mp3 01;33 # Noises -- yellow
 .wav 01;33
 .mpg 01;33
-.MPG 01;33 
+.MPG 01;33
 .avi 01;33
 .gl  01;33
 .dl  01;33
 
 .jpg 01;35 # Images -- magenta
-.JPG 01;35 
+.JPG 01;35
 .gif 01;35
-.GIF 01;35 
+.GIF 01;35
 .bmp 01;35
-.BMP 01;35 
+.BMP 01;35
 .ppm 01;35
 .tga 01;35
 .xbm 01;35
 .xpm 01;35
 .tif 01;35
 .png 01;35
-
-# Programming - cyan
-.c     01;36
-.C     01;36
-.cpp   01;36
-.h     01;36
-.m     01;36
-.nb    01;36
-.lex   01;36
-
 
 .txt   01;37 # Text -- white
 .TXT   01;37
@@ -92,6 +82,20 @@ TERM vt100
 .in    01;37
 .lst   01;36
 .dict  01;35
+.d.ts  01;35
+
+# Programming - cyan
+.c     01;36
+.C     01;36
+.cpp   01;36
+.h     01;36
+.m     01;36
+.nb    01;36
+.lex   01;36
+.js    01;36
+.ts    01;36
+.jsx   01;36
+.tsx   01;36
 
 .htm   00;33 # Net -- dk yellow
 .HTM   00;33
@@ -99,6 +103,7 @@ TERM vt100
 .HTML  00;33
 .shtml 00;33
 .css   00;33
+.json  01;36
 
 .xls   00;33 # Apps -- dk yellow
 .doc   00;33

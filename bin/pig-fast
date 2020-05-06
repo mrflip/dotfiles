@@ -1,0 +1,47 @@
+#!/bin/sh
+
+PIG_HOME=${PIG_HOME-/Users/flip/ics/data_science_fun_pack/pig/pig}
+HADOOP_HOME=${HADOOP_HOME-/usr/local/share/hadoop}
+JAVA=${JAVA-${JAVA_HOME}/bin/java}
+LOG_DIR="/tmp/hadoop-${USER}/logs"
+
+export PIG_CLASSPATH="$HADOOP_HOME/etc/hadoop:$HADOOP_HOME/share/hadoop/common/lib/*:$HADOOP_HOME/share/hadoop/common/*:$HADOOP_HOME/share/hadoop/hdfs:$HADOOP_HOME/share/hadoop/hdfs/lib/*:$HADOOP_HOME/share/hadoop/hdfs/*:$HADOOP_HOME/share/hadoop/yarn/lib/*:$HADOOP_HOME/share/hadoop/yarn/*:$HADOOP_HOME/share/hadoop/mapreduce/lib/*:$HADOOP_HOME/share/hadoop/mapreduce/*:/Users/flip/ics/data_science_fun_pack/pig/pig/conf:/Library/Java/JavaVirtualMachines/jdk1.7.0_55.jdk/Contents/Home/lib/tools.jar:/Users/flip/ics/data_science_fun_pack/pig/pig/build/ivy/lib/Pig/jython-standalone-2.5.3.jar:/Users/flip/ics/data_science_fun_pack/pig/pig/build/ivy/lib/Pig/jruby-complete-1.6.7.jar:/Users/flip/ics/data_science_fun_pack/pig/pig/pig-withouthadoop-h2.jar:/usr/local/share/hadoop/contrib/capacity-scheduler/*.jar"
+
+# Helped:
+#
+# * uncompressed jar file
+# * not going through like 17 shell scripts
+# * 
+#
+# Didn't help or hurt startup time (not assessing run time performance):
+#
+# * -Xshare:on
+# * changing the GC settings or GC logging settings
+# * drip didn't help, not sure why
+
+# -Xrunhprof:cpu=times instruments all Java code in the JVM and records the actual CPU time calls take.
+# -Xrunhprof           records object allocations and high-allocation sites, which is useful for finding excess object creation
+# -Xprof               low-impact sampling profiler.
+# -XX:NewRatio (default 1:8 ; 1:2 or 1:1.5 better)
+
+mkdir -p "$LOG_DIR"
+gdate --iso-8601=ns >> "$LOG_DIR/pig-log.log"
+exec "$JAVA" -Dproc_jar -Xmx4000m -Xverify:none \
+     -Dpig.home.dir="${PIG_HOME}" \
+     -Dhadoop.home.dir="${HADOOP_HOME}" \
+     -Dhadoop.log.dir="$LOG_DIR" \
+     -Dhadoop.log.file=hadoop.log \
+     -Dhadoop.id.str=flip \
+     -Dhadoop.root.logger=INFO,console -Dhadoop.security.logger=INFO,NullAppender \
+     -Djava.library.path=/usr/local/share/hadoop-3.0.0-SNAPSHOT/lib/native \
+     -Dhadoop.policy.file=hadoop-policy.xml -Djava.net.preferIPv4Stack=true \
+     -XX:+UseCompressedOops -server -XX:+AggressiveOpts \
+     -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly \
+     -XX:+UseParNewGC -XX:SurvivorRatio=10 -XX:MaxTenuringThreshold=2 \
+     -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Djava.net.preferIPv4Stack=true \
+     -Djava.security.krb5.realm= -Djava.security.krb5.kdc= -Djava.security.krb5.conf=/dev/null \
+     -cp "$PIG_CLASSPATH" \
+     org.apache.hadoop.util.RunJar \
+     "$PIG_HOME/pig-withouthadoop-h2.jar" "$@"
+
+#     -verbose:gc -Xloggc:"$LOG_DIR/gc-pig.log" -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCTimeStamps -XX:+PrintClassHistogram -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:GCLogFileSize=10000K \
