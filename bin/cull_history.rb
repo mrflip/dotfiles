@@ -22,7 +22,7 @@ if Settings.clobber
   $stderr.puts "Overwriting history files in #{DEST_DIR}..."
 else
   DEST_DIR = tmp_dir('cull')
-  $stderr.puts "Writing history files to #{DEST_DIR}..."
+  $stderr.puts "Writing history files to #{DEST_DIR}... Re-run with --clobber to update #{DEST_DIR}"
 end
 
 # Track each unique line
@@ -40,12 +40,12 @@ hist_files.sort.reverse.each do |hist_file|
   FileUtils.cp hist_file, bkup_file
   uniq_lines = 0 ; total_lines = 0
   File.open(dest_file, 'w') do |out_file|
-    File.open(bkup_file).each do |line|
+    rev_lines = File.readlines(bkup_file).reverse.map do |line|
       total_lines += 1
       next if lines.include?(line) ; uniq_lines += 1
       lines    << line
-      out_file << line
     end
+    rev_lines.each{|line| out_file << line }
   end
   $stderr.puts "  #{uniq_lines}\t#{total_lines}\t#{hist_file}\t#{dest_file}"
 end

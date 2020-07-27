@@ -13,7 +13,7 @@ nohup.out
 *~
 *.swp
 REVISION
-TAGS*
+TAGS
 tmtags
 *_flymake.*
 *_flymake

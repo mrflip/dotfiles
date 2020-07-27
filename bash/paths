@@ -83,7 +83,7 @@ prepend_path NODE_PATH /usr/local/lib/node_modules
 
 if [ "$MACHINE" == "OSX" ] ; then export HOMEBREW_TEMP=/tmp ; fi
 
-# if [ "$MACHINE" == "OSX" ] ; then 
+# if [ "$MACHINE" == "OSX" ] ; then
 #   # export DOCKER_IP=192.168.59.103
 #   # export DOCKER_HOST=tcp://${DOCKER_IP}:2375
 #   # export DOCKER_CERT_PATH=/Users/flip/.boot2docker/certs/boot2docker-vm
@@ -108,6 +108,15 @@ export CSTN_DIR=$HOME/ics/sysadmin/chimpstation-homebase
 
 ###########################################################################
 #
+# Serverless setup
+#
+
+export SLS_STAGE=futz
+export SLS_ORG=tookstock
+export AWS_REGION=us-east-1
+
+###########################################################################
+#
 # Amazon EC2 Setup
 #
 #
@@ -123,7 +132,6 @@ export CSTN_DIR=$HOME/ics/sysadmin/chimpstation-homebase
 export   EC2_CERTS_DIR=${EC2_CERTS_DIR-$HOME/.aws}
 export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
 export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
-
 
 if [ "$EC2_HOME" = "" ] ; then
   if [ -d /usr/local/share/ec2-api-tools ] ; then

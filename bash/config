@@ -7,7 +7,7 @@ if [ "$PS1" ]; then
 
   # ###### History ########################################
   #
-  export HISTFILE=$HOME/.history-bash/"hist-`date +%Y-%W`-$$.hist"
+  export HISTFILE=$HOME/.history-bash/"hist-`date +%Y%m%d-%H%M%S`-$$.hist"
   histyear="hist-`date +%Y`"
   # echo "$histyear $HISTFILE"
   # echo ~/.history-bash/${histyear}*.hist
@@ -17,8 +17,8 @@ if [ "$PS1" ]; then
     # ruby -rset -e 'LINES = Set.new; $stdin.each do |line| LINES.delete(line) ; LINES << line ; end; LINES.map{|ll| puts ll}'
     cat ~/.history-bash/${histyear}*.hist | ~/bin/cull_hist_sorted.rb | tail -n $HISTSIZE > $HISTFILE
     # Write a divider to identify where the prior week's session history ends
-    echo "####### `date +%Y-%W-%w-$$` : `date` #######" >> $HISTFILE
-    history -s "####### `date +%Y-%W-%w-$$` : `date` #######"
+    echo "####### `date +%Y%m%d-%H%M%S-$$` : `date` #######" >> $HISTFILE
+    history -s "####### `date +%Y%m%d-%H%M%S-$$` : `date` #######"
   fi
   history -n $HISTFILE
   # set   -o history
@@ -28,7 +28,8 @@ if [ "$PS1" ]; then
   alias  histup='history -a $HISTFILE'
   export histchars=""
 
-  # trap 'archive_history' EXIT
+  # Save history on each command
+  export PROMPT_COMMAND='update_terminal_cwd; history -w'
 fi
 
   ####################### Shell Stuff ##############################
@@ -79,10 +80,10 @@ fi
 
   archive_history() {
     set +o history
-    HISTSIZE=500
-    history -s "####### `date +%Y-%W-%w-$$` : `date` #######"
+    HISTSIZE=500000
+    history -s "####### `date +%Y%m%d-%H%M%S-$$` : `date` #######"
     history -w
-    echo "####### `date +%Y-%W-%w-$$` : `date` #######" >> $HISTFILE
+    echo "####### `date +%Y%m%d-%H%M%S-$$` : `date` #######" >> $HISTFILE
     set -o history
   }
 

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set     +o history
 
+source ~/.bash/paths
+
 # From here on only for interactive shells
 if [ "$PS1" ]; then
   source $HOME/.bash/aliases

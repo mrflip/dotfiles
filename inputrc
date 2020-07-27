@@ -56,7 +56,8 @@ set history-preserve-point 	on
 "\e[D":		backward-char
 "\e[1;5C":	forward-word
 "\e[1;5D":	backward-word
-"\e[3~":	delete-char
+"\e[3~":	delete-backward-char
+"\e[2":		delete-backward-char
 "\e[4~":	end-of-line
 "\e[7~":	beginning-of-line
 "\e[8~":	end-of-line

@@ -64,10 +64,10 @@ apps = {
 function swap_keys(t)
    -- for i,v in pairs(t) do print(i,v) end
    -- print(t.appname)
-   if set_contains(global_excludes, t.key_str_seq) then
+   if not apps[t.appname] then
       return false
    end
-   if not apps[t.appname] then
+   if set_contains(global_excludes, t.key_str_seq) then
       return false
    end
    local excludes = apps[t.appname]["exclude"]

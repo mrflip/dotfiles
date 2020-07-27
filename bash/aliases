@@ -2,22 +2,29 @@
 # Clear all aliases
 unalias -a
 
-if [ "$MACHINE" == "OSX" ] && [ -d /usr/local/.git ] ; then
-  brew_prefix=/usr/local
-  source $HOME/.bash/brew_aliases
-  unalias printf # leave it at the system one
-fi
-
 # Fix my ls options
-if [ -z `which dircolors` ] ; then false ; else
-  eval `dircolors -b ~/.dir_colors`           # -b for bash
-fi 
+if [ -z `which gdircolors` ] ; then
+  if [ -z `which dircolors` ] ; then
+    false
+  else
+    eval `dircolors -b ~/.dir_colors` # -b for bash
+  fi
+else
+  eval `gdircolors -b ~/.dir_colors` # -b for bash
+fi
 export LS_OPTIONS=" -CF "
 if `ls --help 2>/dev/null | grep -q gnu` ; then
   LS_OPTIONS="$LS_OPTIONS -SX -b -T 0"
   if [ "$TERM" == "dumb" ] ; then false ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
 fi
-alias ls='ls $LS_OPTIONS'
+
+if [ "$MACHINE" == "OSX" ] && [ -d /usr/local/Cellar ] ; then
+  brew_prefix=/usr/local
+  source $HOME/.bash/brew_aliases
+  unalias printf # leave it at the system one
+  LS_OPTIONS="$LS_OPTIONS --color=auto -SX -b -T 0"
+  alias ls='gls $LS_OPTIONS'
+fi
 
 # Fix my less options
 export LESS="-eFXir"                 # -r means 'show raw ctrl chars' -- makes output colored
@@ -26,16 +33,11 @@ alias more=less
 # pretty ruby dox
 export RI='-f ansi'
 
-alias gemdocs="gem server >/dev/null 2>&1 & sleep 0.2 ; open http://localhost:8808"
-
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias whois="whois -h whois-servers.net"
-
-alias pear="php /usr/lib/php/pear/pearcmd.php" 
-alias pecl="php /usr/lib/php/pear/peclcmd.php" 
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache"
