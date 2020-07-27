@@ -20,7 +20,7 @@ unless File.exists?(CONSOLE_HIST_FILE)
   last_hist_file = Dir[File.join(CONSOLE_HIST_DIR,'/history_ruby_*')].sort.last
   FileUtils.cp(last_hist_file, CONSOLE_HIST_FILE) if last_hist_file
 end
-Pry.config.history.file = CONSOLE_HIST_FILE
+Pry.config.history_file = CONSOLE_HIST_FILE
 
 #
 # Pry extensions
@@ -62,7 +62,12 @@ end
 #
 
 Pry.config.editor = lambda{|f,l| "open -a Emacs #{f}" }
-Pry.config.prompt = [lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..60]}:#{level}> " }, lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..40]}:#{level} ...> " }]
+Pry.config.prompt = Pry::Prompt.new(
+  "flip", "custom", [
+    lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..60]}:#{level}> " }, 
+    lambda{|obj, level, *_| "#{RUBY_VERSION} #{obj.to_s[0..40]}:#{level} ...> " }
+  ]
+)
 
 Pry.config.exception_handler = proc do |output, exception, _|
   output.puts "#{exception.class}: #{exception.message}"

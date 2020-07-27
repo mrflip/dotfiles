@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'Set'
+require 'set'
 
 # cat ~/history-bash/hist-* | ~/bin/cull_hist_sorted.rb > ~/history-bash/all/hist-`datename`-all.hist
 
