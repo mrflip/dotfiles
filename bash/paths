@@ -1,8 +1,8 @@
 # -*- sh -*-
 
-if    uname -a | egrep 'Darwin.* 1[0-9]\.[0-9]' > /dev/null 2>&1 ; then
+if    uname -a | egrep 'Darwin' > /dev/null 2>&1 ; then
   export MACHINE=OSX
-elif  uname -a | egrep -q 'Darwin.*9\.[6789]'   > /dev/null 2>&1 ; then
+elif  uname -a | egrep -q 'Darwin'   > /dev/null 2>&1 ; then
   export MACHINE=OSX
 elif uname -a | egrep -q '^Linux' > /dev/null 2>&1 ; then
   # grep -i ubuntu /etc/issue
@@ -38,132 +38,54 @@ export PATH
 export MANPATH=${MANPATH-/usr/local/man}
 
 # export CORE_PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/usr/X11R6/bin
-export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
-
-# PATH=/Users/flip/slice/bin:/Users/flip/bin:/Users/flip/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/Users/flip/.rbenv/bin:/usr/local/share/python:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/System/Library/Frameworks/JavaVM.framework/Home/bin
+# export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/X11R6/lib/pkgconfig"
 
 # remove these, so they can be added to the front
 shopt -s extglob
 PATH=${PATH//\/usr\/local\/bin\:/}
 PATH=${PATH//\/usr\/local\/sbin\:/}
-# PATH=${PATH//$HOME\/.rbenv\/shims\:/}
-# PATH=${PATH//$HOME\/.rbenv\/bin\:/}
 
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-PATH=/usr/local/bin:/usr/local/sbin:/usr/libexec:${PATH}
-prepend_path PATH    /usr/local/heroku/bin
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
-## Add ruby
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
-export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
-# export RUBYLIB=$HOME/.rubylib
-# export JRUBY_OPTS="--1.9"
-# prepend_path PATH    $HOME/.rbenv/bin
-# prepend_path PATH    $HOME/.rbenv/shims
-
-## Force my dirs first
-prepend_path PATH    $HOME/bin
-prepend_path PATH    $HOME/slice/bin
-append_path  PATH    $HOME/Library/Python/2.7/bin
+export PERL5LIB=${PERL5LIB//\/usr\/local\/perl\:/}; PERL5LIB=${PERL5LIB//\/usr\/local\/perl\/lib\/perl5\:/}
+export PERL5LIB=/usr/local/perl:/usr/local/perl/lib/perl5:$PERL5LIB
+export PERL_CPANM_OPT="--local-lib /usr/local/perl"
+append_path PATH /usr/local/perl/bin
+append_path PATH /Users/flip/code/mearth/entmoot/scripts/json
 
 prepend_path MANPATH /usr/local/share/man
 prepend_path MANPATH /usr/local/man
 append_path  MANPATH /usr/share/man
 prepend_path PYTHONPATH /usr/local/lib/python
 
+## Force my dirs first
+PATH=/usr/local/bin:/usr/local/sbin:/usr/libexec:$PATH
+prepend_path PATH    $HOME/bin
 
-export NODE_PATH
-prepend_path NODE_PATH /usr/local/lib/node_modules
+export NODE_REPL_HISTORY="$HOME/.history-node/history-node.js"
+export NODE_REPL_HISTORY_SIZE=100000
+# mkdir -p `dirname "$NODE_REPL_HISTORY"`
 
-if [ "$MACHINE" == "OSX" ] ; then 
-  export HOMEBREW_TEMP=/tmp 
+export DARKAGE_MEARTH_DIR=$HOME/code/mainmearth
 
-  LUNCHY_DIR=$(dirname `gem which lunchy`)/../extras
-  if [ -f $LUNCHY_DIR/lunchy-completion.bash ]; then
-    . $LUNCHY_DIR/lunchy-completion.bash
-  fi
+export PATH="$HOME/.local/bin:$PATH"
 
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/flip/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/flip/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/flip/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$PATH:/Users/flip/opt/anaconda3/bin"
+    fi
 fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-# if [ "$MACHINE" == "OSX" ] ; then
-#   # export DOCKER_IP=192.168.59.103
-#   # export DOCKER_HOST=tcp://${DOCKER_IP}:2375
-#   # export DOCKER_CERT_PATH=/Users/flip/.boot2docker/certs/boot2docker-vm
-#   # export DOCKER_TLS_VERIFY=1
-# fi
-
-export DOCKER_API_USER='mrflip'
-export DOCKER_API_EMAIL='flip@infochimps.com'
-# export DOCKER_API_PASS=''
-
-
-###########################################################################
-#
-# Chef setup
-#
-
-export CHEF_USER="mrflip"
-export CSTN_ORG="local"
-export CSTN_CLUSTER="fleep"
-export CSTN_FACET="$NODENAME"
-export CSTN_DIR=$HOME/ics/sysadmin/chimpstation-homebase
-
-###########################################################################
-#
-# Serverless setup
-#
-
-export SLS_STAGE=futz
-export SLS_ORG=tookstock
-export AWS_REGION=us-east-1
-
-###########################################################################
-#
-# Amazon EC2 Setup
-#
-#
-# In order to communicate with AWS/EC2/S3 stuff first make sure you
-# have a valid AWS account (we do, it's aws@infochimps.org), make sure
-# we've signed up for the corresponding service (we have for EC2 &
-# S3), and make sure we've put in a credit card (we have).
-#
-
-# export   EC2_CERTS_DIR=${EC2_CERTS_DIR-./.chef/credentials/ec2_certs}
-# export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
-# export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
-export   EC2_CERTS_DIR=${EC2_CERTS_DIR-$HOME/.aws}
-export EC2_PRIVATE_KEY=${EC2_CERTS_DIR}/pk.pem
-export        EC2_CERT=${EC2_CERTS_DIR}/cert.pem
-
-if [ "$EC2_HOME" = "" ] ; then
-  if [ -d /usr/local/share/ec2-api-tools ] ; then
-    export EC2_HOME=/usr/local/share/ec2-api-tools
-  else
-    export EC2_HOME=`/bin/ls -1d  /usr/local/Cellar/ec2-api-tools/*/jars 2>/dev/null | sort | tail -n1`
-  fi
-fi
-
-if   [ "$MACHINE" == "OSX" ] ; then
-  export JAVA_HOME=$(/usr/libexec/java_home)
-  export EC2_AMITOOL_HOME=/usr/local
-  export HADOOP_HOME=${HADOOP_HOME-/usr/local/share/hadoop}
-  append_path PATH   $HADOOP_HOME/sbin
-  append_path PATH   $HADOOP_HOME/bin
-  export PIG_HOME=${PIG_HOME-$HOME/ics/data_science_fun_pack/pig/pig}
-  export FORREST_HOME=${FORREST_HOME-/usr/local/share/apache-forrest}
-  export ANT_OPTS="-Xmx3000m -Xms512m -Dforrest.home=$FORREST_HOME -Dant.logger.defaults=$PIG_HOME/conf/ant-logger.properties -Divy.cache.ttl.default=eternal"
-  export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
-elif [ "$MACHINE" == "LINUX" ] ; then
-  export HADOOP_HOME=${HADOOP_HOME-/usr/lib/hadoop/}
-  # export PIG_HOME=${PIG_HOME-/usr/local/share/pig}
-  # On linux, it's installed via apt, so lives in /usr/bin/...
-  if [ -e /usr/lib/jvm/jdk1.6.0_32/bin/java ] ; then
-    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/jdk1.6.0_32}
-  else
-    export JAVA_HOME=${JAVA_HOME-/usr/lib/jvm/java-6-sun/jre}
-  fi
-  export PIG_CLASSPATH=/etc/hadoop/conf
-fi
-append_path PATH $JAVA_HOME/bin

@@ -1,0 +1,2 @@
+echo $PATH | sed s/:/\\n/g | awk '!a[$0]++'  | sd -fm '\n' : | sd -fm ':$' ''
+echo

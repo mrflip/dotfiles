@@ -31,3 +31,5 @@ a.out
 .bzr
 .hg
 .svn
+
+**/.claude/settings.local.json

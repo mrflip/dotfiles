@@ -1,0 +1,18 @@
+
+DIR="$1"
+
+if [ -z "$DIR" -o -n "$2" ] ; then
+  echo ERR "You must supply exactly one arg, a directory"
+  exit
+fi
+
+DATETIME=`date +"%Y%m%d-%H%M%S"`
+
+BASEDIR=`dirname "$DIR"`
+NEWNAME=`basename "$DIR"`-$DATETIME
+
+DESTDIR=/tmp/away/"$BASEDIR"
+
+mkdir -p $DESTDIR
+
+mv "$DIR" "$DESTDIR"/$NEWNAME

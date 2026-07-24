@@ -1,13 +1,37 @@
 #!/usr/bin/env ruby
+require 'json'
+require 'Set'
 
-require 'rubygems'
-['yajl/json_gem', 'json', 'json/pure'].each do |gem_name|
-  begin
-    require gem_name
-  rescue LoadError ; next ; end
-  break
-end
+# require 'rubygems'
+# ['yajl/json_gem', 'json', 'json/pure'].each do |gem_name|
+#   begin
+#     require gem_name
+#   rescue LoadError ; next ; end
+#   break
+# end
+
+errors = 0
+
+# IGNORE = Set.new(['[[\n\t]', ']', '{[\n\t]', '}'])
+
+IGNORE = /(^((\[|\{)[\n\t]))|(^ *\{"!jsonkv)|(^[\]\}]\s*$)/
 
 $stdin.each do |line|
-  puts JSON.pretty_generate(JSON.load(line))
+  begin
+    line.chomp!
+    next if (line =~ IGNORE)
+    line.gsub!(/(^,\s*)|(,\s*$)/, '')
+    if (line =~ /\t/) then
+      # warn "splitting"
+      key, val = line.split(/\t[:\t]*/, 2)
+      puts ",\t#{key}\t:\t#{JSON.pretty_generate(JSON.load(val))}"
+    else
+      puts JSON.pretty_generate(JSON.load(line))
+    end
+  rescue JSON::ParserError => err
+    if (errors > 4) then warn("Too many errors, quitting. (#{err})") ; exit(-1) ; end
+    warn "JSON Error at position #{err} in"
+    warn line
+    errors += 1
+  end
 end

@@ -23,17 +23,17 @@ else
   eval `gdircolors -b ~/.dir_colors` # -b for bash
 fi
 export LS_OPTIONS=" -CF "
-if `ls --help 2>/dev/null | grep -q gnu` ; then
-  LS_OPTIONS="$LS_OPTIONS -SX -b -T 0"
-  if [ "$TERM" == "dumb" ] ; then false ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
-fi
-
-if [ "$MACHINE" == "OSX" ] && [ -d /usr/local/Cellar ] ; then
+# if `ls --help 2>/dev/null | grep -q gnu` || ls --color > /dev/null 2>&1 ; then
+# if [ "$TERM" == "dumb" ] ; then false ; else export COLORTERM=true ; fi
+if [ "$MACHINE" == "OSX" ] && [ -d /usr/local/Cellar -o -d /opt/homebrew/Cellar ] ; then
   brew_prefix=/usr/local
   source $HOME/.bash/brew_aliases
   unalias printf # leave it at the system one
   LS_OPTIONS="$LS_OPTIONS --color=auto -SX -b -T 0"
   alias ls='gls $LS_OPTIONS'
+elif ls --color > /dev/null 2>&1 ; then
+  LS_OPTIONS="$LS_OPTIONS -SX -b -T 0"
+  if [ "$TERM" == "dumb" ] ; then false ; else LS_OPTIONS=" --color=auto $LS_OPTIONS" ; fi
 fi
 
 # Fix my less options
@@ -45,7 +45,7 @@ export RI='-f ansi'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
+alias localip="Ipconfig getifaddr en0 || Ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias whois="whois -h whois-servers.net"
 
@@ -75,9 +75,6 @@ alias finder_desktop_hide="defaults write com.apple.finder CreateDesktop -bool f
 # Other Env Vars
 export PWD DISPLAY
 
-# Tell CVS where it lives
-export CVSROOT=:ext:mrflip@cvs.hola.sourceforge.net:/cvsroot/hola
-export CVS_RSH=ssh
 export RSYNC_RSH=ssh
 
 # This changes the output of the "time" builtin
@@ -87,4 +84,14 @@ export TIMEFORMAT=$'\nreal\t%3lR\tuser\t%3lU\tsys\t%3lS\tpct\t%P'
 # misc
 alias reload='. ~/.bash_profile'
 
-alias diff=colordiff
+# alias diff=colordiff
+
+alias gr='grep -r'
+alias gri='grep -ri'
+alias gi='grep -ri'
+
+alias egr='egrep -r'
+alias egri='grep -ri'
+alias egi='egrep -ri'
+
+alias sls='aws-runas -E tooksome yarn sls'

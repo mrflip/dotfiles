@@ -3,25 +3,30 @@ set     +o history
 
 source ~/.bash/paths
 
+
+export TOOKNAME=flip
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export ASDF_DATA_DIR=/Users/flip/.asdf
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+export MYSQL_DATADIR=/data/db/mysql
+export MYSQL_BASEDIR=$HOME/.asdf/installs/mysql/5.7.30
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+
 # From here on only for interactive shells
-if [ "$PS1" ]; then
-  source $HOME/.bash/aliases
-
-  source $HOME/.bash/functions
-  source $HOME/.bash/config
-  source $HOME/.bash/private
-fi
-
-# ###-tns-completion-start-###
-# if [ -f /Users/flip/.tnsrc ]; then
-#     source /Users/flip/.tnsrc
-# fi
-###-tns-completion-end-###
-
-# tabtab source for packages
-# uninstall by removing these lines
-# [ -f ~/.config/tabtab/__tabtab.bash ] && . ~/.config/tabtab/__tabtab.bash || true
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+case $- in
+    *i*)
+      source $HOME/.bash/prompt
+      source $HOME/.bash/aliases
+      source $HOME/.bash/functions
+      source $HOME/.bash/config
+      source $HOME/.bash/private
+    ;;
+esac
 
 set     -o history
+
+

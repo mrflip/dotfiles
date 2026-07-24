@@ -15,50 +15,99 @@
 # oflags: opost onlcr -oxtabs -onocr -onlret
 # cflags: cread cs8 -parenb -parodd -hupcl -clocal -cstopb -crtscts
 #         -dsrflow -dtrflow -mdmbuf
-stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
-# stty erase 
+if [ -t 0 ]; then
+  stty -ixon -ixoff flush "" rprnt "" kill ""  lnext "" start "" stop "" werase ""
+  # stty erase 
+fi
 
-export NODENAME=${NODENAME-`cat /etc/node_name 2>/dev/null || /bin/hostname -s`}
+if [ -z "$NODENAME" ]; then
+    if [ -f /etc/node_name ]; then NODENAME=$(cat /etc/node_name 2>/dev/null) ; fi
+    if [ -z "$NODENAME" ];    then NODENAME=$(/bin/hostname -s)               ; fi
+fi
+export NODENAME
 
 ############################## Set Prompt  ##############################
 
-if  [ -z "$PR_BLACK11" ] ; then
+# can't use this bc it doesn't let the bash prompt know its width. Maybe injecting \[ in would work if future you has time.
+function colored_git_info() {
+  git log -1 --color=${1-always} --decorate-refs-exclude='HEAD' --decorate-refs-exclude='*/origin/*' --pretty="%C(bold red)%C(92) %D %C(blue)%C(61)%h%C(reset)" 2> /dev/null
+}
 
-export  PR_TITLE='\[\033]0;'$NODENAME':\w $(parse_git_branch) $(basename "${RBENV_GEMSETS-${GEM_HOME-global}}")\007\]'
-export  PR_BLACK='\[\033[36m\]'$NODENAME' \[\033[32m\]\w\[\033[37m\]$ \[\033[0m\]'
-export  PR_WHITE='\[\033[30m\]'$NODENAME' \[\033[34m\]\w\[\033[30m\]$ \[\033[0m\]'
-export PR_BLACK2='\[\033[36m\]cont... \033[37m\]>\[\033[0m '
-export PR_WHITE2='\[\033[31m\]cont... \033[30m\]>\[\033[0m '
+function git_info() {
+  # git log -1 --color=${1-always} --decorate-refs-exclude='HEAD' --decorate-refs-exclude='*/origin/*' --pretty="%C(bold red)%C(92) %D %C(blue)%C(61)%h%C(reset)" 2> /dev/null
+  git log -1 --decorate-refs-exclude='HEAD' --decorate-refs-exclude='*/origin/*' --pretty="%D %h" 2> /dev/null
+}
+function git_feature() {
+  git_branch | sed -r "s/ [0-9a-zA-Z]+-($TOOKNAME-|$USER-|([^-]+-))/\\2/" 2> /dev/null
+}
+function parse_git_branch {
+  # git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+  # git rev-parse --abbrev-ref HEAD 2> /dev/null
+  # git branch -l --format="%(align:28)%(refname:lstrip=2) %(end) %(objectname:short)" | head -n1 | sed 's/.*-//' 2> /dev/null
+  git log -1 --pretty="%C(red)%C(219)!%D %C(blue)%h" | sed 's/!.*-//' 2> /dev/null
+}
 
+# My current remapping of the ANSI-16 colors:
+#
+#           black   red     green   yellow  blue    mage    cyan    white
+# normal    000000  D8787F  248E22  C6B352  777CC4  C177C4  29A198  EBE4D2
+# bright    666666  D9303C  3BB039  EFC551  5673F3  E75DE7  43EBDE  FDF6E3
+
+# But you may prefer this sequence for getting 255-range ascii colors
+#   \[\e[38;5;071m\]
+# (where '071' is the color number). (You will then not be tied to
+# the terminal's adjustment of the ascii colors which might be feature
+# or bug for you).
+#
+# run ~/bin/list_ansi_colors.pl to see your menu. Ya really that's
+# perl I wrote or borrowed in the aughts or maybe even nineties.  My
+# current file says Apr 21 2010 but that's when I started versioning
+# my dotfiles.
+#
+# As always, start a scratch terminal window before you start messing
+# around.  To iterate on the prompt, first run
+# _PS1=$PS1
+# and then experiment. Eg color 139, placeholder, reset to bright gray:
+# PS1="$_PS1 \e[38;5;139m\]asdf \[\033[0m\] $ "
+#
+# Important! Enclose sequences of non-printing chars in a \[\] pair,
+# as the whole of PR_TITLE is below. Else wrapping gets weird.
+#
+if  [ -z "$PR_BLACK" ] ; then
+  # $(basename "${RBENV_GEMSETS-${GEM_HOME-global}}
+ PR_TITLE='\[\033]0;'$NODENAME':\w (br: $(git_info))\007\]'
+ PR_BLACK='\[\033[36m\]'$NODENAME' \[\e[38;5;139m\]$(git_info) \[\e[38;5;071m\]\w\[\033[37m\]$ \[\e[38;5;230m\]'
+ PR_WHITE='\[\033[30m\]'$NODENAME' \[\033[34m\]$(parse_git_branch) \[\033[34m\]\w\[\033[30m\]$ \[\033[0m\]'
+ PR_BLACK2='\[\033[36m\]cont... \[\033[37m\]>\[\033[0m\] '
+ PR_WHITE2='\[\033[31m\]cont... \[\033[30m\]>\[\033[0m\] '
+fi
 
 if [ "$0" = "sh" ] ; then
-  export PS1="$NODENAME (sh) $ "
-  export PS2="cont... > "
+  PS1="$NODENAME (sh) $ "
+  PS2="cont... > "
 else
   case ${TERM-NONE} in
     mrxvt|xterm|rxvt|xterm-color|xterm-256color)
-      export PS1=${PR_TITLE}${PR_BLACK}
-      export PS2=${PR_TITLE}${PR_BLACK2}
+      PS1=${PR_TITLE}${PR_BLACK}
+      PS2=${PR_TITLE}${PR_BLACK2}
       ;;
     dumb)
       # keep it simple (probably emacs)
-      export PS1="\h \w$ "
-      export PS2='\w cont...\$ '
+      PS1="\h \w$ "
+      PS2='\w cont...\$ '
       ;;
     NONE)
       if [ -z "$DISPLAY" ] ; then
         # I have a $DISPLAY set, so assume xterm...
-        export PS1=${PR_TITLE}${PR_BLACK}
-        export PS2=${PR_TITLE}${PR_BLACK2}
+        PS1=${PR_TITLE}${PR_BLACK}
+        PS2=${PR_TITLE}${PR_BLACK2}
       else
         # keep it simple (probably emacs)
-        export PS1="\h \w$ "
-        export PS2='\w cont...\$ '
+        PS1="\h \w$ "
+        PS2='\w cont...\$ '
       fi
       ;;
   esac
-fi
-
 fi
 
 # '\[\033[30m\]\h \[\033[34m\]\w\[\033[30m\]$ \[\033[0m\]'

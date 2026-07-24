@@ -17,14 +17,14 @@ $if mode=emacs
 
 $endif
 # use a visible bell if one is available
-set bell-style 			visible
+set bell-style                  visible
 # Set full bit operation
-set meta-flag     		on
-set input-meta 	  		on
-set output-meta   		on
-set convert-meta  		off
+set meta-flag                   on
+set input-meta                  on
+set output-meta                 on
+set convert-meta                off
 # don't go to home recalling history
-set history-preserve-point 	on
+set history-preserve-point      on
 
 # You can see all your kebindings with
 #   bind -p
@@ -36,86 +36,163 @@ set history-preserve-point 	on
 #
 # Option equivs on OSX:
 # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-# áâãäåæçèéêëìíîïðñòóôõö÷øùú
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 # Fix some keyboard issues
-"\e[2~":	paste-from-clipboard
-"\C-v":		paste-from-clipboard
+"\e[2~":        paste-from-clipboard
+"\C-v":         paste-from-clipboard
 
-# "\e[5~":	"\M-5\C-p"
-# "\e[6~":	"\M-5\C-n"
-# "\e[7~":	"\C-a"
-# "\e[8~":	"\C-e"
-# "\eOc":	"\M-f"
-# "\eOd":	"\M-b"
+# "\e[5~":      "\M-5\C-p"
+# "\e[6~":      "\M-5\C-n"
+# "\e[7~":      "\C-a"
+# "\e[8~":      "\C-e"
+# "\eOc":       "\M-f"
+# "\eOd":       "\M-b"
 
-"\eOc":		forward-word
-"\eOd":		backward-word
-"\e[C":		forward-char
-"\e[D":		backward-char
-"\e[1;5C":	forward-word
-"\e[1;5D":	backward-word
-"\e[3~":	delete-backward-char
-"\e[2":		delete-backward-char
-"\e[4~":	end-of-line
-"\e[7~":	beginning-of-line
-"\e[8~":	end-of-line
+"\eOc":         forward-word
+"\eOd":         backward-word
+"\e[C":         forward-char
+"\e[D":         backward-char
+"\e[1;5C":      forward-word
+"\e[1;5D":      backward-word
+"\e[3~":        delete-backward-char
+"\e[2":         delete-backward-char
+"\e[4~":        end-of-line
+"\e[7~":        beginning-of-line
+"\e[8~":        end-of-line
 
-"\M-k":		kill-whole-line
+"\M-k":         kill-whole-line
 
-"\C-w":		kill-region
-"\M-w":		copy-region-as-kill
+"\C-w":         kill-region
+"\M-w":         copy-region-as-kill
 
-"\C-z":		undo
-"\C-q":		quoted-insert
+"\C-z":         undo
+"\C-q":         quoted-insert
 
 # Search history for command on current line
-"\M-\C-s":	history-search-forward
-"\M-\C-r":	history-search-backward
+"\M-\C-s":      history-search-forward
+"\M-\C-r":      history-search-backward
 
 "\C-x\C-r":     re-read-init-file
 
 $if bash
 
-  set match-hidden-files 		off
+  set match-hidden-files                off
   # Fix completion options
-  set completion-ignore-case 		on
-  set completion-query-items 		100
-  set expand-tilde 			off
-  set visible-stats 			on
-  set bell-style 			visible
-  set mark-symlinked-directories 	on
+  set completion-ignore-case            on
+  set completion-query-items            100
+  set expand-tilde                      off
+  set visible-stats                     on
+  set bell-style                        visible
+  set mark-symlinked-directories        on
 
-  "\C-x\C-s":	"\M-k\C-lhistsave\C-j\C-y"
-  "\C-xs":	"\M-k\C-lhistsave\C-j\C-y"
-  "\C-@":	set-mark
-  "\M-space":	set-mark
-  "\C-`":	set-mark
+  "\C-x\C-s":   "\M-k\C-lhistsave\C-j\C-y"
+  "\C-xs":      "\M-k\C-lhistsave\C-j\C-y"
+  "\C-@":       set-mark
+  "\M-space":   set-mark
+  "\C-`":       set-mark
 
-  "\C-xff":	"for foo in  ; do echo \"  === $foo\" ; ; done bbbb"
-  "\C-xfr":	"rsync -Cuvzrtlp ~/ ~/"
+  #
+  # Control-x then f -- File helpers
+  #
+
+  # File / Diff of lines
+  "\C-xfc":     "colordiff -uwr "
+  # File / Diff of words
+  "\C-xfd":     "word-diff --word-diff-regex='[^\",:[:space:]]' "
+  # File / Foreach: do something for all words or files in the first part
+  "\C-xff":     "for foo in  ; do echo \"  === $foo\" ; ; done \eb\eb\eb\eb\C-b\C-b\C-b"
+  # File / RSync (make second directory have all files as first with identical dates and etc)
+  "\C-xfr":     "rsync -Cuvzrtlp ~/ ~/\C-b\C-b\C-b"
+  # File / Configure
   "\C-xfc":     "sudo true && ./configure --prefix=/usr/local && make -j7 && sudo make install"
-  "\C-xfs":	"find . -iname "*""
-  "\C-xga":     "git add ."
-  "\C-xgc":	"git ci -m \"\""
-  "\C-xgd":	"git diff HEAD"
-  "\C-xgk":	"git rebase --continue "
-  "\C-xgl":	"git log -p --ignore-all-space --follow -- "
-  "\C-xgm":	"git checkout master"
-  "\C-xgp":	"git pull "
-  "\C-xgr":	"git remote ; git remote show originb"
-  "\C-xgq":	"git push "
-  "\C-xgs":	"git status"
-  "\C-xgu":	"git submodule update "
-  "\C-xgw":	"git checkout working"
-  "\C-xtt":     "ctags-exuberant -e --language-force=ruby  `find . -iname '*rb' | egrep -v ./'(vendor|test)'/`"
+  # File / Search
+  "\C-xfs":     "find . -iname "*"\C-b\C-b"
+  #
+  "\C-xft":     "git diff HEAD^ -- {[abeghlmv],pal}*/package.json\eb\eb\eb\eb\C-b\C-b\C-b"
+
+  # aws-runas
+  "\C-xfa":     "\C-aaws-runas -E took "
+
+  #
+  # Control-x then d -- Docker helpers
+  #
+
+  # Commit
+  "\C-xdc":     "docker commit -m \"\"\C-b ctr image:tag"
+  # L list
+  "\C-xdl":     "docker image ls "
+  # N prune
+  "\C-xds":     "docker image prune "
+  # Pull
+  "\C-xdp":     "docker pull "
+  # Q Push
+  "\C-xdq":     "docker push "
+  # S Status (ps)
+  "\C-xds":     "docker ps -a "
+
+  #
+  # Control-x then g -- git helpers
+  #
+
+  # Add
+  "\C-xga":     "git add .\C-b"
+  # Branch
+  "\C-xgb":     "git checkout -b `date -u +'%Y%m%d'`-$USER- ; git push -u origin HEAD\eb\eb\eb\eb\eb\C-b\C-b\C-b"
+  # Commit
+  "\C-xgc":     "git ci -m \"\"\C-b"
+  # Diff
+  "\C-xgd":     "git diff HEAD"
+  # Extra Diffy
+  "\C-xge":     "git diff --word-diff --word-diff-regex='[^\",:[:space:]]' HEAD"
+  # Interactive rebase of current tree
+  "\C-xgi":     "git rebase -i  HEAD~15\eb\eb\C-b"
+  # Journey of changes to a single file
+  "\C-xgj":     "git ld -p --ignore-all-space --follow -- "
+  # Keep going
+  "\C-xgk":     "git rbcont \"\"\C-b"
+  # Log
+  "\C-xgl":     "git lc "
+  # Main
+  "\C-xgm":     "git checkout main "
+  # Origin's changes precede mine
+  "\C-xgo":     "git fetch --all ; git rebase origin/main"
+  # Pull
+  "\C-xgp":     "git pull "
+  # Q Push
+  "\C-xgq":     "git push "
+  # Status
+  "\C-xgs":     "git status "
+  # Totally push all submodules
+  "\C-xgt":     "git submodule foreach "
+  # Update submodules
+  "\C-xgu":     "git submodule update "
+  # YIKES abort a rebase
+  "\C-xgy":     "git rebase --abort "
+
+  #
+  # Control-x then y -- Yarn and cherrY-pick helpers
+  #
+
+  # C-x y c -- *Y*arn *C*ommit
+  "\C-xyc":     "git ci -m \"chore: pkgs + yarnicles\" .yarn .pnp* yarn.lock {.,aer*,arda*,bags*,blanky,ea,hobbit,leaflock,phaunt,srsjrny,swanship,entm*,gaff*,helm*,lemb*,mell*,pala*,valar}/{package.json,.yarnrc}* pmutils/package.json* \C-a\ef\ef\ef\ef\ef\ef"
+
+  # Cherry *K*eep going
+  "\C-xyk":     "git cherry-pick --continue "
+  # Cherry *S*kip
+  "\C-xys":     "git cherry-pick --skip "
+  # Cherry *Y*ikes
+  "\C-xyy":     "git cherry-pick --abort "
+
+  # C-x y c -- *Y*our new *V*ersion
+  "\C-xyv":     "BRANCH=002_005_0; mupar branch -f espal-$BRANCH ; mupar push --no-verify -f -u origin espal-$BRANCH & mupar branch -f pgpal-$BRANCH ; mupar push --no-verify -f -u origin pgpal-$BRANCH & \C-a\ef\ef\ef\ef"
 
 $endif
 
 # For FTP
 $if Ftp
-  "\C-xg":	"get \M-?"
-  "\C-xt":	"put \M-?"
-  "\M-.":	yank-last-arg
+  "\C-xg":      "get \M-?"
+  "\C-xt":      "put \M-?"
+  "\M-.":       yank-last-arg
 $endif

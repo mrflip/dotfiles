@@ -1,1 +1,11 @@
-../../ics/core/wukong_og/bin/uniq-ord
+#!/usr/bin/env ruby
+require 'set'
+
+# Track each unique line
+lines = Set.new
+
+$stdin.each do |line|
+  next if (lines.include?(line))
+  puts line
+  lines << line
+end

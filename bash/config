@@ -12,7 +12,7 @@ if [ "$PS1" ]; then
   # echo "$histyear $HISTFILE"
   # echo ~/.history-bash/${histyear}*.hist
   export HISTCONTROL=ignorespace:erasedups
-  export HISTSIZE=20000
+  export HISTSIZE=5000
   if [[ ! -f $HISTFILE ]]; then
     # ruby -rset -e 'LINES = Set.new; $stdin.each do |line| LINES.delete(line) ; LINES << line ; end; LINES.map{|ll| puts ll}'
     cat ~/.history-bash/${histyear}*.hist | ~/bin/cull_hist_sorted.rb | tail -n $HISTSIZE > $HISTFILE
@@ -21,7 +21,6 @@ if [ "$PS1" ]; then
     history -s "####### `date +%Y%m%d-%H%M%S-$$` : `date` #######"
   fi
   history -n $HISTFILE
-  # set   -o history
 
   unset  HISTFILESIZE
   export HISTIGNORE="ls:[bf]g:exit: *:history:histgrep:&"   # & means consec. duplicates
@@ -34,31 +33,36 @@ fi
 
   ####################### Shell Stuff ##############################
 
-  umask 022 				 # readable by all / writeable only by me
-  ulimit -S -c 0	            	 # Turn off core dumps
+  umask 022                      # readable by all / writeable only by me
+  ulimit -S -c 0                 # Turn off core dumps
 
   shopt -s cmdhist histappend histverify #
   shopt -s checkwinsize cdspell
-  shopt -s nocaseglob                    # good for non-case-sensitive os
-  set   -o ignoreeof 			 # don't log out if I hit ^-D
+  shopt -s nocaseglob            # good for non-case-sensitive os
+  set   -o ignoreeof             # don't log out if I hit ^-D
 
   ###### I18n ###########################################
 
   export FIGNORE="~"
-  export BASH_ENV=$HOME/.bashrc
-  export LANG=en_US.UTF-8
-  export LC_CTYPE=en_US.UTF-8
-  export LC_NUMERIC="en_US.UTF-8"
-  export LC_TIME="en_US.UTF-8"
-  export LC_COLLATE="en_US.UTF-8"
-  export LC_MONETARY="en_US.UTF-8"
-  export LC_MESSAGES="en_US.UTF-8"
-  export LC_PAPER="en_US.UTF-8"
-  export LC_NAME="en_US.UTF-8"
-  export LC_ADDRESS="en_US.UTF-8"
-  export LC_TELEPHONE="en_US.UTF-8"
-  export LC_MEASUREMENT="en_US.UTF-8"
-  export LC_IDENTIFICATION="en_US.UTF-8"
+
+  # # this causes bashrc to be sourced when scripts run
+  # export BASH_ENV=$HOME/.bashrc
+
+  # export LANG=en_US.UTF-8
+  # export LC_CTYPE=en_US.UTF-8
+  # export LC_NUMERIC="en_US.UTF-8"
+  # export LC_TIME="en_US.UTF-8"
+  # export LC_COLLATE="en_US.UTF-8"
+  # export LC_MONETARY="en_US.UTF-8"
+  # export LC_MESSAGES="en_US.UTF-8"
+  # export LC_PAPER="en_US.UTF-8"
+  # export LC_NAME="en_US.UTF-8"
+  # export LC_ADDRESS="en_US.UTF-8"
+  # export LC_TELEPHONE="en_US.UTF-8"
+  # export LC_MEASUREMENT="en_US.UTF-8"
+  # export LC_IDENTIFICATION="en_US.UTF-8"
+
+  export HUSKY=0
 
   # Set the command line editor to emacs.
   set -o emacs
@@ -88,4 +92,4 @@ fi
   }
 
   # turn history back on
-  set -o history
+    set -o history

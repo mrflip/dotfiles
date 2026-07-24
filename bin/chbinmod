@@ -1,2 +1,2 @@
-chmod a+x ~/bin/*
-chmod a+x $HOME/slice/bin/*
+chmod -v a+x ~/bin/*
+chmod -v a+x $HOME/slice/bin/*

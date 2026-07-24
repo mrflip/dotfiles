@@ -1,8 +1,4 @@
 
-function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(branch: \1)/'
-}
-
 if `perl -e "'$MACHTYPE'=~/apple/ or exit(1)"`; then
   function psgrep()
   {
@@ -44,9 +40,13 @@ else
   }
 fi
 
+function h50() {  history | tail -n 50 ; }
+
+function h200() { history | tail -n 200 ; }
+
 function histgrep()
 {
-    egrep -hi -- "$@" ~/.history-bash/hist-* | ruby -rset -e 'lines=Set.new; $stdin.each{|l| next if lines.include?(l.hash) ; puts l ; lines << l.hash}'
+    egrep -h -- "$@" ~/.history-bash/hist-* | ruby -rset -e 'lines=Set.new; $stdin.each{|l| next if lines.include?(l.hash) ; puts l ; lines << l.hash}'
 }
 alias hs=histgrep
 

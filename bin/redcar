@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+require "redcarpet"
+
+class HTMLWithPants < Redcarpet::Render::XHTML
+  include Redcarpet::Render::SmartyPants
+
+  def doc_header()
+    %(
+    <meta charset="utf-8"><title>Markdown preview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css">
+    <head><script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script></head>
+    <style>body { max-width: 90rem; }</style>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-tablesortable@0.0.2/dist/tableSortable.min.js"></script>
+)
+  end
+
+end
+
+markdown = Redcarpet::Markdown.new(
+  # Redcarpet::Render::HTML,
+  HTMLWithPants.new(
+    no_links:           false,
+    filter_html:        false,
+    with_toc_data:      true,
+    prettify:           true,
+    xhtml:              true
+  ),
+  no_intra_emphasis:    true,
+  tables:               true,
+  fenced_code_blocks:   true, disable_indented_code_blocks: false,
+  autolink:             true,
+  strikethrough:        true,
+  lax_spacing:          true,
+  space_after_headers:  true,
+  superscript:          true,
+  underline:            true,
+  highlight:            true,
+  footnotes:            false,
+)
+
+doc = STDIN.read
+output = ARGV[0] ? File.open(ARGV[0], "w") : STDOUT
+output.puts(markdown.render(doc))
+
+# redcarpet \
+#   --smarty \
+#   --parse no_intra_emphasis --parse tables --parse fenced_code_blocks \
+#   --parse autolink --parse strikethrough \
+#   --render prettify \
+#   --render with_toc_data \
+#   "$@"

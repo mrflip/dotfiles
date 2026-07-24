@@ -116,7 +116,7 @@ end
 #
 FORMAT_GUESSING_LINES = 500
 # widest column to set
-MAX_MAX_WIDTH = 100
+MAX_MAX_WIDTH = 63
 
 INT_RE   = /\A[\-\+]?[\d,]+\z/
 FLOAT_RE = /\A([\-\+]?[\d,]+)(?:\.(\d+))?(?:e[\+\-]?\d+)?\z/
@@ -134,10 +134,10 @@ end
 
 def get_type val
   case
-  when val == ''       then type = nil
-  when val =~ INT_RE   then type = :int
-  when val =~ FLOAT_RE then type = :float
-  else                      type = :str end
+  when val == ''       then nil
+  when val =~ INT_RE   then :int
+  when val =~ FLOAT_RE then :float
+  else                      :str end
 end
 
 def consensus_type val, alltype, is_first
@@ -198,12 +198,12 @@ format = maxw.zip(col_types, col_minmag, col_maxmag, FORMAT_SPECS).map do |width
   when :mixed, nil then lambda{|ss| "%-#{width}s" % ss }
   when :str        then lambda{|ss| "%-#{width}s" % ss }
   when :int        then lambda{|ss| ss = ss.gsub(/[^\d\-\+]+/, "");
-      (ss.empty? ? ("%-#{width}s"%ss) : ("%-#{width}d" % ss.to_i)) }
+      (ss.empty? ? ("%-#{width}s"%ss) : ("%#{width}d" % ss.to_i)) }
   when :float      then lambda{|ss| ss = ss.gsub(/[^\d\.eE\-\+]+/, '');
       (ss.empty? ? ("%-#{maxmag+minmag+2}s"%ss) : ("%#{maxmag+minmag+2}.#{minmag}f" % ss.to_f)) }
   else raise "oops type #{type}"  end
 end
-
+# p format, col_types, col_maxmag, FORMAT_SPECS
 def dump_row row, format
   puts row.zip(format).map{|c,f| f.call(c) rescue c }.join("\t")
 end
@@ -215,7 +215,6 @@ if ENV['WULIGN_DEBUG'] == 'true'
   $stderr.puts "maxw:\t#{maxw.zip(col_types, col_minmag, col_maxmag).inspect}"
 end
 
-pad = [''] * maxw.length
 dump_header(rows.shift, maxw) if has_header
 rows.each do |row|
   # note -- strips trailing columns

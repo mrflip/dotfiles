@@ -1,0 +1,3 @@
+
+echo git tag -a `basename $1` -m `basename $1` $1
+git      tag -a `basename $1` -m `basename $1` $1

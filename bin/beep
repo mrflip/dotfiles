@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# to get the play command:
+# brew install sox
+#
+# example:
+#   beep -f 600 -n 900
+
+DUR=`echo "scale=2; ${4-300}/1000" | bc`
+TONE=${2-250}
+
+echo play -n synth $DUR sin $TONE
+play      -n synth $DUR sin $TONE

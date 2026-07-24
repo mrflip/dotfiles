@@ -1,0 +1,17 @@
+for BRANCH in `git branch -a | grep origin | grep 202 | egrep -v '(HEAD|main)' | cut -d/ -f2- | ghead -n -10` ; do
+  echo
+  echo "  === $BRANCH" ;
+  echo git tag -a `basename $BRANCH` -m `basename $BRANCH` $BRANCH
+  git      tag -a `basename $BRANCH` -m `basename $BRANCH` $BRANCH
+
+  git branch -d `basename $BRANCH`
+
+done
+
+for BRANCH in `git branch -a | grep -v origin | grep 202 | egrep -v '(HEAD|main)' | cut -d/ -f2- | ghead -n -10` ; do
+  echo
+  echo "  === $BRANCH" ;
+  echo git tag -a `basename $BRANCH` -m `basename $BRANCH` $BRANCH
+  git      tag -a `basename $BRANCH` -m `basename $BRANCH` $BRANCH
+
+done
